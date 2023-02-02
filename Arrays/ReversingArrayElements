@@ -8,13 +8,13 @@ public class ReversingArrayElements {
 	public static void main(String[] args) {
 		Scanner scan=new Scanner(System.in);
 		
-		System.out.println("Enter number of array elements: ");		
+		System.out.println("Enter number of array elements: ");		//Fetching Array size from user	
 		int noOfElements=scan.nextInt();
 
 		String[] arrayInput=new String[noOfElements];
 		for(int i=0;i<noOfElements;i++)
 		{
-			arrayInput[i]=scan.next();
+			arrayInput[i]=scan.next();		   		//Fetching Array Elements from user
 		}
 		
 		reverseArray(arrayInput);
@@ -24,19 +24,15 @@ public class ReversingArrayElements {
 	private static void reverseArray(String[] arrayInput) {
 		String temp;
 		int length=arrayInput.length;
-		for(int i=0;i<length/2;i++)
+		for(int i=0;i<length/2;i++)								
 		{
 			temp=arrayInput[i];
-			arrayInput[i]=arrayInput[length-i-1];
+			arrayInput[i]=arrayInput[length-i-1];			//Reversing by swaping elements with the help of Temporary variable
 			arrayInput[length-i-1]=temp;			
 		}
 		for(int i=0;i<length;i++)
 		{
 			System.out.print(arrayInput[i]+"  ");
 		}
-		
-		
 	}
-
-
 }
