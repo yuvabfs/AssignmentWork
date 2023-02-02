@@ -8,7 +8,7 @@ public class StarPatternZ {
 	Scanner scan=new Scanner (System.in);
 	System.out.println("Enter the NxN matrix length n: ");			//Fetching Matrix size from user
 	int N=scan.nextInt();
-	starPattern(N);								//Calling StarPattern to directly Print Output
+	starPattern(N);								//Calling StarPattern directly to Print Output
 }
 	private static void starPattern(int N) {
 		char[][] starPattern=new char[N][N];
