@@ -7,13 +7,13 @@ public class LeadersInArray {
 	public static void main(String[] args) {
 		Scanner scan=new Scanner(System.in);
 		
-		System.out.println("Enter number of array elements: ");		
+		System.out.println("Enter number of array elements: ");				//Fetch Number of Elements from user
 		int noOfElements=scan.nextInt();
 
 		int[] arrayInput=new int[noOfElements];
 		for(int i=0;i<noOfElements;i++)
 		{
-			arrayInput[i]=scan.nextInt();
+			arrayInput[i]=scan.nextInt();						//Getting Array Elements as input from user
 		}
 		
 		System.out.println("The Leaders are: " );
@@ -24,14 +24,14 @@ public class LeadersInArray {
 		int flag=0;
 		for(int i=0;i<arrayInput.length;i++)
 		{
-			flag=0;
+			flag=0;									//Resetting flag to '0' for next iteration(next Element
 			for(int j=i+1;j<arrayInput.length;j++)
 			{
-				if(arrayInput[i]< arrayInput[j])
+				if(arrayInput[i]< arrayInput[j])				//Flag value will set to '1' if the Element is lesser value
 					flag=1;
 
 			}
-			if(flag!=1) System.out.print(arrayInput[i]+" ");
+			if(flag!=1) System.out.print(arrayInput[i]+" ");			//Print the Element as Leader only if the Flag remains '0'
 		}
 		
 	}
