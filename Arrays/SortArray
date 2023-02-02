@@ -8,14 +8,13 @@ public class SortArray {
 		Scanner scan = new Scanner(System.in);
 
 		System.out.println("Enter number of array elements: ");
-		int noOfElements = scan.nextInt();
-
+		int noOfElements = scan.nextInt();					//Fetching Array Size from user
 		int[] arrayInput = new int[noOfElements];
 		for (int i = 0; i < noOfElements; i++) {
-			arrayInput[i] = scan.nextInt();
+			arrayInput[i] = scan.nextInt();					//Fetching Array Elements from user
 		}
 
-		sortedArray(arrayInput);
+		sortedArray(arrayInput);						
 		scan.close();
 	}
 
@@ -24,20 +23,20 @@ public class SortArray {
 			int length=arrayInput.length;
 			for(int i=0;i<length;i++)
 			{
-				for(int j=i+1;j<length;j++)
+				for(int j=i+1;j<length;j++)				//traverse through the next element
 				{
-					if(arrayInput[i]>arrayInput[j])
+					if(arrayInput[i]>arrayInput[j])			//Condition to check if First Element is Max 
 						
 					{
 				temp=arrayInput[i];
-				arrayInput[i]=arrayInput[j];
+				arrayInput[i]=arrayInput[j];				//Swap to Sort in ascending order
 				arrayInput[j]=temp;
 					}
 				}
 			}
 			for(int i=0;i<length;i++)
 			{
-				System.out.print(arrayInput[i]+"  ");
+				System.out.print(arrayInput[i]+"  ");			//Printing sorted array
 			}
 			
 
