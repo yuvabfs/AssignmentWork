@@ -19,7 +19,7 @@ public class StarPatternZ {
 				if((i==0) || (i==N-1) ||((i+j)==N-1))		//Assigning '*' value at desired positions
 					starPattern[i][j]='*';  
 				else 
-					starPattern[i][j]=' ';			//Leaving the remaining positions empty
+					starPattern[i][j]=' ';			//Assigning 'white_space' at remaining positions 
 				System.out.print(starPattern[i][j]);
 			}
 			System.out.println("");
