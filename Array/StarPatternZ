@@ -20,9 +20,9 @@ public class StarPatternZ {
 					starPattern[i][j]='*';  
 				else 
 					starPattern[i][j]=' ';			//Assigning 'white_space' at remaining positions 
-				System.out.print(starPattern[i][j]);
+				System.out.print(starPattern[i][j]);		//Simultaneously printing Output  
 			}
-			System.out.println("");
+			System.out.println("");					
 		}
 	}
 }
