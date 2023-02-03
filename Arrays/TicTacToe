@@ -31,8 +31,8 @@ public class TicTacToe {
 		{
 			for(int j=0;j<3;j++)
 			{
-				System.out.print(ticToe2[i][j]+" ");			                          			//1. Display TicToe Window
-				if(ticToe2[i][j]==null)								                                		//2. & Also Check if it still has NULL, Otherwise End Game
+				System.out.print(ticToe2[i][j]+" ");			        //1. Display TicToe Window
+				if(ticToe2[i][j]==null)				           	//2. & Also Check if it still has NULL, Otherwise End Game
 				hasNull=1;													
 			}
 			System.out.println("\n");
@@ -45,7 +45,7 @@ public class TicTacToe {
 
 	private static int isGameOver(String[][] a, int player) {
 		int gameOverFlag=0;
-																				                                        	//To check elements at Same Rows or Same Columns 
+													//To check elements at Same Rows or Same Columns 
 		for (int i=0;i<3;i++)
 		{
 		if((a[i][0]==a[i][1])&&(a[i][0]==a[i][2])&&(a[i][0]!=null))
@@ -58,7 +58,7 @@ public class TicTacToe {
 			}
 		}
 		
-																				                                          	//To check diagonal Elements 
+													//To check diagonal Elements 
 		if((a[0][0]==a[1][1])&&(a[0][0]==a[2][2])&&(a[0][0]!=null))
 		{
 		gameOverFlag=1;
@@ -74,7 +74,7 @@ public class TicTacToe {
 				return gameOverFlag;
 	}
 	
-																	                                            				//To Switch between Players & Also to control the Player's input
+												//To Switch between Players & Also to control the Player's input
 	private static void playersTurn(int x) {
 		int count=0;
 		System.out.println("1 or 2 or 3 or\n4 or 5 or 6 or\n7 or 8 or 9\nType your choice[1-9]: ");
@@ -87,7 +87,7 @@ public class TicTacToe {
 		{
 			for(int j=0;j<3;j++)
 			{
-			count++;										                                            				//To decode user input into Array indices[Rows&Column)
+			count++;										    //To decode user input into Array indices[Rows&Column)
 			if(count==markCell )
 			{
 				if(TicToe[i][j]!=null)
@@ -98,7 +98,7 @@ public class TicTacToe {
 					}
 				else if(round%2!=0)
 				{
-					TicToe[i][j]="X";										                                        //Decides the Player Control
+					TicToe[i][j]="X";							   //Decides the Player Control
 					player=1;
 				}
 				else
