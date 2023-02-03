@@ -1,0 +1,121 @@
+package org.array.sixproblems;
+
+import java.util.Scanner;
+
+public class TicTacToe {
+	static String[][] TicToe=new String[3][3];
+	static Scanner scan=new Scanner(System.in);
+	static int round=0,player=0;														   
+
+	public static void main(String[] args) {
+		System.out.println("Welcome to TicToe Play!");
+		playGame(TicToe);		
+	}
+	
+	
+	private static void playGame(String[][] ticToe) {
+		System.out.println("Lets begin!");
+
+		while(ticToeStatus(TicToe)!=0&&isGameOver(TicToe,player)==0) //              	//Two Pre-conditions to check before proceeding the game																																				
+		{																			                                      	//1. isgameOver: To make sure that 'No one has won the game'
+			round++;														                                  			//2. ticToeStatus: If TicToe still has NULL space for player to fill-in	
+			playersTurn(round);		
+		}
+	}
+
+	
+	private static int ticToeStatus(String[][] ticToe2) {
+		int hasNull=0;
+		System.out.println("-------Status--------");
+		for (int i=0;i<3;i++)
+		{
+			for(int j=0;j<3;j++)
+			{
+				System.out.print(ticToe2[i][j]+" ");			                          			//1. Display TicToe Window
+				if(ticToe2[i][j]==null)								                                		//2. & Also Check if it still has NULL, Otherwise End Game
+				hasNull=1;													
+			}
+			System.out.println("\n");
+		}
+		System.out.println("=====================");
+		
+		return hasNull;
+	}
+
+
+	private static int isGameOver(String[][] a, int player) {
+		int gameOverFlag=0;
+																				                                        	//To check elements at Same Rows or Same Columns 
+		for (int i=0;i<3;i++)
+		{
+		if((a[i][0]==a[i][1])&&(a[i][0]==a[i][2])&&(a[i][0]!=null))
+			{
+			gameOverFlag=1; break;
+			}
+		else if((a[0][i]==a[1][i])&&(a[0][i]==a[2][i])&&(a[0][i]!=null))
+			{
+			gameOverFlag=1; break;
+			}
+		}
+		
+																				                                          	//To check diagonal Elements 
+		if((a[0][0]==a[1][1])&&(a[0][0]==a[2][2])&&(a[0][0]!=null))
+		{
+		gameOverFlag=1;
+		}
+		else if((a[1][1]==a[2][0])&&(a[1][1]==a[0][2])&&(a[1][1]!=null))
+		{
+		gameOverFlag=1; 
+		}	
+
+		if(gameOverFlag==1) 
+			System.out.println("Player "+player+" WON!");
+		
+				return gameOverFlag;
+	}
+	
+																	                                            				//To Switch between Players & Also to control the Player's input
+	private static void playersTurn(int x) {
+		int count=0;
+		System.out.println("1 or 2 or 3 or\n4 or 5 or 6 or\n7 or 8 or 9\nType your choice[1-9]: ");
+		
+		int markCell=scan.nextInt();
+		do {
+		if(markCell>0 && markCell<10)
+		{
+		for (int i=0;i<3;i++)
+		{
+			for(int j=0;j<3;j++)
+			{
+			count++;										                                            				//To decode user input into Array indices[Rows&Column)
+			if(count==markCell )
+			{
+				if(TicToe[i][j]!=null)
+					{
+					System.out.println("Warning! Please do not Overwrite!");                    //RESTRICT OVERWRITE
+					round=round-1;
+					playGame(TicToe); 
+					}
+				else if(round%2!=0)
+				{
+					TicToe[i][j]="X";										                                        //Decides the Player Control
+					player=1;
+				}
+				else
+				{
+					TicToe[i][j]="O";
+					player=2;
+				}
+			}
+			}
+		}
+		}
+		else
+		{
+			System.out.println("Type correct number from 1-9");
+			continue;
+		}
+	}while(count!=0 &&count<9);
+	}
+
+}
