@@ -17,8 +17,8 @@ public class TicTacToe {
 		System.out.println("Lets begin!");
 
 		while(ticToeStatus(TicToe)!=0&&isGameOver(TicToe,player)==0) //              	//Two Pre-conditions to check before proceeding the game																																				
-		{																			                                      	//1. isgameOver: To make sure that 'No one has won the game'
-			round++;														                                  			//2. ticToeStatus: If TicToe still has NULL space for player to fill-in	
+								                                 //1. isgameOver: To make sure that 'No one has won the game'
+			round++;				                                 //2. ticToeStatus: If TicToe still has NULL space for player to fill-in	
 			playersTurn(round);		
 		}
 	}
@@ -87,18 +87,18 @@ public class TicTacToe {
 		{
 			for(int j=0;j<3;j++)
 			{
-			count++;										    //To decode user input into Array indices[Rows&Column)
+			count++;								 //To decode user input into Array indices[Rows&Column)
 			if(count==markCell )
 			{
 				if(TicToe[i][j]!=null)
 					{
-					System.out.println("Warning! Please do not Overwrite!");                    //RESTRICT OVERWRITE
+					System.out.println("Warning! Please do not Overwrite!");   //RESTRICT OVERWRITE
 					round=round-1;
 					playGame(TicToe); 
 					}
 				else if(round%2!=0)
 				{
-					TicToe[i][j]="X";							   //Decides the Player Control
+					TicToe[i][j]="X";					 //Decides the Player Control
 					player=1;
 				}
 				else
