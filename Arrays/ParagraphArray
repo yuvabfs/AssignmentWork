@@ -1,0 +1,84 @@
+package org.array.sixproblems;
+
+import java.util.Scanner;
+
+public class ParagraphArray {
+
+	public static void main(String[] args) {
+		Scanner scan = new Scanner(System.in);
+		String input = scan.nextLine();
+		
+		String[] paragraphWords = input.split(" ");                                  // To split and store the words as array elements in an Array
+		
+
+
+// New Array to store Output - Column_1:'Unique words' Column_2:'Counter'
+
+		String[][] wordAndCount = new String[paragraphWords.length][2]; 
+		
+			for (int k = 0; k < wordAndCount.length; k++)                              //Initializing the Output Array to handle null pointer Exception
+			{
+				for(int l=0;l<wordAndCount[k].length;l++)
+			{
+
+					wordAndCount[k][l]="0";
+
+			}
+			}
+      
+      
+//Module- To Eliminate punctuation- special characters
+
+			char lastLetter;
+			for (int j = 0; j < paragraphWords.length; j++) 
+			{
+			lastLetter = paragraphWords[j].charAt(paragraphWords[j].length() - 1);
+			if (!((lastLetter >= 97 && lastLetter <= 122) || (lastLetter >= 65 && lastLetter <= 90))) 
+			{
+				paragraphWords[j] = paragraphWords[j].substring(0, paragraphWords[j].length() - 1);
+
+			}		
+			}
+		
+		paragraphWordCount(paragraphWords, wordAndCount); 
+		
+			}
+
+
+//Method to count the occurrence of words in paragraph
+
+		private static void paragraphWordCount(String[] paragraphWords, String[][] wordAndCount) {
+		int Counter=0;
+		for (int j = 0; j < paragraphWords.length; j++) 
+		{
+			for (int k = 0; k < wordAndCount.length; k++) 
+			{
+	
+        //Search the output Array if the 'word' is already present OR when Search is done
+			
+				if(wordAndCount[k][0].equalsIgnoreCase("0")||wordAndCount[k][0].equalsIgnoreCase(paragraphWords[j]))  
+				{
+					wordAndCount[k][0]=paragraphWords[j];   		                        		//Adding new word (or) Updating existing Word
+					
+					Counter = Integer.parseInt(wordAndCount[k][1]);
+					Counter++;
+					wordAndCount[k][1] = String.valueOf(Counter);
+					
+					break;										                                            	//break Once Updated-->go to check the next Word
+				}
+			
+			}
+		}
+		
+	// Printing OutPut Array of 2-Dimensional	
+  
+		for (int k = 0; k < wordAndCount.length; k++) 
+		{
+			if(wordAndCount[k][0]!="0")		
+				System.out.println(wordAndCount[k][0]+" = "+wordAndCount[k][1]);	
+		}	
+	}
+	}
+
+
+
