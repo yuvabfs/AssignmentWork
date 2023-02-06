@@ -1,0 +1,29 @@
+package org.collection.fiveprograms;
+import java.util.List;
+import java.util.Scanner;
+import java.util.ArrayList;
+public class ExtractPortionFromList {
+
+	public static void main(String[] args) {
+		
+		Scanner scan=new Scanner(System.in);
+		List<Integer> originalList=new ArrayList<>();
+		for (int i = 0; i <5; i++) {
+			originalList.add(scan.nextInt());
+		
+		}
+		
+		System.out.println("Extract From(Index): ");
+		int fromIndex=scan.nextInt();
+		System.out.println("Extract till(Index) : ");
+		int tillIndex=scan.nextInt();
+		List<Integer> ExtractedList= extractListElements(fromIndex,tillIndex,originalList);
+		System.out.println(ExtractedList);
+	}
+
+	private static List<Integer> extractListElements(int fromIndex, int tillIndex, List<Integer> originalList) {
+		
+		return originalList.subList(fromIndex,tillIndex);                                         //Using subList method to Extract a portion of Array
+	}
+
+}
