@@ -1,0 +1,53 @@
+package org.collection.fiveprograms;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Scanner;
+
+public class ReplacingNumberWithRank 
+{
+	public static void main(String[] args) 
+	{
+		
+		Scanner scan = new Scanner(System.in);
+    
+//Fetching List Elements from console- 'GivenList'
+		List<Integer> givenList = new ArrayList<>();
+
+		for (int i = 0; i < 10; i++) 
+		{
+
+			givenList.add(scan.nextInt());
+		}
+		System.out.println("Given List"+givenList);
+		
+		givenList =ConvertedToRank(givenList);
+		
+		System.out.println("Rank List"+givenList);
+		
+
+	}
+
+	    private static List<Integer> ConvertedToRank(List<Integer> givenList) 
+    	{
+  
+//Creating Temporary list to Sort and Store the Given List- 'SortedList'
+				List<Integer> SortedList = new ArrayList<>(givenList);
+				Collections.sort(SortedList);
+				
+				
+//Traverse through Given List & set each value in GivenList with the (index-1) of corresponding value in SortedList.
+
+//Handling Duplicate values by assigning same Rank to them & skipping those many successive ranks 
+
+				for (int i = 0; i < SortedList.size(); i++) 
+				{
+					givenList.set(i, SortedList.indexOf(givenList.get(i))+1);
+				}
+
+				
+		return givenList;
+	}
+
+}
