@@ -1,0 +1,32 @@
+package org.collection.fiveprograms;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class InsertMultipleElementsArraryList {
+
+	public static void main(String[] args) {
+		
+		//LIST 1 
+		List<Integer> list1=new ArrayList<>();	//Created list 1
+		for(int i=1;i<11;i++)					
+		list1.add(i);							//Added values 10 to list 1
+		System.out.println(list1);				//Printed List 1
+		
+		//LIST 2
+		List<Integer> list2=new ArrayList<>();	//Created list 2
+		for(int i=0;i<3;i++)					//Added values 10 to list 2
+		list2.add(100);			
+		System.out.println(list2);  			//Printed List 2
+		
+		
+		//Inserted list 2 entirely into List 1 at index 3
+		list1.addAll(3,list2);					
+		
+		//Printed Output
+		System.out.println(list1);
+		System.out.println(list2);
+
+	}
+
+}
