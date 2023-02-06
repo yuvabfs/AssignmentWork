@@ -8,7 +8,7 @@ public class ParagraphArray {
 		Scanner scan = new Scanner(System.in);
 		String input = scan.nextLine();
 		
-		String[] paragraphWords = input.split(" ");                                  // To split and store the words as array elements in an Array
+		String[] paragraphWords = input.split(" ");                        // To split and store the words as array elements in an Array
 		
 
 
@@ -16,7 +16,7 @@ public class ParagraphArray {
 
 		String[][] wordAndCount = new String[paragraphWords.length][2]; 
 		
-			for (int k = 0; k < wordAndCount.length; k++)                              //Initializing the Output Array to handle null pointer Exception
+			for (int k = 0; k < wordAndCount.length; k++)           //Initializing the Output Array to handle null pointer Exception
 			{
 				for(int l=0;l<wordAndCount[k].length;l++)
 			{
@@ -54,13 +54,15 @@ public class ParagraphArray {
 			for (int k = 0; k < wordAndCount.length; k++) 
 			{
 	
-        //Search the output Array if the 'word' is already present OR when Search is done
+//Search the output Array and do the following
+//[if the 'word' is already present] ------->[UPDATE Counter of Existing Word] OR
+//[when Search is done] -------> [ADD the word Newly]
 			
 				if(wordAndCount[k][0].equalsIgnoreCase("0")||wordAndCount[k][0].equalsIgnoreCase(paragraphWords[j]))  
 				{
-					wordAndCount[k][0]=paragraphWords[j];   		                        		//Adding new word (or) Updating existing Word
+					wordAndCount[k][0]=paragraphWords[j];   		  
 					
-					Counter = Integer.parseInt(wordAndCount[k][1]);
+					Counter = Integer.parseInt(wordAndCount[k][1]);        //ADD or UPDATE in same Module
 					Counter++;
 					wordAndCount[k][1] = String.valueOf(Counter);
 					
@@ -70,7 +72,7 @@ public class ParagraphArray {
 			}
 		}
 		
-	// Printing OutPut Array of 2-Dimensional	
+// Printing OutPut Array of 2-Dimensional	
   
 		for (int k = 0; k < wordAndCount.length; k++) 
 		{
