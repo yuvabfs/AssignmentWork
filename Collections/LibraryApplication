@@ -487,7 +487,7 @@ private static void userTakeBookByAuthorName(Map<String, List<String>> libraryDa
 							BookList.add(bookToReturn);			//Add This Book to the existing List &
 							libraryData.put(itsAuthorName,BookList);	//Update the Author,BookList pair
 							System.out.println("Returned Successfully!");
-							updateUserDataDeleteBook(bookToReturn,itsAuthorName,libraryData,userData);
+							//updateUserDataBooksReturned(bookToReturn,itsAuthorName,libraryData,userData);
 												//userDatabase should also be updated[returned book must be removed from DB]
 							
 							
@@ -498,7 +498,7 @@ private static void userTakeBookByAuthorName(Map<String, List<String>> libraryDa
 							BookList.add(bookToReturn);											
 							libraryData.put(itsAuthorName,BookList);	
 							System.out.println("Returned Successfully!");
-							updateUserDataDeleteBook(bookToReturn,itsAuthorName,libraryData,userData);
+							//updateUserDataBooksReturned(bookToReturn,itsAuthorName,libraryData,userData);
 												//userDatabase should also be updated[returned book must be removed from DB]
 							
 						}
