@@ -1,0 +1,521 @@
+package org.collection.fiveprograms;
+
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Scanner;
+import java.util.Set;
+
+public class LibraryApplication {
+
+	static Scanner scan =new Scanner(System.in);
+
+		public static void main(String[] args) {		
+			
+	//ONLY SAMPLE INPUT - Hard coded 		
+			System.out.println("Welcome to Book Library");					
+			List<String> BookList1=new ArrayList<>();BookList1.add("Book1");BookList1.add("Book2");
+			List<String> BookList2=new ArrayList<>();BookList2.add("Book1");BookList2.add("Book3");
+			List<String> BookList3=new ArrayList<>();BookList3.add("Book3");			
+			List<String> BookList4=new ArrayList<>();BookList4.add("Book4");			
+			List<String> BookList5=new ArrayList<>();BookList5.add("Book5");
+	
+			Map<String,List<String>> libraryData=new LinkedHashMap<> (); //libraryData-->Library Database[Author name & Book Name]
+
+			libraryData.put("Author1",BookList1);
+			libraryData.put("Author2",BookList2);
+			libraryData.put("Author3",BookList3);
+			libraryData.put("Author4",BookList3);
+			System.out.println(libraryData);
+			
+			Map<String,List<String>> userData=new LinkedHashMap<> (); 	//userData--> User Database-Books Own[Author name & Book Name]
+			List<String> takenBooks1=new ArrayList<>();takenBooks1.add("Book8");takenBooks1.add("Book10");
+			List<String> takenBooks2=new ArrayList<>();takenBooks1.add("Book9");			
+			List<String> takenBooks3=new ArrayList<>();
+			userData.put("Author11",takenBooks1);
+			userData.put("Author12",takenBooks2);
+			userData.put("Author1",takenBooks3);
+			
+			userLogin(libraryData,userData);				//To read user-login detail
+		}
+
+
+//Manage Library Application Login Page-USER/ADMIN
+			private static Map<String, List<String>> userLogin(Map<String, List<String>> libraryData, Map<String, List<String>> userData) {
+				
+				System.out.println("============================");
+				System.out.println("*|*|*|*| LOGIN PAGE |*|*|*|*\n1.User or\n2.Admin");
+				
+				int userID=0,password=0;
+				do
+			    {
+				System.out.print("Enter '1' or '2': ");							//User ID: User or Admin
+				userID=scan.nextInt();
+				}while(userID>2 || userID<1);
+				
+				if(userID==1)
+				{
+				 userOperations(libraryData,userData);									//User is allowed to login without password
+				}
+				else if(userID==2)
+				{
+					do {
+						System.out.print("Enter your correct Password: ");		//Admin should enter password to login
+						password=scan.nextInt();				
+						}while(password!=1234);
+					
+					System.out.println("####Login-Succusss!####");			//Only after successful Login- Admin operation will be allowed 
+					adminOperations(libraryData,userData);
+					
+				}
+				
+				return libraryData;
+			}
+
+
+//Manage ADMIN operations (1)Add or (2)Delete Books
+		private static void adminOperations(Map<String, List<String>> libraryData, Map<String, List<String>> userData) {
+			
+			
+			System.out.println("~~~~~~ADMIN HOME PAGE~~~~~~ \n1.Add Books or\n2.Delete Books\n3.Log-out");// ADMIN MENU PAGE
+			
+			int adminChoice=0;
+			do
+			{
+			System.out.print("Choose '1' or '2' or '3': ");
+			adminChoice=scan.nextInt();
+			}while(adminChoice>3 || adminChoice<1);					//Admin can proceed only after entering valid choice
+			
+			if(adminChoice==1)
+			{
+				addBooks(libraryData,userData);									//CHOICE 1: Add books method is called
+			}
+			else if(adminChoice==2)
+			{
+				deleteBooks(libraryData,userData);								//CHOICE 2: Delete books method is called
+			}
+			else if(adminChoice==3)
+			{
+				userLogin(libraryData,userData);								//CHOICE 3: Log-out---->Calls userLogin page again.
+			}
+			
+		}
+
+		
+//Add Book operation by ADMIN
+		private static void addBooks(Map<String, List<String>> libraryData, Map<String, List<String>> userData) {
+			int numberOfBooks;
+			
+			System.out.print("Enter the No. of Books to be added: ");//Fetching the No of Books Admin wants to Add
+			numberOfBooks=scan.nextInt();
+			String authorName,bookName;
+			
+			scan.nextLine();
+			for(int i=0;i<numberOfBooks;i++)
+			{
+				System.out.println("Entry-"+(i+1)+"\nEnter Author Name "+(i+1)+": ");
+				authorName=scan.nextLine();									//Get Author Name
+				List<String> BookList =new ArrayList<>();
+				System.out.println("Enter Book Title "+(i+1)+": ");
+				bookName=scan.nextLine();										//Get Book Title 
+				
+			//When both Author and Book Present - Its Duplicate	
+				if(libraryData.containsKey(authorName)&&libraryData.get(authorName).contains(bookName))
+				{
+					--i;														//Skip this iteration
+					System.out.println("Book Not Added - Duplicate book");       //Restrict Duplicate Entry
+					
+				}
+			//When only the Author present Already
+				else if (libraryData.containsKey(authorName)&&!libraryData.get(authorName).contains(bookName))
+				{
+					BookList = libraryData.get(authorName);						
+					BookList.add(bookName);										//Add This Book to the existing List &
+					libraryData.put(authorName,BookList);						//Update the Author,BookList pair
+					System.out.println("Book Added!");
+			
+				}
+			//When the both Author and Book are not present- Make new entry in libraryDatabase
+				else
+				{
+					BookList.add(bookName);
+					libraryData.put(authorName,BookList);
+					System.out.println("Book Added!");
+
+				}
+				
+				System.out.println("ADMIN DATABASE"+libraryData);	
+				
+			}			
+				adminOperations(libraryData,userData);				//Go back to ADMIN HOME PAGE	
+		}
+
+
+//Delete Books operation by ADMIN
+		private static void deleteBooks(Map<String, List<String>> libraryData, Map<String, List<String>> userData) {
+			System.out.println("Delete using---->1. Book Name or\nTo Go back------>2. Goto Home Page");
+			int userChoice=0,flag=0;
+			//String searchBook,searchBookId;
+			do
+			{
+				System.out.print("Choose '1' or '2': ");
+				userChoice=scan.nextInt();
+			}while(userChoice>2 || userChoice<1);		//Read ADMIN preference[Delete By Book Name/Author Name]	
+			
+														//Displaying Available Books	
+			if(!libraryData.isEmpty())
+			{
+				System.out.println("Available Books are");
+				System.out.println("~~~~~~~~~~~~~~~~~~~");
+			for(Map.Entry<String,List<String>> entry: libraryData.entrySet() )
+			
+			{
+				System.out.println(entry.getKey()+" has written or Illustrated "+entry.getValue());
+			}
+			}
+			else									//When there is no Books in Library Database
+			{
+				System.out.println("NO DATA FOUND - Redirecting to Home Page");
+				adminOperations(libraryData,userData);
+			}
+			
+			if(userChoice==1)												//CHOICE 1: Delete by Book Name										
+			{
+				System.out.println("Enter Book_Name");
+				scan.nextLine();
+				String bookToDelete=scan.nextLine();
+				System.out.println("Enter Author_Name");
+				String authorToDelete=scan.nextLine();
+				for(Map.Entry<String,List<String>> entry: libraryData.entrySet() )
+					
+				{
+					if(entry.getValue().contains(bookToDelete)&&entry.getKey().equals(authorToDelete))
+					{
+						entry.getValue().remove(bookToDelete);						
+						flag++;
+					}
+					
+				}
+
+				if(flag>0)
+				{
+			        Iterator<Map.Entry<String, List< String>>> iterate = libraryData.entrySet().iterator();
+			        while (iterate.hasNext())
+			        {
+			            Map.Entry<String, List< String>> curr = iterate.next();
+			            if (curr.getValue().isEmpty() == true) {
+			            	iterate.remove();
+			            }
+			        }
+					
+					System.out.println("Deleted Successfully!");
+					System.out.println("USER DATABASE"+libraryData);
+					deleteBooks(libraryData,userData);
+				}
+				else
+				{
+					System.out.println("!!!!!!No such Data, Please Try another!!!!!!!");
+					deleteBooks(libraryData,userData);
+				}				
+			}
+
+			else if(userChoice==2)
+			{
+				adminOperations(libraryData,userData);			//CHOICE 3: Done---->Calls Admin Home page again.
+			}
+			
+		}
+
+
+
+//USER Home page Functionality
+		private static void userOperations(Map<String, List<String>> libraryData, Map<String, List<String>> userData) {
+			System.out.println("~~~~~~USER HOME PAGE~~~~~~ \n1.Take Books or\n2.Return Books\n3.Log-out");// User Home Page
+			
+			//System.out.println(bookList);
+			int userChoice=0;
+				do
+				{
+					System.out.print("Choose '1' or '2' or '3': ");
+					userChoice=scan.nextInt();
+				}while(userChoice>3 || userChoice<1);					//User can proceed only after entering valid choice
+			
+				if(userChoice==1)
+				{
+					takeBooks(libraryData,userData);									//CHOICE 1: Take books method is called
+				}
+				else if(userChoice==2)
+				{
+					returnBooks(libraryData,userData);								//CHOICE 2: Return books method is called
+				}
+				else if(userChoice==3)
+				{
+					userLogin(libraryData,userData);								//CHOICE 3: Log-out---->Calls userLogin page again.
+				}	
+		}
+		
+//Take Book Operation by USER- 
+		private static void takeBooks(Map<String, List<String>> libraryData, Map<String, List<String>> userData) {
+			System.out.println("Search by----> 1.Book name or\nSearch by----> 2.Author Name\nTo Go back----> 3.DONE");
+			int userChoice=0;
+			do
+			{
+				System.out.print("Choose '1' or '2' or '3': ");
+				userChoice=scan.nextInt();
+			}while(userChoice>3 || userChoice<1);					//User Search preference[By Book Name/Author Name]	
+			
+			if(userChoice==1)										//CHOICE 1: Search by Book Name
+			{
+				userTakeBookByBookName(libraryData,userData);
+			}
+			
+			else if(userChoice==2)
+			{
+				userTakeBookByAuthorName(libraryData, userData);
+			}
+			else
+			{
+				userOperations(libraryData, userData);
+			}
+		}
+
+
+//USER- TakeBook operation by Book Name
+private static void userTakeBookByBookName(Map<String, List<String>> libraryData, Map<String, List<String>> userData) {
+	int bookFound=0,bookAuthorFound=0;						//resetting Book finding flag
+	String searchByBook,choosenAuthor;
+
+	Set<String> searchResult=new HashSet<>();			
+	System.out.println("Enter the Book name:");	
+	scan.nextLine();								
+	searchByBook=scan.nextLine();							//Get Search Input from user-->Book_Name
+	for(Map.Entry<String, List<String>> entry: libraryData.entrySet()) //Iterated all entries in LibraryData
+	{
+		if(entry.getValue().contains(searchByBook))				//To find the BookName that user is searching for 
+		{
+			//System.out.println(entry.getValue());
+			searchResult.add(entry.getKey());				//searchResult<----Store the Set of Authors for particular bookName
+			System.out.println(searchByBook+" by " +entry.getKey()); //Display the list to user
+			bookFound++;										//bookFound-->to indicate that this module is accessed-->hence Book Found
+		}
+	}
+	
+	if(bookFound!=0)	
+	{
+		bookAuthorFound=0;												//resetting Author finding flag
+			//scan.nextLine();
+			System.out.println("Enter carefully the Book of your Choice!");//Let user Select particular Author from Search result
+			
+			choosenAuthor=scan.nextLine();
+			if(searchResult.contains(choosenAuthor))						//Proceed only if the user selects valid item from Search Result	
+			{
+				for(Map.Entry<String,List<String>> entry: libraryData.entrySet() )
+					
+				{
+					if(entry.getKey().contains(choosenAuthor))				//Iterate through libraryData to find-Author
+					{
+						entry.getValue().remove(searchByBook);				//First Remove the BookName from LibraryData	
+						bookAuthorFound++;									//bookAuthorFound--->to indicate that this module is accessed-->hence Book Found
+					}
+					
+				}
+				 Iterator<Map.Entry<String, List< String>>> iterate = libraryData.entrySet().iterator();
+			        while (iterate.hasNext())
+			        {
+			            Map.Entry<String, List< String>> curr = iterate.next();
+			            if (curr.getValue().isEmpty() == true) {			//Now Remove the Author only if it has no other Books in its List
+			            	iterate.remove();
+			            }
+			        }
+			        if(bookAuthorFound!=0)					//Items removed from LibraryDatabase should be added in userDatabase
+			        {
+			        	updateUserDataBooksTaken(choosenAuthor,searchByBook,libraryData,userData);
+			        }
+				System.out.println("Library Database\n"+libraryData);	
+			//	add in user data
+				takeBooks(libraryData,userData);
+				
+			}
+			else
+			{
+				System.out.println("!!!!!!Data not found, Please Try Another!!!!!!");//When user entered data outside searchResult-Go back to search again
+				takeBooks(libraryData,userData);
+				
+			}
+	}
+	else
+	{
+		System.out.println("!!!!!!Book Not Available- Please Search Something else!!!!!!");//When user entered BookName not available in Library Database
+		takeBooks(libraryData,userData);
+	}
+		
+				
+}
+
+
+
+//USER- TakeBook operation by Author Name
+private static void userTakeBookByAuthorName(Map<String, List<String>> libraryData,
+	Map<String, List<String>> userData) {
+	int authorFound=0,author_BookFound=0;					// resetting Author finding Flag
+	String searchByAuthor,choosenBook;
+	
+	Set<String> searchResult=new HashSet<>();			
+	System.out.println("Enter the Author name:");	
+	scan.nextLine();								
+	searchByAuthor=scan.nextLine();							//Get Search Input from user-->Author_Name
+	for(Map.Entry<String, List<String>> entry: libraryData.entrySet()) //Iterate all entries in LibraryData
+	{
+		if(entry.getKey().contains(searchByAuthor))				//To find the Author_Name that user is searching for 
+		{
+			System.out.println(entry.getKey());
+			searchResult.addAll(entry.getValue());				//searchResult<----Store the Set of Books for particular Author
+			System.out.println(searchResult+" by " +searchByAuthor); //Display the Book list by Particular author to user
+			authorFound++;										//To indicate this module is accessed--->Author_Name Found
+		}
+	}
+	
+	if(authorFound!=0)	
+	{
+		author_BookFound=0;										//resetting Book Finding flag
+			//scan.nextLine();
+			System.out.println("Enter carefully the Book of your Choice!");//Let user Select particular Author from Search result
+			
+			choosenBook=scan.nextLine();
+			if(searchResult.contains(choosenBook))			 //Proceed only if the user selects valid item from Search Result	
+			{
+				for(Map.Entry<String,List<String>> entry: libraryData.entrySet() )//To remove entry from Library Database
+					
+				{
+					if(entry.getKey().equals(searchByAuthor)&&entry.getValue().contains(choosenBook))//Iterate through libraryData to find particular Author-Book Combination
+					{
+						entry.getValue().remove(choosenBook);				//First Remove the BookName from LibraryData	
+						author_BookFound++;									//To indicate that the book is removed from Library Database
+					}
+					
+				}
+				 Iterator<Map.Entry<String, List< String>>> iterate = libraryData.entrySet().iterator();
+			        while (iterate.hasNext())
+			        {
+			            Map.Entry<String, List< String>> curr = iterate.next();
+			            if (curr.getValue().isEmpty() == true) {			//Now Remove the Author also only if it has no other Books in its List
+			            	iterate.remove();
+			            }
+			        }
+			        if(author_BookFound!=0)									//Items removed from LibraryDatabase should be added in userDatabase
+			        {
+			        	updateUserDataBooksTaken(searchByAuthor,choosenBook,libraryData,userData);
+			        }
+				System.out.println(libraryData);	
+			//	add in user data
+				takeBooks(libraryData,userData);
+				
+			}
+			else
+			{
+				System.out.println("!!!!!!INCORRECT DATA, Search Again!!!!!!");//When user entered data outside searchResult-Go back to search again
+				takeBooks(libraryData,userData);
+				
+			}
+	}
+	else
+	{
+		System.out.println("!!!!!!Book Not Available- Search Something else!!!!!!");//When user entered BookName not available in Library Database
+		takeBooks(libraryData,userData);
+	}
+	
+	
+
+
+}
+
+//Update userDatabase after TakeBook Operation completed by USER
+		private static void updateUserDataBooksTaken(String authorName, String bookName,
+				Map<String, List<String>> libraryData, Map<String, List<String>> userData) {
+			List<String> tempList=new ArrayList<>(); 
+			
+			
+			if(userData.containsKey(authorName)&&userData.get(authorName).contains(bookName))
+			{
+				System.out.println("Book Not Added - Duplicate book");       //To Restrict Duplicate Entry
+			}
+			else if (userData.containsKey(authorName)&&!userData.get(authorName).contains(bookName))
+			{
+				tempList = userData.get(authorName);
+				tempList.add(bookName);
+				userData.put(authorName,tempList);
+			}
+			else
+			{
+				tempList.add(bookName);
+				userData.put(authorName,tempList);
+			}
+			
+			System.out.println("USER DATABASE"+userData);	
+			
+			
+					
+			
+		}
+
+//Return Book Operation by USER
+		private static void returnBooks(Map<String, List<String>> libraryData, Map<String, List<String>> userData) {
+			String bookToReturn,itsAuthorName;
+
+			if(!userData.isEmpty())
+			{	
+				
+					System.out.println("Please Enter the Book: ");
+					scan.nextLine();
+					bookToReturn=scan.nextLine();
+					System.out.println("Please Enter its Author Name: ");
+					itsAuthorName=scan.nextLine();
+					List<String> BookList=new ArrayList<>();
+					if (libraryData.containsKey(itsAuthorName)&&libraryData.get(itsAuthorName).contains(bookToReturn))
+				//When both Author and Book Present - Its Duplicate	
+						{																					//Skip this iteration
+							System.out.println("Database mismatch! Seems Book Already Returned! Please contact Library Admin");       
+						}
+				//When only the Author present Already
+						else if (libraryData.containsKey(itsAuthorName)&&!libraryData.get(itsAuthorName).contains(bookToReturn))
+						{
+							BookList = libraryData.get(itsAuthorName);						
+							BookList.add(bookToReturn);										//Add This Book to the existing List &
+							libraryData.put(itsAuthorName,BookList);						//Update the Author,BookList pair
+							System.out.println("Returned Successfully!");
+							updateUserDataDeleteBook(bookToReturn,itsAuthorName,libraryData,userData);//userDatabase should also be updated[returned book must be removed from DB]
+							
+							
+						}
+				//When the both Author and Book are not present- Make new entry in libraryDatabase
+						else 
+						{
+							BookList.add(bookToReturn);											
+							libraryData.put(itsAuthorName,BookList);	
+							System.out.println("Returned Successfully!");
+							updateUserDataDeleteBook(bookToReturn,itsAuthorName,libraryData,userData);
+						}
+				
+					System.out.println("ADMIN DATABASE"+libraryData);	
+					System.out.println("USER DATABASE"+userData);
+
+				
+			}
+			else
+			{
+				System.out.println("You have no Books to return!");
+				userOperations(libraryData,userData);
+			}
+			
+			
+		}
+
+
+
+		
+	}
+
