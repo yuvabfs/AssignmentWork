@@ -1,0 +1,132 @@
+package com.test.java;
+
+import java.util.*;
+
+public class SearchPhoneContact {
+	static Scanner scan=new Scanner(System.in);
+
+	public static void main(String[] args) {
+		
+		
+		//ONLY SAMPLE Contacts Hard coded!
+				
+		List<String> contactNumber1=new ArrayList<>();contactNumber1.add("+3876543210");contactNumber1.add("9876543217");
+		List<String> contactNumber2=new ArrayList<>();contactNumber2.add("9876666210");			
+		List<String> contactNumber3=new ArrayList<>();contactNumber3.add("9432143210");			
+		List<String> contactNumber4=new ArrayList<>();contactNumber4.add("9076543210");
+		List<String> contactNumber5=new ArrayList<>();contactNumber5.add("9855543210");contactNumber5.add("7656543210");
+		
+		Map<String,List<String>> phoneBook=new LinkedHashMap<>();
+		phoneBook.put("Yuvapriya S",contactNumber1);
+		phoneBook.put("Laavanya R",contactNumber2);
+		phoneBook.put("Viji Murugan",contactNumber3);
+		phoneBook.put("Sabitha",contactNumber4);
+		phoneBook.put("Sajina",contactNumber5);
+		
+		System.out.println("Select 1 or 2\n1.View Contacts\n2.Search Contacts\n3.Close");
+		
+		int choice=0;
+		do
+		{
+		choice=scan.nextInt();	
+		}while(choice!=1 && choice!=2 && choice!=3);
+		
+		if(choice==1) {
+			for(Map.Entry<String,List<String>> entry : phoneBook.entrySet())
+			System.out.println(entry.getKey()+" - "+entry.getValue());
+		}
+		else if(choice==2){
+			searchContact(phoneBook);
+	
+		}
+		else {
+			System.out.println("Closed!");
+		}
+	}
+
+	private static void searchContact(Map<String, List<String>> phoneBook) {
+		System.out.println("Search By 1 or 2\n1.Name \n2.Number");
+		
+		int choice=0;
+		do
+		{
+		choice=scan.nextInt();	
+		}while(choice!=1 && choice!=2 && choice!=3);
+		
+		if(choice==1) {
+
+			searchByName(phoneBook);
+		}
+		else if(choice==2){
+			searchByNumber(phoneBook);
+	
+		}
+		else {
+			System.out.println("Closed!");
+		}
+		
+	}
+
+	private static void searchByName(Map<String, List<String>> phoneBook) {
+		System.out.println("Enter Name:");
+		scan.nextLine();
+		String keyIgnoreCase;
+		String searchbyName=scan.nextLine();searchbyName=searchbyName.toLowerCase();	//To Ignore Case while Searching
+		int foundContacts=0;
+		for(Map.Entry<String,List<String>> entry : phoneBook.entrySet())
+		{
+			keyIgnoreCase=entry.getKey().toLowerCase();
+			if(keyIgnoreCase.contains(searchbyName))
+			{
+				System.out.println(entry.getKey()+" - "+entry.getValue());
+				foundContacts++;
+			}				
+		}
+		if(foundContacts==0)
+		{
+			System.out.println("No Match Found! Search again");
+			searchContact(phoneBook);
+		}
+		else
+		{
+			System.out.println("~~~~~~~~end~~~~~~~~~~~");
+		}
+		
+	}
+
+	private static void searchByNumber(Map<String, List<String>> phoneBook) {
+		System.out.println("Enter Number:");
+		scan.nextLine();
+		List<String> SearchNumberList;
+		String searchbyNumber=scan.nextLine();searchbyNumber=searchbyNumber.toLowerCase();	//To Ignore Case while Searching
+		int foundContacts=0;
+		
+			Iterator<Map.Entry<String,List<String>>> itr=phoneBook.entrySet().iterator();
+			while(itr.hasNext())
+			{
+				Map.Entry<String,List<String>> entry1=itr.next();
+				SearchNumberList=entry1.getValue();
+				for(String number:SearchNumberList)
+				{
+					if(number.contains(searchbyNumber))
+					{
+						System.out.println(entry1.getKey()+" - "+number);
+						foundContacts++;
+					}	
+				}
+		}
+		
+		if(foundContacts==0)
+		{
+			System.out.println("No Match Found! Search again");
+			searchContact(phoneBook);
+		}
+		else
+		{
+			System.out.println("~~~~~~~~end~~~~~~~~~~~");
+		}
+		
+	}
+	
+
+}
