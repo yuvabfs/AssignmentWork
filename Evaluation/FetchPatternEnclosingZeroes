@@ -1,0 +1,46 @@
+package com.test.java;
+
+import java.util.*;
+
+
+public class FetchPatternEnclosingZeroes {
+
+	public static void main(String[] args) {
+		
+		
+		String[] input= {"1","0","0","0","1","1","1","0","0","1","1","0","1"};
+		List<String> givenPattern = new LinkedList<>(Arrays.asList(input));
+		List<String> PatternList = new LinkedList<>();
+		System.out.println("Given Input\n" + givenPattern);
+		String foundPattern;
+		int atPosition=0;
+		for (int i = 0; i < givenPattern.size()-1; i++)
+		{
+			
+			if(givenPattern.get(i).equals("1")&&givenPattern.get(i+1).equals("0"))
+			{
+			        foundPattern="10";atPosition=i+2;
+					while(!givenPattern.get(atPosition).equals("1"))
+					{
+						foundPattern=foundPattern+(givenPattern.get(atPosition));
+						atPosition++;
+					}
+					atPosition--;
+					PatternList.add(foundPattern+"1");
+					continue;
+					
+			}
+			else
+				continue;	
+		}
+			System.out.println("Patterns are\n"+PatternList);
+		}
+		
+		
+
+		
+	
+
+	}
+
+
