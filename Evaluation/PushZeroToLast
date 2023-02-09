@@ -7,6 +7,7 @@ public class PushZeroToLast {
 	public static void main(String[] args) {
 		Scanner scan = new Scanner(System.in);
 		List<Integer> givenList = new LinkedList<>();
+		List<Integer> tempList = new LinkedList<>();
 		for (int i = 0; i < 8; i++) {
 			givenList.add(scan.nextInt());
 		}
@@ -14,20 +15,24 @@ public class PushZeroToLast {
 		pushZeroesToLast(givenList);
 	}
 
-	
 	private static void pushZeroesToLast(List<Integer> givenList) {
-		int foundZero = 0;
+		int noOfElements=givenList.size();
+		
+		
 
-		for (int i = 0; i < givenList.size(); i++) {
+
+
+		for (int i = 0; i < noOfElements; i++) {
+			
 			if (givenList.get(i).equals(0)) {
+				givenList.add(0);
 				givenList.remove(i);
-				foundZero++;
-			}
-			if (foundZero == 1) {
-				foundZero--;
-				givenList.add(givenList.size(), 0);
+				i--; noOfElements--;
+			
 			}
 		}
 		System.out.println("Modified Ouput\n" + givenList);
+
 	}
+
 }
