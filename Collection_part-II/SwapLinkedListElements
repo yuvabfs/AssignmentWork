@@ -8,7 +8,8 @@ public class SwapLinkedListElements {
 		static Scanner scan=new Scanner(System.in);
 
 		public static void main(String[] args) {
-		
+			
+		//Getting Input from the User
 			LinkedList<String> listInput=new LinkedList<>();
 			System.out.println("Enter the Number of Elements");
 			int noOfElements=scan.nextInt();
@@ -19,15 +20,21 @@ public class SwapLinkedListElements {
 			}
 			System.out.println("Given Input List: "+listInput);
 			
-			
+			swapList(listInput);
+					
+	}
+
+		private static void swapList(LinkedList<String> listInput) {
+	//Getting swap positions as input from user	
 			int position1=0,position2=0;
-			
-			System.out.println("Swap position 1: ");
+	
+			System.out.println("Enter Swap position 1: ");
 			position1=scan.nextInt();
 
 			System.out.println("With position 2: ");
 			position2=scan.nextInt();
-			
+	
+	//Used Temporary Variable for swapping
 			String temp;
 			temp= listInput.get(position1-1);
 			
@@ -36,7 +43,6 @@ public class SwapLinkedListElements {
 			
 			System.out.println("Swapped Lsit: "+listInput);
 			
-			
-	}
+		}
 
 }
