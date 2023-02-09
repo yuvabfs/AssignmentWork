@@ -17,17 +17,17 @@ public class RotateElementsLinkedList {
 		}
 		System.out.println("Given Input List: "+listInput);
 		
+//Rotation Module- Get no of Rotation needed as
 		System.out.println("Enter the need number of Rotation: ");
+		int rotateTimes=scan.nextInt();					 //Fetching the number of times Rotation is needed!
 		
-		//Rotation Module - 
-		int rotateTimes=scan.nextInt();						//Fetching the number of times Rotation is needed!
-		String firstElement;
+		String firstElement;						 //Temporary Variable to Store Element
 		for(int j=0;j<rotateTimes;j++)	
 		{
-			firstElement=listInput.get(0);
-			listInput.remove(0);
-			listInput.add(firstElement);
-			System.out.println("Rotation "+(j+1)+": "+listInput);
+			firstElement=listInput.get(0);				 //Storing the First Element Temporarily
+			listInput.remove(0);					//Then Removing the first Element
+			listInput.add(firstElement);				//Add the removed element at last
+			System.out.println("Rotation "+(j+1)+": "+listInput);	//Display Output after every rotation  
 		}
 		
 		
