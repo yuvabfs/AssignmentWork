@@ -1,0 +1,42 @@
+package org.collection.fiveprograms;
+
+import java.util.LinkedList;
+import java.util.Scanner;
+
+public class SwapLinkedListElements {
+
+		static Scanner scan=new Scanner(System.in);
+
+		public static void main(String[] args) {
+		
+			LinkedList<String> listInput=new LinkedList<>();
+			System.out.println("Enter the Number of Elements");
+			int noOfElements=scan.nextInt();
+			scan.nextLine();
+			for(int i=0;i<noOfElements;i++)
+			{
+				listInput.add(scan.nextLine());
+			}
+			System.out.println("Given Input List: "+listInput);
+			
+			
+			int position1=0,position2=0;
+			
+			System.out.println("Swap position 1: ");
+			position1=scan.nextInt();
+
+			System.out.println("With position 2: ");
+			position2=scan.nextInt();
+			
+			String temp;
+			temp= listInput.get(position1-1);
+			
+			listInput.set(position1-1,listInput.get(position2-1));
+			listInput.set(position2-1,temp);
+			
+			System.out.println("Swapped Lsit: "+listInput);
+			
+			
+	}
+
+}
