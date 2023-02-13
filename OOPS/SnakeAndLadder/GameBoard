@@ -1,0 +1,56 @@
+package marupadi.snakeladder;
+
+public class GameBoard extends GamePlay{
+	
+	public int calculateNewPosition(int diceValue,int checkersPosition, Object Player)
+	{
+		int NewCheckersPosition=0;
+		
+		NewCheckersPosition=diceValue+checkersPosition;
+		
+		return NewCheckersPosition;
+		
+	}
+	
+	// Board construction
+  
+   public int positionHas(int NewCheckersPosition)
+   {
+	   int moves[] = new int[25];
+    for (int i = 0; i <25; i++)
+    {
+    	moves[i] = 0;							//Initialization
+    }    
+    // Ladders
+    moves[3] = 8;
+    moves[6] = 14;
+    moves[10] = 20;
+    moves[12] = 24;
+
+    // Snakes
+    moves[7] = 2;
+    moves[15] = 4;
+    moves[16] = 13;
+    moves[19] = 9;
+    moves[23] = 13;
+    moves[21] = 1;
+    
+    return moves[NewCheckersPosition];
+
+   }
+   
+	public int updateCheckersPosition(int NewCheckersPosition,int checkersPosition, Object Player)
+	{
+		int CheckersPosition=positionHas(NewCheckersPosition);
+		
+		if(NewCheckersPosition==CheckersPosition)
+			System.out.println("Updated you Checker Status! Proceeding to Next player");
+		else if(CheckersPosition>NewCheckersPosition)
+			System.out.println("Yay! You got a Ladder!!\nUpdated you Checker Status! Proceeding to Next player");
+		else if(CheckersPosition<NewCheckersPosition)
+			System.out.println("Oops! You got a Snake!!\nUpdated you Checker Status! Proceeding to Next player");
+		
+		return checkersPosition;
+		
+	}
+}
