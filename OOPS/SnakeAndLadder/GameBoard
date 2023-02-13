@@ -1,8 +1,8 @@
 package marupadi.snakeladder;
 
-public class GameBoard extends GamePlay{
+public class GameBoard{
 	
-	public int calculateNewPosition(int diceValue,int checkersPosition, Object Player)
+	public int calculateNewPosition(int diceValue,int checkersPosition)
 	{
 		int NewCheckersPosition=0;
 		
@@ -19,7 +19,7 @@ public class GameBoard extends GamePlay{
 	   int moves[] = new int[25];
     for (int i = 0; i <25; i++)
     {
-    	moves[i] = 0;							//Initialization
+    	moves[i] = NewCheckersPosition;							//Initialization
     }    
     // Ladders
     moves[3] = 8;
@@ -34,23 +34,30 @@ public class GameBoard extends GamePlay{
     moves[19] = 9;
     moves[23] = 13;
     moves[21] = 1;
+    if(NewCheckersPosition>=25)
+    {
+    	return 25;
+    }
+    else
+    {
+    	return moves[NewCheckersPosition];
+    }
     
-    return moves[NewCheckersPosition];
 
    }
    
-	public int updateCheckersPosition(int NewCheckersPosition,int checkersPosition, Object Player)
+	public int updateCheckersPosition(int NewCheckersPosition)
 	{
 		int CheckersPosition=positionHas(NewCheckersPosition);
 		
 		if(NewCheckersPosition==CheckersPosition)
-			System.out.println("Updated you Checker Status! Proceeding to Next player");
+			System.out.println("Safe place!");
 		else if(CheckersPosition>NewCheckersPosition)
-			System.out.println("Yay! You got a Ladder!!\nUpdated you Checker Status! Proceeding to Next player");
+			System.out.println("Yay! You got a Ladder!!");
 		else if(CheckersPosition<NewCheckersPosition)
-			System.out.println("Oops! You got a Snake!!\nUpdated you Checker Status! Proceeding to Next player");
+			System.out.println("Oops! You got a Snake!");
 		
-		return checkersPosition;
+		return CheckersPosition;
 		
 	}
 }
