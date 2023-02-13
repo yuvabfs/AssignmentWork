@@ -1,0 +1,50 @@
+package marupadi.wordle.game;
+
+import java.util.Scanner;
+
+public class wordleUI extends GameLogic{
+	static Scanner scan=new Scanner(System.in);
+	String playerInput;												//Variable to Read Input from the User [Player guessAnswerWord]
+	
+	
+	public String readInput() {
+			
+			do {
+				System.out.println("Guess the Word!");				
+				playerInput=scan.nextLine();						//Read Input from the User- [Player guessAnswerWord]
+				
+			}while(! validateInput(playerInput));					//Read until the Player gives Valid input 
+			
+			System.out.println("Processing....");
+			return playerInput;
+		
+	}
+	
+
+	public  boolean validateInput(String playerInput) {
+		boolean isValid=true;
+		
+		if(this.playerInput.length()!=5) 								//1. wordInput length should be 5 - Fixed
+		{
+			isValid=false;	
+			System.out.println("Word length should be 5!");					//Error- if input length not equal to 5
+		}
+		
+		for (int i = 0; i < this.playerInput.length(); i++) 			//2. wordInput should include only characters- 
+		{	 													
+			if (!((this.playerInput.charAt(i) >= 97 && this.playerInput.charAt(i) <= 122) ||
+					(this.playerInput.charAt(i) >= 65 && this.playerInput.charAt(i) <= 90))) 
+			{
+				isValid=false; 
+				System.out.println("Word must not contain Symbol or spaces!");//Error- if input has any Special_character/Spaces
+				break;
+			}
+        }
+		
+
+		return isValid;
+	}
+	
+}
+
+
