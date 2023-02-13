@@ -27,7 +27,7 @@ public class WordleMainClass {
 		System.out.println("Come! Lets Wordle!!");							//Welcome Message
 		
 		String answer= player1.generate_Random_Answer_Word(); //
-		System.out.println(answer);
+		//System.out.println(answer);
 		
 		do
 		{
