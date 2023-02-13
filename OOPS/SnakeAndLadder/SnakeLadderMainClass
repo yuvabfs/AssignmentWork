@@ -1,1 +1,54 @@
+package marupadi.snakeladder;
 
+public class SnakeLadderMainClass {
+	public static boolean turn=true;
+
+	public static void main(String[] args) {
+		GamePlay playerOne=new GamePlay();
+		GamePlay playerTwo=new GamePlay();
+		
+		GamePlay playerTurn=playerOne;
+		playerTurn.checkersPosition=0;
+		System.out.println("~~~~Player 1- Turn~~~");
+		
+		while(!playerOne.playerWon(playerOne.checkersPosition)&&!playerTwo.playerWon(playerTwo.checkersPosition))
+		{
+			//Display Dice roll result!
+			int diceValue= playerTurn.startGame(playerTurn.checkersPosition);
+			System.out.println("Your Dice Show: "+diceValue);
+			
+			//Moving Checker from Last position---->Checker_New_Position=dice_Value+ Checkers_Last_Position
+			int calculatedPosition=playerTurn.calculateNewPosition(diceValue,playerTurn.checkersPosition);
+			System.out.println("Moving Checker to: "+calculatedPosition);
+			
+			//Again Updating Checker Position based on[Snake or Ladder]
+			playerTurn.checkersPosition=playerTurn.updateCheckersPosition( calculatedPosition);			
+			System.out.println("So, Checker placed at: "+playerTurn.checkersPosition);
+			
+			if(playerTurn.playerWon(playerTurn.checkersPosition))
+			{
+				System.out.println("You Won! Congrats, GameOver!!");
+				break;
+			}
+			else
+			{
+			turn=playerTurn.switchTurn(turn);
+			}
+			
+			
+			if(turn)
+			{
+			System.out.println("~~~~Player 1- Turn~~~");
+			playerTurn = playerOne;
+			}
+			else
+			{
+			System.out.println("~~~~Player 2- Turn~~~");
+			playerTurn= playerTwo;
+			}
+		}
+		
+
+
+}
+}
