@@ -1,0 +1,45 @@
+package marupadi.wordle.game;
+
+public class WordleMainClass {
+	
+	//Objects: Players
+	//-----------------------------------------   
+	//Class 1 - Wordle_UserInteraction (extends Game_Internal_Logic)
+	//Attributes : Player_Input
+	//			   guess_Counter
+	//Method     : Read Input	
+	//             Validate Input
+	//-----------------------------------------                       
+	//Class 2 - Game_Internal_Logic (extends Random_Word_Generator)
+	//Attributes : Valid_Input
+	//Method     : comparing_Input_and_Answer
+	//             Generate_Random_Answer_Word
+	//
+	//-----------------------------------------                                            
+	public static int remainingChance=6;									//Giving Player 6 chances to guess the Word
+	
+	public static void main(String[] args) {
+		
+		wordleUI player1=new wordleUI();									//Declaring Player as Object
+		
+		String input;
+	
+		System.out.println("Come! Lets Wordle!!");							//Welcome Message
+		
+		String answer= player1.generate_Random_Answer_Word(); //
+		System.out.println(answer);
+		
+		do
+		{
+			input= player1.readInput().toUpperCase();
+			
+			remainingChance--;										//Reduce the guessingChance once a valid guess is made by player
+			
+			player1.comparing_Input_and_Answer(input,answer);		//Check Game Logic internally 
+			
+		}while(remainingChance!=0);
+
+		
+	}
+
+}
