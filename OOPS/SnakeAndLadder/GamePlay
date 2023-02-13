@@ -1,0 +1,54 @@
+package marupadi.snakeladder;
+
+import java.util.Random;
+import java.util.Scanner;
+
+public class GamePlay {
+		static boolean turn;
+		public int checkersPosition;
+		static Scanner scan=new Scanner(System.in);	
+
+//To toggle game control between two players!
+		public boolean switchTurn(boolean turn)			
+		{
+			return !turn;
+		}
+		
+//To get Player 
+		public int startGame(String Player, int checkersPosition)
+		{
+			String yesOrNo;
+			System.out.println(Player+"'s Turn!\nReady to Roll Dice? Type 'Y' or 'N'");
+			do {
+			yesOrNo=scan.next();
+			}while(! yesOrNo.equalsIgnoreCase("Y") ||! yesOrNo.equalsIgnoreCase("N") );
+			
+			if(yesOrNo.equalsIgnoreCase("Y"))
+			{
+				rollDice(Player, this.checkersPosition);
+			}
+			
+			return checkersPosition;
+			
+		}
+		
+//To Roll Dice 	
+		public int rollDice(String player, int checkersPosition) {
+			int diceValue=0, rollDice=0;
+				
+			Random random= new Random();
+			
+			do {
+			rollDice=random.nextInt(6);
+		
+			 diceValue=diceValue+rollDice;
+			System.out.println(rollDice);
+			System.out.println(diceValue);
+			}while( (rollDice==0)||(rollDice==1)||(rollDice==5)||(rollDice==6) );				//when Dice shows 1 or 5 or 6- players will get another chance
+			return diceValue;
+			
+		}
+
+	
+
+}
