@@ -1,0 +1,73 @@
+package marupadi.wordle.game;
+
+import java.util.*;
+
+import javafx.util.Pair; 
+
+public class GameLogic  {
+	
+//To generate a_random_word as 'answerWord'	every time the code is executed.
+
+	public String generate_Random_Answer_Word() {											
+	
+	String[] wordBank= {"Actor", "Adobe", "Brass", "Brush", "Cloth","Cycle", "Honey","Dairy","Enemy","Excel",
+			"Front", "Judge", "Magic", "Labor","Habit","Guilt", "Debug","basin", "Robot", "Skill","yacht"};
+	
+	Random random = new Random();						                                	//Using 'Random' Class to generate a random integer Value	
+	int index = random.nextInt(20);
+	
+	String  answerWord= wordBank[index];				                            	//Passing Random integer as index of String Array[Word_Bank]
+	return answerWord.toUpperCase();					                              	//Converting to Upper case in order to ignore case while validating
+	}
+	
+
+//Checking Player_Input and Correct_Answer
+	public List<Pair<Character,Character>> comparing_Input_and_Answer( String playerInput , String gameAnswer)
+	{
+	
+		List<Pair<Character,Character>> stringComparison=new ArrayList<>() ;    //List- To compare and store the entire String Result
+																		                                      	//Pair- To compare and store each character 
+		if(playerInput.equals(gameAnswer))
+		{
+			System.out.println("Yay! You guessed it Right!!\nGame Over! You Won!!");
+			WordleMainClass.remainingChance=0;
+		}
+		else
+		{
+		for(int i=0;i<playerInput.length();i++)
+		{
+			Character colour = 'N';							                              	//'N'- Not in Word
+			if(gameAnswer.contains(Character.toString(playerInput.charAt(i))))
+			{
+				colour = 'Y';								                                    	// 'Y' - Present in Word at different index
+				if(playerInput.charAt(i)==gameAnswer.charAt(i))
+				{
+					colour = 'G';						                                    		// 'G'- Present in Word at exact index
+				}
+				
+			}
+			Pair<Character, Character> characterComparison=new Pair<Character, Character>(playerInput.charAt(i), colour);
+			stringComparison.add(characterComparison);						
+
+		}
+		System.out.println(stringComparison);
+		}
+		
+		
+		return stringComparison;
+		
+	}
+
+	
+
+
+		
+}
+		
+		
+			
+	
+	
+
+
+
