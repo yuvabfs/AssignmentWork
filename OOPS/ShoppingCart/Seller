@@ -3,31 +3,47 @@ package marupadi.ecommerce;
 import java.util.*;
 
 public class Seller {
+	
+	//Attributes
 	private String SellerID;
+
 	private ArrayList<Products> SellerItems=new ArrayList<>();
+	private int productQuantity;
 	Scanner scan=new Scanner(System.in);
-	Products product1=new Products();
-	Products product2=new Products();
-	Products product3=new Products();
-	ProductCatologue ProductCatologueobj=new ProductCatologue();
+
+	 
 	
-	String productName; int productQuantity;float productPrice;
 	
-	//private ArrayList<Products> ItemsSold=new ArrayList<>();
+	
 	public String getSellerID() {
 		return SellerID;
 	}
 	public void setSellerID(String sellerID) {
 		SellerID = sellerID;
 	}
+	
+	
+	Seller()
+	{
+		//Initializing few products in Seller Items- 
+		Products product1=new Products();
+		Products product2=new Products();
+		Products product3=new Products();
+		product1.setProductName("product_1"); product1.setProductPrice(100.00f); 
+		product1.setProductQuantity(10);product1.setProductSoldBy("seller1");
+		SellerItems.add(product1);
+		product2.setProductName("product_2"); product2.setProductPrice(500.00f); 
+		product2.setProductQuantity(20);product2.setProductSoldBy("seller2");
+		SellerItems.add(product2);
+		product3.setProductName("product_3"); product3.setProductPrice(600.00f); 
+		product3.setProductQuantity(0);product3.setProductSoldBy("seller3");
+		SellerItems.add(product3);
+		
+	}
+
 	public ArrayList<Products> initializeSellerItems() {
 		
-		product1.setProductName("product_1"); product1.setProductPrice(100.00f); 
-		product1.setProductQuantity(10);product1.setProductSoldBy("seller1");SellerItems.add(product1);
-		product2.setProductName("product_2"); product2.setProductPrice(500.00f); 
-		product2.setProductQuantity(20);product2.setProductSoldBy("seller2");SellerItems.add(product2);
-		product3.setProductName("product_3"); product3.setProductPrice(600.00f); 
-		product3.setProductQuantity(0);product3.setProductSoldBy("seller3");SellerItems.add(product3);
+
 		
 		return SellerItems;
 	}
@@ -88,6 +104,7 @@ public class Seller {
 	}
 	public void addProduct(String SellerID)
 	{
+		String productName; int productQuantity;float productPrice;
 		Products newProduct=new Products();
 		boolean isDuplicate=false; 
 		newProduct.setProductSoldBy(SellerID);
@@ -106,22 +123,7 @@ public class Seller {
 		newProduct.setProductPrice(productPrice);
 		
 		int i=0;
-		
-		
-		for(int i=0;i<ProductCatologueobj.getProductCatologue().size();i++)
-		{
-			if(ProductCatologueobj.getProductCatologue().get(i).getProductSoldBy().equals(SellerID) && ProductCatologueobj.getProductCatologue().get(i).getProductName().equals(productName) )				
-			{
-				isDuplicate=true;
-				
-	
-				break;
-			}
-			else
-				continue;
-			
-		}
-		/*for( i=0; i<getSellerItems().size(); i++)
+		for( i=0; i<getSellerItems().size(); i++)
 		{
 			if(getSellerItems().get(i).getProductSoldBy().equals(SellerID) && getSellerItems().get(i).getProductName().equals(productName) )				
 			{
@@ -136,18 +138,15 @@ public class Seller {
 			else
 				continue;
 
-		}*/
+		}
 		if(isDuplicate)
 		{
-			System.out.println("Product Already Present & given details updated");
-			ProductCatologueobj.getProductCatologue().set(i,newProduct);
+			//this.SellerItems.set(i,newProduct);
+			getSellerItems().add(newProduct);
 		}
 		else
 		{
 			System.out.println("Product Added");
-			ProductCatologueobj.getProductCatologue().add(newProduct);
-			//ProductCatologueobj.setProductCatologue()
-			
 			getSellerItems().add(newProduct);
 		}
 		
@@ -163,12 +162,13 @@ public class Seller {
 	
 	public void removeProduct()
 	{
+		
 		viewProducts();
 		boolean isRemoved=false;
 		System.out.println("Please enter the Product Name to be removed!");
 
 		System.out.println("Please Enter Product_Name: ");
-		productName=scan.next();
+		String productName=scan.next();
 		
 		for(int i=0; i<getSellerItems().size(); i++)
 		{
