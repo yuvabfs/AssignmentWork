@@ -33,8 +33,8 @@ public class TicTacToe {
 		{
 			for(int j=0;j<3;j++)
 			{
-				System.out.print(ticToe2[i][j]+" ");						//1. Display TicToe Window
-				if(ticToe2[i][j]==null)										//2. & Also Check if it still has NULL, Otherwise End Game
+				System.out.print(ticToe2[i][j]+" ");					//1. Display TicToe Window
+				if(ticToe2[i][j]==null)							//2. & Also Check if it still has NULL, Otherwise End Game
 				hasNull=1;													
 			}
 			System.out.println("\n");
@@ -77,7 +77,7 @@ public class TicTacToe {
 				return gameOverFlag;
 	}
 	
-															//To Switch between Players & Also to control the Player's input
+												//To Switch between Players & Also to control the Player's input
 	private static void playersTurn(int x) {
 		int count=0;
 		System.out.println("1 or 2 or 3\n4 or 5 or 6\n7 or 8 or 9\nType your choice[1-9]: ");
@@ -90,7 +90,7 @@ public class TicTacToe {
 		{
 			for(int j=0;j<3;j++)
 			{
-			count++;														//To decode user input into Array indices[Rows&Column)
+			count++;						//To decode user input into Array indices[Rows&Column)
 			if(count==markCell )
 			{
 				if(TicToe[i][j]!=null)
@@ -101,7 +101,7 @@ public class TicTacToe {
 					}
 				else if(round%2!=0)
 				{
-					TicToe[i][j]="X";										//Decides the Player Control- Player-1 or Player-2
+					TicToe[i][j]="X";			//Decides the Player Control- Player-1 or Player-2
 					player=1;
 				}
 				else
