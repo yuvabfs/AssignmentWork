@@ -1,0 +1,56 @@
+package marupadi.ecommerce;
+import java.util.*;
+
+public class EcommercePlatform {
+	public static Scanner scan=new Scanner(System.in);
+
+	public static void main(String[] args) {
+		String displayHomePage="";
+		System.out.println("MyKart- Ecommerce Platform");
+		
+		do {
+		UserLogin user=new  UserLogin();
+
+		int BuyerOrSeller= user.isBuyerOrSeller();				//Flag to indicate the user a Buyer or Seller
+		
+		user.setBuyerOrSeller(BuyerOrSeller);					//Set Flag value
+	
+		String userID= user.login(user.getBuyerOrSeller());		//Verify userID - if Buyer[buyer1/buyer2/buyer3] else if Seller[seller1/seller2/seller3]
+		
+		user.setUserName(userID);
+		if(user.getBuyerOrSeller()==1 && user.getUserName()!=null)
+		{
+				Buyer buyer = new Buyer();
+				buyer.setBuyerID(user.getUserName());
+				
+				buyer.ProductCatologueobj.initializeProductCatologue();
+				System.out.println("Hello! "+user.getUserName()+" Welcome to MyKart.com!!");
+				buyer.accessBuyerOperation();
+				
+		
+		}
+		else if(user.getBuyerOrSeller()==2 && user.getUserName()!=null)
+		{
+			Seller seller =new Seller();
+			seller.setSellerID(user.getUserName());
+			seller.ProductCatologueobj.initializeProductCatologue();
+			seller.initializeSellerItems();
+			System.out.println("Hello! "+user.getUserName()+" Welcome to MyKart.com!!");
+			seller.accessSellerMenu();
+			
+		}
+
+			do {
+			System.out.println("Load Home Page: Type[Y/N]");
+			displayHomePage=scan.next();
+			}while(!displayHomePage.equals("Y")&&!displayHomePage.equals("N"));
+		
+		}while(!displayHomePage.equals("N"));
+		
+		//System.out.println("Enter your userName: ");
+		
+
+		
+	}
+
+}
