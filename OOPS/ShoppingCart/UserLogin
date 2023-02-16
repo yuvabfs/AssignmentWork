@@ -1,0 +1,86 @@
+package marupadi.ecommerce;
+
+import java.util.Scanner;
+
+public class UserLogin {
+	Scanner scan=new Scanner(System.in);
+
+	
+	//Attributes
+	private int BuyerOrSeller;
+
+	private String UserName;
+
+	//Getters and Setters
+	public void setUserName(String userID) {
+		this.UserName=userID;
+	}
+
+
+	public int getBuyerOrSeller() {
+		return BuyerOrSeller;
+	}
+
+
+	public void setBuyerOrSeller(int buyerOrSeller) {
+		BuyerOrSeller = buyerOrSeller;
+	}
+
+
+	public String getUserName() {
+		return UserName;
+	}
+	
+	
+	//Methods Blocks
+	public int isBuyerOrSeller()
+
+	{
+		System.out.println("Are you a \n1.Buyer?\n  or\n2.Seller\nType '1' or '2'");
+		int BuyerOrSeller=0;
+		
+		do {
+			
+			BuyerOrSeller=scan.nextInt();
+			
+		}while(!(BuyerOrSeller==1) && !(BuyerOrSeller==2));
+		
+		return BuyerOrSeller;
+	}
+
+
+	public String login(int BuyerOrSeller)
+
+	{
+		SellerDatabase sellerDB=new SellerDatabase();
+		BuyerDatabase buyerDB=new BuyerDatabase();
+		String userID="";
+
+		if(BuyerOrSeller==2)
+		{
+		
+		do {
+			System.out.println("Enter your Seller_ID: ");
+			userID=scan.next();
+		}while(!sellerDB.getSellerDatabase().contains(userID) );	
+		}
+		
+		
+		else if(BuyerOrSeller==1)
+		{
+		do {				
+			System.out.println("Enter your Buyer_ID: ");
+			userID=scan.next();
+			
+		}while(!buyerDB.getBuyerDatabase().contains(userID) );
+		}
+
+		return userID;
+		
+	}
+
+
+
+
+
+}
