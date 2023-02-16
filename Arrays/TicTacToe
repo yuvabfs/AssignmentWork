@@ -18,8 +18,8 @@ public class TicTacToe {
 		System.out.println("Lets begin!");
 
 		while(ticToeStatus(TicToe)!=0&&isGameOver(TicToe,player)==0) // ----------->	//Two Pre-conditions to check before proceeding the game																																				
-		{																				//1. isgameOver: To make sure that 'No one has won the game'
-			round++;																	//2. ticToeStatus: If TicToe still has NULL space for player to fill-in	
+		{										//1. isgameOver: To make sure that 'No one has won the game'
+			round++;								//2. ticToeStatus: If TicToe still has NULL space for player to fill-in	
 			playersTurn(round);		
 		}
 		
@@ -48,7 +48,7 @@ public class TicTacToe {
 
 	private static int isGameOver(String[][] a, int player) {
 		int gameOverFlag=0;
-																					//To check elements at Same Rows or Same Columns 
+												//To check elements at Same Rows or Same Columns 
 		for (int i=0;i<3;i++)
 		{
 		if((a[i][0]==a[i][1])&&(a[i][0]==a[i][2])&&(a[i][0]!=null))
@@ -61,7 +61,7 @@ public class TicTacToe {
 			}
 		}
 		
-																					//To check diagonal Elements 
+												//To check diagonal Elements 
 		if((a[0][0]==a[1][1])&&(a[0][0]==a[2][2])&&(a[0][0]!=null))
 		{
 		gameOverFlag=1;
