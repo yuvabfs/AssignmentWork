@@ -1,0 +1,69 @@
+package marupadi.ecommerce;
+import java.util.*;
+
+public class Cart {
+	private ArrayList<Products> AddedProducts=new ArrayList<>();
+	
+	private int NoOfItemsAdded=AddedProducts.size();
+	
+	public ArrayList<Products> getAddedProducts() {
+		return AddedProducts;
+	}
+
+	public void setAddedProducts(ArrayList<Products> addedProducts) {
+		AddedProducts = addedProducts;
+	}
+
+
+
+	private double totalCartValue;
+	
+
+	public int getNoOfItemsAdded() {
+		return NoOfItemsAdded;
+	}
+
+	public void setNoOfItemsAdded(int noOfItemsAdded) {
+		NoOfItemsAdded = noOfItemsAdded;
+	}
+	
+
+	
+	public double getTotalCartValue() {
+		return totalCartValue;
+	}
+
+	public void setTotalCartValue(double totalCartValue) {
+		this.totalCartValue = totalCartValue;
+	}
+	
+	
+	public void displayCart()
+	{
+		System.out.println("S.No\tProductName\t\tProductPrice\t\tProductQuantity\t\tProductSoldBy");
+		if(getAddedProducts().isEmpty())
+			System.out.println("\n\t\t\t\tCart is Empty! Shop Now!!\n\n");
+		else
+		{
+		
+		for(int i=0;i<getAddedProducts().size();i++)
+		{
+			System.out.print(i+1+"\t");
+			System.out.print(getAddedProducts().get(i).getProductName()+"\t\t");
+			System.out.print(getAddedProducts().get(i).getProductPrice()+"\t\t\t\t");
+			System.out.print(getAddedProducts().get(i).getProductQuantity()+"\t\t");
+			System.out.print(getAddedProducts().get(i).getProductSoldBy()+"\n");
+		
+		}
+		}
+	}
+	
+	
+	public void totalCartValue()
+	{
+		//return a double
+	}
+
+
+
+}
