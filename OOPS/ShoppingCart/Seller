@@ -1,0 +1,218 @@
+package marupadi.ecommerce;
+
+import java.util.*;
+
+public class Seller {
+	private String SellerID;
+	private ArrayList<Products> SellerItems=new ArrayList<>();
+	Scanner scan=new Scanner(System.in);
+	Products product1=new Products();
+	Products product2=new Products();
+	Products product3=new Products();
+	ProductCatologue ProductCatologueobj=new ProductCatologue();
+	
+	String productName; int productQuantity;float productPrice;
+	
+	//private ArrayList<Products> ItemsSold=new ArrayList<>();
+	public String getSellerID() {
+		return SellerID;
+	}
+	public void setSellerID(String sellerID) {
+		SellerID = sellerID;
+	}
+	public ArrayList<Products> initializeSellerItems() {
+		
+		product1.setProductName("product_1"); product1.setProductPrice(100.00f); 
+		product1.setProductQuantity(10);product1.setProductSoldBy("seller1");SellerItems.add(product1);
+		product2.setProductName("product_2"); product2.setProductPrice(500.00f); 
+		product2.setProductQuantity(20);product2.setProductSoldBy("seller2");SellerItems.add(product2);
+		product3.setProductName("product_3"); product3.setProductPrice(600.00f); 
+		product3.setProductQuantity(0);product3.setProductSoldBy("seller3");SellerItems.add(product3);
+		
+		return SellerItems;
+	}
+	public ArrayList<Products> getSellerItems() {
+
+		
+		return SellerItems;
+	}
+	public void setSellerItems(ArrayList<Products> updateList) {
+		
+		
+		this.SellerItems = updateList;
+	}
+
+
+	public void accessSellerMenu()
+	{
+		int sellerChoice=0;
+			System.out.println("Menu: \n1.View Products in your Sale List\n2.Add Products for Sale"
+				+ "\n3.Remove Product from My List\n4.Modify Product List\n5.Logout");
+		
+		
+		do
+		{
+			System.out.println("Select Menu[1 or 2 or 3 or 4 or 5]");
+			sellerChoice=scan.nextInt();
+		}while(sellerChoice<=0 || sellerChoice>5);
+		
+		if(sellerChoice==1)
+		{
+			
+			viewProducts();
+			accessSellerMenu();
+		}
+		else if(sellerChoice==2)
+		{
+			
+			addProduct(SellerID);
+			accessSellerMenu();
+		}
+		else if(sellerChoice==3)
+		{
+			
+			removeProduct();
+			accessSellerMenu();
+		}
+		else if(sellerChoice==4)
+		{
+			
+		}
+		else
+		{
+			System.out.println("Logged out Successfully!");
+		}
+		
+		System.out.println("");
+		
+	}
+	public void addProduct(String SellerID)
+	{
+		Products newProduct=new Products();
+		boolean isDuplicate=false; 
+		newProduct.setProductSoldBy(SellerID);
+		String YorN;
+		do {		
+		System.out.println("Provide Product Detail Below:");
+		
+		System.out.println("Please Enter Product_Name: ");
+		productName=scan.next();
+		newProduct.setProductName(productName);
+		System.out.println("Please Enter Product_Quantity: ");
+		productQuantity=scan.nextInt();
+		newProduct.setProductQuantity(productQuantity);
+		System.out.println("Enter the Price");			
+		productPrice=scan.nextFloat();
+		newProduct.setProductPrice(productPrice);
+		
+		int i=0;
+		
+		
+		for(int i=0;i<ProductCatologueobj.getProductCatologue().size();i++)
+		{
+			if(ProductCatologueobj.getProductCatologue().get(i).getProductSoldBy().equals(SellerID) && ProductCatologueobj.getProductCatologue().get(i).getProductName().equals(productName) )				
+			{
+				isDuplicate=true;
+				
+	
+				break;
+			}
+			else
+				continue;
+			
+		}
+		/*for( i=0; i<getSellerItems().size(); i++)
+		{
+			if(getSellerItems().get(i).getProductSoldBy().equals(SellerID) && getSellerItems().get(i).getProductName().equals(productName) )				
+			{
+				isDuplicate=true;
+				System.out.println("Product Already Present & details updated");
+				getSellerItems().get(i).setProductName(" ");
+				getSellerItems().get(i).setProductPrice(0);
+				getSellerItems().get(i).setProductQuantity(0);
+				getSellerItems().get(i).setProductSoldBy(" ");
+				break;
+			}
+			else
+				continue;
+
+		}*/
+		if(isDuplicate)
+		{
+			System.out.println("Product Already Present & given details updated");
+			ProductCatologueobj.getProductCatologue().set(i,newProduct);
+		}
+		else
+		{
+			System.out.println("Product Added");
+			ProductCatologueobj.getProductCatologue().add(newProduct);
+			//ProductCatologueobj.setProductCatologue()
+			
+			getSellerItems().add(newProduct);
+		}
+		
+		
+		System.out.println("Want to add More Products? Type:[Y/N]");
+		YorN=scan.next();
+		
+
+		
+		}while(!(YorN.equalsIgnoreCase("Y"))&&!(YorN.equalsIgnoreCase("N")));
+	}
+	
+	
+	public void removeProduct()
+	{
+		viewProducts();
+		boolean isRemoved=false;
+		System.out.println("Please enter the Product Name to be removed!");
+
+		System.out.println("Please Enter Product_Name: ");
+		productName=scan.next();
+		
+		for(int i=0; i<getSellerItems().size(); i++)
+		{
+		if(getSellerItems().get(i).getProductSoldBy().equals(SellerID) && getSellerItems().get(i).getProductName().equals(productName) )				
+		{
+			getSellerItems().get(i).setProductName(" ");
+			getSellerItems().get(i).setProductPrice(0);
+			getSellerItems().get(i).setProductQuantity(0);
+			getSellerItems().get(i).setProductSoldBy(" ");
+			isRemoved=true;
+		}
+		}
+		if(isRemoved)
+		{
+			System.out.println("Removed Product! Updated Product List!");
+		}
+		else
+		{
+			System.out.println("Product Not Found! Try again!");
+			removeProduct();
+		}
+		viewProducts();		
+	}
+	
+	
+	
+	public void viewProducts()
+	{
+		System.out.println("ProductName\t\tProductPrice\t\tProductQuantity\t\tProductSoldBy");
+		for(int i=0; i<SellerItems.size(); i++)
+		{
+			if(getSellerItems().get(i).getProductSoldBy().equals(getSellerID()))				
+			{
+			System.out.print(SellerItems.get(i).getProductName()+"\t\t");
+			System.out.print(SellerItems.get(i).getProductPrice()+"\t\t\t\t");
+			System.out.print(SellerItems.get(i).getProductQuantity()+"\t\t");
+			System.out.print(SellerItems.get(i).getProductSoldBy()+"\n");
+			}
+		}
+	}
+	public void modifyProducts()
+	{
+		
+	}
+
+
+}
