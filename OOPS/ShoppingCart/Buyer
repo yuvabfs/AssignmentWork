@@ -1,0 +1,307 @@
+package marupadi.ecommerce;
+import java.util.*;
+
+public class Buyer {
+	private String BuyerID;
+
+	ProductCatologue ProductCatologueobj=new ProductCatologue();
+	Cart cartObj=new Cart();
+	//Products newProduct=new Products();
+	Scanner scan=new Scanner(System.in); 
+	
+	public String getBuyerID() {
+		return BuyerID;
+	}
+	public void setBuyerID(String buyerID) {
+		BuyerID = buyerID;
+	}
+	
+	
+	public void accessBuyerOperation()
+	{
+		
+		int buyerChoice=0;
+		System.out.println("Menu: \n1.View Products\n2.Shop Products\n3.Logout");
+	
+	
+	do
+	{
+		System.out.println("Select Menu[ 1 or 2 or 3 ]");
+		buyerChoice=scan.nextInt();
+	}while(buyerChoice<=0 || buyerChoice>3);
+	
+	if(buyerChoice==1)			//View Products
+	{
+		
+		viewProducts();
+		accessBuyerOperation();
+		
+	}
+	else if(buyerChoice==2)		//Shop Products
+	{
+		
+		shopProducts();
+
+		
+		
+	}
+	else
+	{
+		System.out.println("Logged out Successfully!");
+	}
+	
+	System.out.println("");
+	}
+	
+	
+	
+	public void viewProducts()
+	{
+		
+		System.out.println("\t\t\t\tMyKart.com PRODUCT LIST\t\t\t\t");
+		System.out.println("No.\tProductName\t\tProductPrice\t\tProductQuantity\t\tProductSoldBy");
+		
+		for(int i=0;i<ProductCatologueobj.getProductCatologue().size();i++)
+		{
+			System.out.print(i+1+"\t");
+			System.out.print(ProductCatologueobj.getProductCatologue().get(i).getProductName()+"\t\t");
+			System.out.print(ProductCatologueobj.getProductCatologue().get(i).getProductPrice()+"\t\t\t\t");
+			System.out.print(ProductCatologueobj.getProductCatologue().get(i).getProductQuantity()+"\t\t");
+			System.out.print(ProductCatologueobj.getProductCatologue().get(i).getProductSoldBy()+"\n");
+		}
+	}
+	
+	public void shopProducts() {
+		int shopMenuChoice;
+		System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~Shop Products!~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+		System.out.println("\t\t\t#####Your Shopping Cart#####");
+		
+			
+		cartObj.displayCart();//---------------------------------->******Yet to 
+		do {
+		System.out.println("1.Add Products to Cart\n2.Remove Products from Cart\n3.Modify Cart Items\n4.Confirm Cart\n5.Back to Home Page");
+		System.out.println("Type[1 or 2 or 3 or 4 or 5]");
+		shopMenuChoice=scan.nextInt();
+		}while(shopMenuChoice<1&&shopMenuChoice>5);
+		
+		if(shopMenuChoice==1)
+		{
+			viewProducts();
+			addToCart();
+			accessBuyerOperation();
+		}
+		else if(shopMenuChoice==2)
+		{
+			removeCartItems();
+			
+		}
+		else if(shopMenuChoice==3)
+		{
+			modifyCart();
+		}
+		else if(shopMenuChoice==4)
+		{
+			confirmOrder();
+		}
+		else
+		{
+			accessBuyerOperation();
+		}
+	}
+
+	public void addToCart()
+	{
+		
+		int productNumber=0;
+		
+		//STEP 1: Buyer selects product number from List of available items
+		System.out.println("Type the Product number and Press Enter to add  to cart!");
+		productNumber=scan.nextInt();
+		
+		
+		//To verify that the Buyer selects the number only within available range
+		if(productNumber>0 && ProductCatologueobj.getProductCatologue().size()>=productNumber)
+		{
+			Products newProduct=new Products();
+			int productQuantity=0;
+			String productName=null;		
+			float productPrice=0.0f;		
+			String productSoldBy=null;
+			boolean isDuplicate=false;
+			//ArrayList<Products> adding = new ArrayList<>(); //Temporary List
+		//STEP 2: Buyer enters the quantity required	
+			System.out.println("Enter the Quantity You need: ");
+			productQuantity=scan.nextInt();
+			newProduct.setProductQuantity(productQuantity);
+			
+		//To check if Buyer adds Items more than available Quantity- Display warning  
+			if(ProductCatologueobj.getProductCatologue().get(productNumber-1).getProductQuantity()<productQuantity)
+			{
+				System.out.println("We have only less Quantity! Please try again");
+				addToCart();
+			}
+		//Generating other detail of the chosen product and storing in Temporarily- 'newProduct'
+			else
+			{
+			newProduct.setProductName(ProductCatologueobj.getProductCatologue().get(productNumber-1).getProductName());
+			//productName= ProductCatologueobj.getProductCatologue().get(productNumber-1).getProductName();
+			
+			productPrice= ProductCatologueobj.getProductCatologue().get(productNumber-1).getProductPrice();
+			newProduct.setProductPrice(productPrice);
+			
+			productSoldBy= ProductCatologueobj.getProductCatologue().get(productNumber-1).getProductSoldBy();
+			newProduct.setProductSoldBy(productSoldBy);
+			}
+		
+		//To Check if the product is already added to Cart
+			
+			for(int i=0;i<cartObj.getAddedProducts().size();i++)
+			{
+			if(cartObj.getAddedProducts().get(i).getProductName().equals(newProduct.getProductName()))
+			{
+				isDuplicate=true;
+				System.out.println("Product Already Present! Your Choice has been updated!!");
+				//Replace the existing List if item already present in cart
+				cartObj.getAddedProducts().set(i,newProduct);
+				cartObj.setAddedProducts(cartObj.getAddedProducts());
+				shopProducts();
+				
+			}
+			}
+
+			if(isDuplicate==false)
+			{
+				//Add as new Item if it is not present already	
+				System.out.println("New Product added to Cart!");
+				cartObj.getAddedProducts().add(newProduct);	
+				cartObj.setAddedProducts(cartObj.getAddedProducts());
+				shopProducts();
+			}
+		} 
+		else
+		{	
+			System.out.println("#*#*#*#*Enter only the Available product Number#*#*#*#*");
+			addToCart();											//Redirecting user to select product number again 
+		}
+	}
+
+	
+
+	
+	public void removeCartItems()
+	{
+		//Verify if the Cart is not Empty- So as to perform Removal Operation
+		if(!cartObj.getAddedProducts().isEmpty())
+		{
+			System.out.println("Enter the Product number to be deleted");
+			int productNumber=scan.nextInt();
+			//Check if the Number range is not outOfBound
+			if(productNumber>0 && cartObj.getAddedProducts().size()>=productNumber)
+			{
+				cartObj.getAddedProducts().remove(productNumber-1);
+				System.out.println("Items Removed from Cart");
+				shopProducts();
+			}
+			else
+			{
+				System.out.println("#*#*#*#*Enter only the Product Number available in your Cart#*#*#*#*");
+				shopProducts();
+			}
+			
+		}
+		else
+		{
+			System.out.println("#*#*#*#*Your Cart is Empty! Shop Now!#*#*#*#*");
+			shopProducts();
+		}
+	}
+	
+	public void modifyCart()
+	{
+		//Verify if the Cart is not Empty- So as to perform Modification
+				if(!cartObj.getAddedProducts().isEmpty())
+				{
+					System.out.println("Enter the Product number to be Modified");
+					int productNumber=scan.nextInt();
+					//Check if the Number range is not outOfBound
+					if(productNumber>0 && cartObj.getAddedProducts().size()>=productNumber)
+					{
+						System.out.println("Enter the New Quantity to update:");
+						int productQuantity=scan.nextInt();
+						
+						cartObj.getAddedProducts().get(productNumber-1).setProductQuantity(productQuantity);
+						System.out.println("Cart Item Updated");
+						shopProducts();
+					}
+					else
+					{
+						System.out.println("#*#*#*#*Enter only the Product Number available in your Cart#*#*#*#*");
+						shopProducts();
+					}
+					
+				}
+				else
+				{
+					System.out.println("Your Cart is Empty! Shop Now!");
+					shopProducts();
+				}
+	}
+	
+	public void confirmOrder()
+	{
+		if(!cartObj.getAddedProducts().isEmpty())
+		{
+			//To Get confirmation once again from buyer 
+			String confirmation;
+			do {
+				System.out.println("Type 'Y' to Place order\n \t\t or\n Type 'N' to Go back to Cart");
+				confirmation=scan.next();
+			}while(!confirmation.equalsIgnoreCase("Y")&&!confirmation.equalsIgnoreCase("N"));
+			
+			
+			
+			if(confirmation.equalsIgnoreCase("Y"))
+			{
+				for(int i=0;i<cartObj.getAddedProducts().size();i++)
+				{
+					for(int j=0;j<ProductCatologueobj.getProductCatologue().size();j++)
+					{
+						if(cartObj.getAddedProducts().get(i).getProductName().equals(ProductCatologueobj.getProductCatologue().get(j).getProductName())
+						&&cartObj.getAddedProducts().get(i).getProductSoldBy().equals(ProductCatologueobj.getProductCatologue().get(j).getProductSoldBy()))
+						{
+							int reduceProductCatalogue=ProductCatologueobj.getProductCatologue().get(j).getProductQuantity()-cartObj.getAddedProducts().get(i).getProductQuantity();
+							if (reduceProductCatalogue>=0)
+							{
+								ProductCatologueobj.getProductCatologue().get(j).setProductQuantity(reduceProductCatalogue);
+							}
+							else
+							{
+								ProductCatologueobj.getProductCatologue().get(j).setProductQuantity(0);
+								System.out.println("Ordered only" +ProductCatologueobj.getProductCatologue().get(j).getProductQuantity()
+										+"numbers of" +ProductCatologueobj.getProductCatologue().get(j).getProductName() +" from available Stock ");
+								ProductCatologueobj.getProductCatologue().get(j).setProductQuantity(0);
+							}
+						}
+					}
+				}
+				shopProducts();
+			}
+			else
+			{
+				System.out.println("Redirecting to your Cart!");
+				shopProducts();
+			}
+							
+			cartObj.getAddedProducts().clear();
+			shopProducts();
+		}
+		else
+		{
+			System.out.println("Your Cart is Empty! Shop Now!");
+			shopProducts();
+		}
+	}
+
+
+
+}
