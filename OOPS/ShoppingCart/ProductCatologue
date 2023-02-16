@@ -1,0 +1,45 @@
+package marupadi.ecommerce;
+
+import java.util.*;
+
+public class ProductCatologue {
+		
+	private ArrayList<Products> ProductCatologue=new ArrayList<>();
+	
+	private int totalNoOfProducts;
+	
+	Seller seller=new Seller();
+	
+	public ArrayList<Products> initializeProductCatologue() {
+		seller.initializeSellerItems();
+		setProductCatologue(seller.getSellerItems());
+		this.ProductCatologue=getProductCatologue();
+		return ProductCatologue;
+	}
+	
+	
+	
+	
+	public int getTotalNoOfProducts() {
+		return totalNoOfProducts;
+	}
+
+	public void setTotalNoOfProducts(int totalNoOfProducts) {
+		this.totalNoOfProducts = totalNoOfProducts;
+	}
+
+
+
+	
+	public ArrayList<Products> getProductCatologue() {
+		
+
+		return this.ProductCatologue;
+	}
+
+	public void setProductCatologue(ArrayList<Products> ProductCatologue) {
+		this.ProductCatologue = ProductCatologue;
+	}
+
+
+}
