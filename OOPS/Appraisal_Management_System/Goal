@@ -1,0 +1,47 @@
+package marupadi.appraisal.management.system;
+
+public class Goal{
+	
+	//ATRIBUTES
+	private String goalDescription;
+	private Integer goalWeightage;
+	private String goalStatus;
+	
+	//GETTER SETTER
+	public String getGoalDescription() {
+		return goalDescription;
+	}
+	public void setGoalDescription(String goalDescription) {
+		this.goalDescription = goalDescription;
+	}
+	
+	
+	public Integer getGoalWeightage() {
+		return goalWeightage;
+	}
+	public void setGoalWeightage(Integer goalWeightage) {
+		this.goalWeightage = goalWeightage;
+	}
+	
+	
+	public String getGoalStatus() {
+		return goalStatus;
+	}
+	public void setGoalStatus(String goalStatus) {
+		this.goalStatus = goalStatus;
+	}
+	//CONSTRUCTORS
+	public Goal(String goalDescription,Integer goalWeightage)
+	{
+		this.goalDescription=goalDescription;
+		this.goalWeightage=goalWeightage;
+	}
+	
+	public Goal() {
+		// TODO Auto-generated constructor stub
+	}
+
+
+
+	
+}
