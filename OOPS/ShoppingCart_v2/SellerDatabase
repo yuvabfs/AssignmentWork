@@ -1,0 +1,46 @@
+package marupadi.ecommerce;
+import java.util.*;
+
+
+public class SellerDatabase {
+	
+	//Attributes
+	private int totalNoOfSellers;
+	private LinkedHashSet<String> SellerDatabase=new LinkedHashSet<>();
+	
+
+	
+	//Getters Setters
+	
+	public void setSellerDatabase(LinkedHashSet<String> SellerDatabase)
+	{
+		this.SellerDatabase=SellerDatabase;
+	}
+	public LinkedHashSet<String> getSellerDatabase()
+	{
+		return SellerDatabase;
+	}
+ 
+	public int getTotalNoOfSellers() {
+		return totalNoOfSellers;
+	}
+	public void setTotalNoOfSellers(int totalNoOfSellers) {
+											
+		this.totalNoOfSellers = totalNoOfSellers;
+	}
+	
+	
+	
+	//Constructor to Initialize!
+	SellerDatabase()
+	{
+		getSellerDatabase().add("seller1");
+		getSellerDatabase().add("seller2");
+		getSellerDatabase().add("seller3");
+		setSellerDatabase(getSellerDatabase());
+		totalNoOfSellers=getSellerDatabase().size();
+	}
+	
+
+}
+
