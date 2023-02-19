@@ -1,0 +1,102 @@
+package marupadi.ecommerce;
+import java.util.*;
+
+public class EcommercePlatform {
+	public static Scanner scan=new Scanner(System.in);
+
+	public static void main(String[] args) {
+		String displayHomePage="";
+		System.out.println("MyKart- Ecommerce Platform");
+		
+		do {
+		UserLogin userlogin=new  UserLogin();
+
+		userlogin.setBuyerOrSeller(userlogin.isBuyerOrSeller());			//Flag to indicate the user a Buyer or Seller
+		
+		userlogin.getBuyerOrSeller();
+		
+		userlogin.login(userlogin.getBuyerOrSeller());
+		
+		
+		if(userlogin.getBuyerOrSeller()==1 && userlogin.getUserName()!=null)
+		{
+				Buyer buyer = new Buyer();
+				buyer.setBuyerID(userlogin.getUserName());
+				System.out.println(userlogin.getUserName());
+				//buyer.ProductCatologueobj.initializeProductCatologue();
+				System.out.println("Hello! "+userlogin.getUserName()+" Welcome to MyKart.com!!");
+				//buyer.accessBuyerOperation();
+				
+		
+		}
+//IF SELLER IS LOGGING-IN
+		else if(userlogin.getBuyerOrSeller()==2 && userlogin.getUserName()!=null)
+		{
+			
+			Seller seller =new Seller();
+			seller.setSellerID(userlogin.getUserName());
+			
+			
+			int sellerChoice=0;
+			
+//DISPLAY SELLER MENU 		
+		do {																//DO-WHILE Loop: To display Seller Menu on loop until Log-out option is selected
+			System.out.println("Hello! "+userlogin.getUserName()+" Welcome to MyKart.com!!");
+			System.out.println("Menu: \n1.View Products in your Sale List\n2.Add Products for Sale"
+				+ "\n3.Remove Product from My List\n4.Modify Product List\n5.Logout");
+			
+		
+			do																//DO-WHILE Loop: To handle incorrect entry for 'sellerChoice' value
+			{
+				System.out.println("Select Menu[1 or 2 or 3 or 4 or 5]");
+				sellerChoice=scan.nextInt();
+			}while(sellerChoice<=0 || sellerChoice>5);
+		
+			
+			switch(sellerChoice)											//SWITCH - To handle Seller menu based on sellerChoice 
+			{
+			case 1:
+				seller.viewProducts();
+				break;
+			case 2:
+				System.out.println("~~ADDING NEW PRODUCT | ENTER BELOW DETAILS~");
+				System.out.println("Enter the Product Name:");
+				scan.nextLine();
+				String product_name=scan.nextLine().toUpperCase();
+				String newProductIdGenerated=seller.getSellerID().concat("_"+product_name);
+				System.out.println("Enter the Product Price:");
+				Double product_price=scan.nextDouble();
+				Products newProduct=new Products(newProductIdGenerated,product_name,product_price);
+				seller.addProduct(newProduct);
+				break;
+			case 3:
+				seller.viewProducts();
+				System.out.println("Choose the Product to be removed");
+				scan.nextLine();
+				String itemToRemove=scan.nextLine().toUpperCase();
+				seller.removeProduct(itemToRemove);
+				break;
+			case 4:
+				seller.viewProducts();
+				System.out.println("Choose the Product to be Modified");
+				scan.nextLine();
+				String itemToModify=scan.nextLine().toUpperCase();
+				seller.modifyProducts(itemToModify);
+				break;
+					
+			}
+		
+		}while(sellerChoice!=5);
+		System.out.println("Logged out Successfully!");						
+		}
+		
+		do {
+			System.out.println("Load Home Page: Type[Y/N]");
+			displayHomePage = scan.next();
+		} while (!displayHomePage.equalsIgnoreCase("Y") && !displayHomePage.equalsIgnoreCase("N"));
+
+	} while (!displayHomePage.equalsIgnoreCase("N"));
+
+	}
+
+}
