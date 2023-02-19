@@ -92,7 +92,7 @@ public class Employee {
 	}
 
 	
-//SELF REVIEW-MODULE
+//REVIEW-MODULES
 	public LinkedHashMap<Goal,Integer> reviewGoal()
 	{
 		Scanner scan=new Scanner(System.in);
@@ -168,23 +168,7 @@ public class Employee {
 	}
 
 
-//PEER REVIEW-MODULES
-	public LinkedHashMap<Goal,Integer> reviewGoal(LinkedHashMap<Goal,Integer> goalList)
-	{
-		LinkedHashMap<Goal,Integer> reviewedGoalList=new LinkedHashMap<>();
 
-		return reviewedGoalList;
-	}
-	public LinkedHashMap<Assignment,Integer> reviewAssignment(LinkedHashMap<Assignment,Integer> assignmentList)
-	{
-
-		return assignmentList;
-	}
-	public LinkedHashMap<Project,Integer> reviewProject(LinkedHashMap<Project,Integer> projectList)
-	{
-
-		return projectList;
-	}
 	
 	
 }
