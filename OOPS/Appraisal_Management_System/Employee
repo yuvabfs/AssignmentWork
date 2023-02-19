@@ -1,0 +1,190 @@
+package marupadi.appraisal.management.system;
+import java.util.*;
+
+
+public class Employee {
+	
+	private String employeeID;
+	private String employeeName;
+	private String employeeRole;
+	private Integer employeeGrade;
+	private Integer moduleItemsRating;
+	private LinkedHashMap<Goal,Integer> goalList=new LinkedHashMap<>();
+	private LinkedHashMap<Assignment,Integer> assignmentList=new LinkedHashMap<>();
+	private LinkedHashMap<Project,Integer> projectList=new LinkedHashMap<>();
+
+	
+//Constructor to initialize Known Details
+	public Employee(String employeeID, String employeeName, String employeeRole, Integer employeeGrade) {
+		this.employeeID=employeeID;
+		this.employeeName=employeeName;
+		this.employeeRole=employeeRole;
+		this.employeeGrade=employeeGrade;
+	}
+	
+//Constructor to Set-up Employee Detail Goal,Assignment and Project Module.
+	public Employee(String employeeID, String employeeName, String employeeRole, Integer employeeGrade,
+	LinkedHashMap<Goal,Integer> goalList,LinkedHashMap<Assignment,Integer> assignmentList,LinkedHashMap<Project,Integer> projectList)
+	{
+		this.employeeID=employeeID;
+		this.employeeName=employeeName;
+		this.employeeRole=employeeRole;
+		this.employeeGrade=employeeGrade;
+		this.goalList=goalList;
+		this.assignmentList=assignmentList;
+		this.projectList=projectList;
+	}
+	
+	public String getEmployeeID() {
+		return employeeID;
+	}
+	public void setEmployeeID(String employeeID) {
+		this.employeeID = employeeID;
+	}
+	
+	public String getEmployeeName() {
+		return employeeName;
+	}
+	public void setEmployeeName(String employeeName) {
+		this.employeeName = employeeName;
+	}
+
+	public String getEmployeeRole() {
+		return employeeRole;
+	}
+	public void setEmployeeRole(String employeeRole) {
+		this.employeeRole = employeeRole;
+	}
+	
+	public Integer getEmployeeGrade() {
+		return employeeGrade;
+	}
+	public void setEmployeeGrade(Integer employeeGrade) {
+		this.employeeGrade = employeeGrade;
+	}
+	
+	public Integer getmoduleItemsRating() {
+		return moduleItemsRating;
+	}
+	public void setModuleItemsRating(Integer moduleItemsRating) {
+		this.moduleItemsRating = moduleItemsRating;
+	}
+	
+	public LinkedHashMap<Goal,Integer> getGoalList() {
+		return goalList;
+	}
+	public void setGoalList(LinkedHashMap<Goal,Integer> goalList) {
+		this.goalList = goalList;
+	}
+	
+	public LinkedHashMap<Assignment,Integer> getAssignmentList() {
+		return assignmentList;
+	}
+	public void setAssignmentList(LinkedHashMap<Assignment,Integer> assignmentList) {
+		this.assignmentList = assignmentList;
+	}
+	
+	public LinkedHashMap<Project,Integer> getProjectList() {
+		return projectList;
+	}
+	public void setProjectList(LinkedHashMap<Project,Integer> projectList) {
+		this.projectList = projectList;
+	}
+
+	
+//SELF REVIEW-MODULE
+	public LinkedHashMap<Goal,Integer> reviewGoal()
+	{
+		Scanner scan=new Scanner(System.in);
+		Integer  Rating=0; 
+		System.out.println("Goal Description\t\tGoal Weightage");
+		for(Goal yourGoal: getGoalList().keySet())
+		{
+			do
+			{
+				System.out.print(yourGoal.getGoalDescription()+"\t\t");
+				System.out.print(yourGoal.getGoalWeightage()+"\t\t");
+				System.out.print("Enter your Rating[1-5]: "); 
+				Rating=scan.nextInt();
+			}while(Rating>5 ||Rating<0);
+			
+			setModuleItemsRating(Rating);
+			getGoalList().put(yourGoal,getmoduleItemsRating());
+			setGoalList(getGoalList());
+		}
+		System.out.println("Your Goal Rating has been Saved");
+
+		return getGoalList();
+	}
+	public LinkedHashMap<Assignment,Integer> reviewAssignment()
+	{
+		Scanner scan=new Scanner(System.in);
+		Integer  Rating=0; 
+		System.out.println("Assignment Description\t\tAssignment Weightage\t");
+	
+		for(Assignment yourAssignment: getAssignmentList().keySet())
+		{
+			do
+			{
+				System.out.print(yourAssignment.getAssignmentDescription()+"\t\t");
+				System.out.print(yourAssignment.getAssignmentWeightage()+"\t");
+				System.out.print("Enter your Rating[1-5]: "); 
+				Rating=scan.nextInt();
+			}while(Rating>5 ||Rating<0);
+			
+			setModuleItemsRating(Rating);
+			getAssignmentList().put(yourAssignment,getmoduleItemsRating());
+			setAssignmentList(getAssignmentList());
+		}
+		System.out.println("Your Assignment Rating has been Saved");
+
+		return getAssignmentList();
+
+		
+	}
+	public LinkedHashMap<Project,Integer> reviewProject()
+	{
+		Scanner scan=new Scanner(System.in);
+		Integer  Rating=0; 
+		System.out.println("Project Description\t\tProject Weightage");
+		for(Project yourProject: getProjectList().keySet())
+		{
+			do
+			{
+				System.out.print(yourProject.getProjectDescription()+"\t\t");
+				System.out.print(yourProject.getProjectWeightage()+"\t\t");
+				System.out.print("Enter your Rating[1-5]: "); 
+				Rating=scan.nextInt();
+			}while(Rating>5 ||Rating<0);
+			
+			setModuleItemsRating(Rating);
+			getProjectList().put(yourProject,getmoduleItemsRating());
+			setProjectList(getProjectList());
+		}
+		System.out.println("Your Goal Rating has been Saved");
+
+		return getProjectList();
+
+	}
+
+
+//PEER REVIEW-MODULES
+	public LinkedHashMap<Goal,Integer> reviewGoal(LinkedHashMap<Goal,Integer> goalList)
+	{
+		LinkedHashMap<Goal,Integer> reviewedGoalList=new LinkedHashMap<>();
+
+		return reviewedGoalList;
+	}
+	public LinkedHashMap<Assignment,Integer> reviewAssignment(LinkedHashMap<Assignment,Integer> assignmentList)
+	{
+
+		return assignmentList;
+	}
+	public LinkedHashMap<Project,Integer> reviewProject(LinkedHashMap<Project,Integer> projectList)
+	{
+
+		return projectList;
+	}
+	
+	
+}
