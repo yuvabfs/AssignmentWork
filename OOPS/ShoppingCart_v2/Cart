@@ -1,0 +1,40 @@
+package marupadi.ecommerce;
+
+
+public class Cart {
+	
+	//Attributes
+	private int NoOfItemsAdded;
+	private double totalCartValue;
+
+	//Getters and setters
+
+	public int getNoOfItemsAdded() {
+		return NoOfItemsAdded;
+	}
+	public void setNoOfItemsAdded(int noOfItemsAdded) {
+		NoOfItemsAdded = noOfItemsAdded;
+	}
+	
+	public double getTotalCartValue() {
+		return totalCartValue;
+	}
+	public void setTotalCartValue(double totalCartValue) {
+		this.totalCartValue = totalCartValue;
+	}
+	
+	
+	//Methods 
+	public void printCart()
+	{
+
+	}
+	
+	
+	public void totalCartValue()
+	{
+		//return a double
+	}
+
+
+}
