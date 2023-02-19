@@ -1,0 +1,104 @@
+package marupadi.appraisal.management.system;
+import java.util.*;
+
+public class EmployeesDB {
+	
+	//ATTRIBUTE
+	ArrayList<Employee> EmployeesList=new ArrayList<>();
+	
+	//GETTER AND SETTER
+	public ArrayList<Employee> getEmployeesList() {
+		return EmployeesList;
+	}
+
+	public void setEmployeesList(ArrayList<Employee> employeesList) {
+		EmployeesList = employeesList;
+	}
+	
+	
+	//CONSTRUCTOR
+	EmployeesDB(){
+
+//Sample Employee list
+	Employee employee4=new Employee("emp004","Manager_Name","Manager",001);
+	Employee employee5=new Employee("emp005","TeamLead_Name","Team_Lead",002);
+	Employee employee6=new Employee("emp006","TeamLead_Name","Team_Lead",002);
+	Employee employee7=new Employee("emp007","TeamLead_Name","Team_Lead",002);
+	Employee employee8=new Employee("emp008","TeamMember_Name","Team_Member",003);
+	Employee employee9=new Employee("emp009","TeamMember_Name","Team_Member",003);
+	Employee employee10=new Employee("emp010","TeamMember_Name","Team_Member",003);
+	Employee employee11=new Employee("emp011","TeamMember_Name","Team_Member",003);
+
+	getEmployeesList().add(employee4);
+	getEmployeesList().add(employee5);
+	getEmployeesList().add(employee6);
+	getEmployeesList().add(employee7);
+	getEmployeesList().add(employee8);
+	getEmployeesList().add(employee9);
+	getEmployeesList().add(employee10);
+	getEmployeesList().add(employee11);
+	
+//Sample Goals, Assignments, Projects
+	Goal Goal1=new Goal("GoalDescription1",100);
+	Goal Goal2=new Goal("GoalDescription2",75);
+	Goal Goal3=new Goal("GoalDescription3",50);
+	Goal Goal4=new Goal("GoalDescription4",100);
+	Goal Goal5=new Goal("GoalDescription5",50);
+	Goal Goal6=new Goal("GoalDescription6",25);
+	LinkedHashMap<Goal,Integer> set1Goals=new LinkedHashMap<>();
+	set1Goals.put(Goal1, 0);
+	set1Goals.put(Goal2, 0);
+	set1Goals.put(Goal3, 0);
+	set1Goals.put(Goal4, 0);
+	set1Goals.put(Goal5, 0);
+	set1Goals.put(Goal6, 0);
+	LinkedHashMap<Goal,Integer> set2Goals=new LinkedHashMap<>();
+	set2Goals.put(Goal3, 0);
+	set2Goals.put(Goal4, 0);
+	set2Goals.put(Goal5, 0);
+	Assignment Assignment1=new Assignment("AssignmentDescription1",25);
+	Assignment Assignment2=new Assignment("AssignmentDescription2",75);
+	Assignment Assignment3=new Assignment("AssignmentDescription3",75);
+	Assignment Assignment4=new Assignment("AssignmentDescription4",50);
+	Assignment Assignment5=new Assignment("AssignmentDescription5",25);
+	Assignment Assignment6=new Assignment("AssignmentDescription6",100);
+	LinkedHashMap<Assignment,Integer> set1Assignments=new LinkedHashMap<>();
+	set1Assignments.put(Assignment1,0);
+	set1Assignments.put(Assignment2, 0);
+	set1Assignments.put(Assignment3, 0);
+	set1Assignments.put(Assignment4, 0);
+	LinkedHashMap<Assignment,Integer> set2Assignments=new LinkedHashMap<>();
+	set2Assignments.put(Assignment3,0);
+	set2Assignments.put(Assignment4, 0);
+	set2Assignments.put(Assignment5, 0);
+	set2Assignments.put(Assignment6, 0);
+	Project Project1=new Project("ProjectDescription1",50);
+	Project Project2=new Project("ProjectDescription2",50);
+	Project Project3=new Project("ProjectDescription3",50);
+	Project Project4=new Project("ProjectDescription4",50);
+	Project Project5=new Project("ProjectDescription5",50);
+	Project Project6=new Project("ProjectDescription6",50);
+	Project Project7=new Project("ProjectDescription7",50);
+	Project Project8=new Project("ProjectDescription8",50);
+	LinkedHashMap<Project,Integer> set1Projects=new LinkedHashMap<>();
+	set1Projects.put(Project1,0);
+	set1Projects.put(Project2, 0);
+	set1Projects.put(Project3, 0);
+	set1Projects.put(Project4, 0);
+	LinkedHashMap<Project,Integer> set2Projects=new LinkedHashMap<>();
+	set2Projects.put(Project5,0);
+	set2Projects.put(Project6, 0);
+	set2Projects.put(Project7, 0);
+	set2Projects.put(Project8, 0);
+	
+	Employee employee1=new Employee("emp001","Manager1_Name","Manager",001,set1Goals,set1Assignments,set2Projects);
+	Employee employee2=new Employee("emp002","Team_Lead1_Name","Manager",002,set2Goals,set2Assignments,set1Projects);
+	Employee employee3=new Employee("emp003","Team_Member1_Name","Manager",003,set1Goals,set1Assignments,set2Projects);
+	
+	getEmployeesList().add(employee1);
+	getEmployeesList().add(employee2);
+	getEmployeesList().add(employee3);
+	
+	setEmployeesList(getEmployeesList());
+	}
+}
