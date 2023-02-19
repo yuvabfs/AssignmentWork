@@ -1,0 +1,77 @@
+package marupadi.ecommerce;
+
+public class Products {
+	
+	//Attributes
+	private String productID;
+	private String productName;		//product1, product2, product3
+	private Double productPrice;		//Double Value
+	
+	
+	
+	//Getters and Setters
+	
+	public String getProductID() {
+		return productID;
+	}
+
+	public void setProductID(String productID) {
+		this.productID = productID;
+	}
+	
+	
+	
+	public String getProductName() {
+		return productName;
+	}
+
+	public void setProductName(String productName) {
+		this.productName = productName;
+	}
+
+	
+	
+	public Double getProductPrice() {
+		return productPrice;
+	}
+	
+	public void setProductPrice(Double productPrice) {
+		this.productPrice = productPrice;
+	}
+
+
+	Products()
+	{
+		
+	}
+	
+	//Constructor to Initialize Products
+	Products(String productID,String productName,Double productPrice)
+	{
+		this.productID=productID;
+		this.productName=productName;
+		this.productPrice=productPrice;
+	}
+	
+	@Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {			//getClass() -Returns a hash code value for the object
+            return false;
+        }
+        Products productObject = (Products) o;					//Casting object type variable to the user defined class type
+        return	productID.equals(productObject.productID);
+    }
+	
+	 public int hashCode(){
+		    return productID.hashCode();
+		  }
+	
+	
+	
+	
+
+
+}
