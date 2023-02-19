@@ -1,0 +1,42 @@
+package marupadi.ecommerce;
+import java.util.*;
+
+public class Buyer {
+	private String BuyerID;
+	private Integer productCartQuantity;
+	private LinkedHashMap<Products,Integer> CartItems=new LinkedHashMap<>();
+	
+	public String getBuyerID() {
+		return BuyerID;
+	}
+	public void setBuyerID(String buyerID) {
+		BuyerID = buyerID;
+	}
+	
+	public LinkedHashMap<Products,Integer> getCartItems() {
+		return CartItems;
+	}
+	public void setCartItems(LinkedHashMap<Products,Integer> cartItems) {
+		CartItems = cartItems;
+	}
+	
+	public Integer getProductCartQuantity() {
+		return productCartQuantity;
+	}
+	public void setProductCartQuantity(Integer productCartQuantity) {
+		this.productCartQuantity = productCartQuantity;
+	}
+
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+}
