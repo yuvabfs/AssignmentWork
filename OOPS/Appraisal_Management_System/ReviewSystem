@@ -1,0 +1,152 @@
+package marupadi.appraisal.management.system;
+
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+
+public class ReviewSystem {
+	
+	//ATRIBUTES
+	private boolean weightageEnabled=false;
+	
+	
+	//GETTER AND SETTER
+	public boolean getWeightageEnabled() {
+		return weightageEnabled;
+	}
+	public void setWeightageEnabled(boolean weightageEnabled) {
+		this.weightageEnabled = weightageEnabled;
+	}
+
+	
+	//Process the Submitted Module Rating - Average and Score Calculations
+	public Double goalAverageCalc(LinkedHashMap<Goal,Integer> GoalList)
+	{
+		Double goalAverage = 0.0,SumOfproduct=0.0,sumOfGoalWeightage=0.0,sumOfRating=0.0;
+		for(Goal thisGoal:GoalList.keySet())
+		{
+			SumOfproduct=SumOfproduct+(thisGoal.getGoalWeightage()*GoalList.get(thisGoal));
+			sumOfGoalWeightage=sumOfGoalWeightage+thisGoal.getGoalWeightage();
+			sumOfRating=sumOfRating+GoalList.get(thisGoal);
+		}
+		if(getWeightageEnabled())
+		{
+			goalAverage=SumOfproduct/sumOfGoalWeightage;
+		}
+		else
+		{
+			goalAverage=sumOfRating/GoalList.size();
+		}
+		
+		return goalAverage;
+	}
+
+
+	public Double assignmentAverageCalc(LinkedHashMap<Assignment,Integer> AssignmentList)
+	{
+		Double assignmentAverage = 0.0,SumOfproduct=0.0,sumOfAssignmentWeightage=0.0,sumOfRating=0.0;
+		for(Assignment thisAssignment:AssignmentList.keySet())
+		{
+			SumOfproduct=SumOfproduct+(thisAssignment.getAssignmentWeightage()*AssignmentList.get(thisAssignment));
+			sumOfAssignmentWeightage=sumOfAssignmentWeightage+thisAssignment.getAssignmentWeightage();
+			sumOfRating=sumOfRating+AssignmentList.get(thisAssignment);
+		}
+		if(getWeightageEnabled())
+		{
+			assignmentAverage=SumOfproduct/sumOfAssignmentWeightage;
+		}
+		else
+		{
+			assignmentAverage=sumOfRating/AssignmentList.size();
+		}
+		
+		return assignmentAverage;
+		
+	}
+	
+
+	public Double projectAverageCalc(LinkedHashMap<Project,Integer> ProjectList)
+	{
+		Double projectAverage = 0.0,SumOfproduct=0.0,sumOfGoalWeightage=0.0,sumOfRating=0.0;
+		for(Project thisProject:ProjectList.keySet())
+		{
+			SumOfproduct=SumOfproduct+(thisProject.getProjectWeightage()*ProjectList.get(thisProject));
+			sumOfGoalWeightage=sumOfGoalWeightage+thisProject.getProjectWeightage();
+			sumOfRating=sumOfRating+ProjectList.get(thisProject);
+		}
+		if(getWeightageEnabled())
+		{
+			projectAverage=SumOfproduct/sumOfGoalWeightage;
+		}
+		else
+		{
+			projectAverage=sumOfRating/ProjectList.size();
+		}
+		
+		return projectAverage;
+		
+		
+	}
+
+	public Double ModuleActualScoreCalc(Double ModuleTotalAverage, Integer TotalNoOfModules) {
+		
+		Double ModuleActualScore=0.0;
+		
+		ModuleActualScore=ModuleTotalAverage/TotalNoOfModules;
+		
+		return ModuleActualScore;
+	}
+	
+	
+	//Method- To calculate final score
+	public String finalRating(Double GoalScore,Double AssignmentScore, Double ProjectScore)
+	{
+		Double finalScore=GoalScore+AssignmentScore+ProjectScore;
+		System.out.println("Final Score: "+finalScore);
+		
+		if(finalScore>4 && finalScore<=5)
+			return "OutStanding";
+		
+		else if(finalScore>3 && finalScore<=4)
+			return "Excellent";
+		
+		else if(finalScore>2 && finalScore<=3)
+			return "Satisfactory";
+		
+		else if(finalScore>1 && finalScore<=2)
+			return "Needs Improvement";
+		
+		else if(finalScore>0 && finalScore<=1)
+			return "Unsatisfactory";
+		else
+		return null;
+		
+	
+	}
+
+
+	//Method- To retrive reportees detail from database for Peer Review
+	public ArrayList<String> getReportees(Integer employeeGrade)
+	{
+		EmployeesDB empDB=new EmployeesDB();
+		
+		ArrayList<String> reportees=new ArrayList<>();
+		
+		System.out.println("~~~Your Reportees List~~~");
+		for(Employee empDetail:empDB.getEmployeesList())
+		{
+			if(empDetail.getEmployeeGrade()>employeeGrade)
+			{
+				System.out.println(empDetail.getEmployeeID() +"\t"+empDetail.getEmployeeName());
+				reportees.add(empDetail.getEmployeeID());
+			}
+		}
+		return reportees;
+
+	}
+	
+
+	
+
+
+
+}
