@@ -1,0 +1,178 @@
+package marupadi.ecommerce;
+
+import java.util.*;
+
+public class Seller {
+	
+//Attributes
+	private String SellerID;
+	private Integer ProductQuantity;
+
+	private LinkedHashMap<Products,Integer> SellerItems=new LinkedHashMap<>();
+	private int productQuantity;
+	Scanner scan=new Scanner(System.in);
+
+	 
+//Getters and Setters
+	public String getSellerID() {
+		return SellerID;
+	}
+	public void setSellerID(String sellerID) {
+		SellerID = sellerID;
+	}
+	
+	public int getProductQuantity() {
+		return productQuantity;
+	}
+	public void setProductQuantity(int productQuantity) {
+		this.productQuantity = productQuantity;
+	}
+
+	public LinkedHashMap<Products, Integer> getSellerItems() {
+		return SellerItems;
+	}
+	public void setSellerItems(LinkedHashMap<Products, Integer> sellerItems) {
+		SellerItems = sellerItems;
+	}
+
+//Constructors for initialization
+	Seller(String SellerID,Integer ProductQuantity)
+	{
+		this.SellerID=SellerID;
+		this.ProductQuantity=ProductQuantity;
+		
+	}
+	
+//Initializing few products to include in Seller Items- As Test Data
+	Seller()
+	{
+		Products product1=new Products("seller1_ITEM1","ITEM1",100.00);
+		Products product2=new Products("seller2_ITEM1","ITEM1",100.00);
+		Products product3=new Products("seller3_ITEM1","ITEM1",100.00);
+		Seller seller1=new Seller("SELLER1",200);
+		Seller seller2=new Seller("SELLER2",200);
+		Seller seller3=new Seller("SELLER3",200);
+		SellerItems.put(product1,seller1.getProductQuantity());
+		SellerItems.put(product2,seller2.getProductQuantity());
+		SellerItems.put(product3,seller3.getProductQuantity());
+	
+	}
+	
+//TO PRINT AVAILABLE PRODUCT LIST	
+	public void viewProducts()																	
+	{
+		System.out.println("S_No\tProductID\t\tProductName\t\tProductPrice\t\tProductQuantity");//PRODUCT LIST HEADERS
+		
+		boolean foundProduct=false;																//To find if the list is empty
+		int S_No=0;																				//COUNTER FOR REFERENCE
+		for(Products productDetail: getSellerItems().keySet())									//Enhanced for loop for iterating through available products
+		{								
+			if(productDetail.getProductID().split("_")[0].equals(SellerID))						//To filter products based on the productID which has sellerID element in it 			{
+			{
+			foundProduct=true;																	//Set 
+			System.out.print(++S_No+"\t");														//[0]-because the sellerID is at first index 					
+			System.out.print(productDetail.getProductID()+"\t\t");								//Product detail list
+			System.out.print(productDetail.getProductName()+"\t\t\t");
+			System.out.print(productDetail.getProductPrice()+"\t\t\t");
+			System.out.println(getSellerItems().get(productDetail)+"\t\t");
+			}	
+		}
+		
+		if(!foundProduct)
+			System.out.println("\t\t\t\t\tNo Product Listed");
+		else
+			System.out.println("\t\t\t\t\t~end~");
+	}
+	
+//TO ADD NEW PRODUCTS-SELLER
+	public void addProduct(Products newProduct)
+	{
+		boolean isDuplicateProduct=false;
+		Iterator<Products> iterate=getSellerItems().keySet().iterator();
+		while(iterate.hasNext())
+		{
+			if(iterate.next().getProductID().equals(newProduct.getProductID()))
+			{
+				isDuplicateProduct=true;				
+			}
+			
+		}
+ 		if(!isDuplicateProduct)
+		{
+ 			System.out.println("Enter Product Quantity: ");
+ 			Integer product_quantity=scan.nextInt();
+ 			setProductQuantity(product_quantity);
+ 			getSellerItems().put(newProduct,product_quantity);
+ 			setSellerItems(getSellerItems());
+		}
+ 		else
+ 		{
+ 			System.out.println("Product already Present, You can choose to Modify it!");
+ 		}
+	}
+	
+//TO REMOVE EXISTING PRODUCT ITEM FROM LIST-SELLER
+	public void removeProduct(String itemToRemove) 
+	{
+		boolean foundProduct=false;
+		
+		for(Products productList: getSellerItems().keySet())									//Enhanced for loop for iterating through available products
+		{
+			if(productList.getProductID().equals(getSellerID()+"_"+itemToRemove))
+			{
+				getSellerItems().keySet().remove(productList);
+				foundProduct=true;
+				break;
+			}
+		}
+ 		if(foundProduct)
+		{
+ 			System.out.println("Product Removed successfully");
+		}
+ 		else
+ 		{
+ 			System.out.println("No such Product, Please enter corectly");
+ 		}
+	}
+	
+//TO MODIFY EXISTING PRODUCT ITEM FROM LIST-SELLER
+	public void modifyProducts(String itemToModify) 
+	{
+		boolean foundProduct=false;
+		
+		for(Products productList: getSellerItems().keySet())									//Enhanced for loop for iterating through available products
+		{
+			if(productList.getProductID().equals(getSellerID()+"_"+itemToModify))
+			{
+				getSellerItems().keySet().remove(productList);
+				System.out.println("~~MODIFY PRODUCT DETAIL | UPDATE BELOW DETAIL~");
+				System.out.println("Enter the Product Name:");
+			
+				String product_name=scan.nextLine().toUpperCase();
+				
+				String newProductIdGenerated=getSellerID().concat("_"+product_name);
+				
+				System.out.println("Enter the Product Price:");				
+				Double product_price=scan.nextDouble();
+				
+				Products newProduct=new Products(newProductIdGenerated,product_name,product_price);
+				
+				addProduct(newProduct);
+				
+				foundProduct=true;
+				break;
+			}
+		}
+ 		if(foundProduct)
+		{
+ 			System.out.println("Product Modified successfully");
+		}
+ 		else
+ 		{
+ 			System.out.println("No such Product, Please enter corectly");
+ 		}
+	}
+	public void setProductQuantity(Integer productQuantity) {
+		ProductQuantity = productQuantity;
+	}
+}
