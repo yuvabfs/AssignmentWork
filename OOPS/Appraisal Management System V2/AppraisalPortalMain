@@ -1,0 +1,206 @@
+package marupadi.appraisal.management.system;
+import java.util.*;
+
+
+public class AppraisalPortalMain {
+
+	public static void main(String[] args) 
+	
+	{
+	
+//Initialization- APPRAISAL PORTAL
+		Scanner scan=new Scanner(System.in);
+		System.out.println("APPRAISAL PORTAL");
+		boolean isValid =false;
+		EmployeesDB empDB=new EmployeesDB();
+		Employee setEmployeeLogin=new Employee(null,null,null,0,null,null,null);
+	
+//LOGIN- Verifying if valid employee ID is entered and fetching the respective detail EmployeesDB
+		do {
+		
+		System.out.print("Enter Employee ID: ");
+		String empID=scan.nextLine();
+		
+		for (Employee fetchDB : empDB.getEmployeesList())
+		{
+			if(fetchDB.getEmployeeID().contains(empID))
+			{
+				setEmployeeLogin=new Employee(fetchDB.getEmployeeID(),fetchDB.getEmployeeName(),fetchDB.getEmployeeRole(),
+						fetchDB.getEmployeeGrade(),fetchDB.getGoalList(),fetchDB.getAssignmentList(),fetchDB.getProjectList());
+				System.out.println(fetchDB.getGoalList().size());
+				isValid = true;
+			}
+		}
+	//To handle invalid employeeID
+		if(!isValid)System.out.println("Employee ID does not match!");
+		}while(!isValid);
+
+
+		System.out.println("Hello "+setEmployeeLogin.getEmployeeName()+"! Welcome to Appraisal Portal");
+		
+		System.out.println("Please Select\n1.Self Review\n2.Peer Review\n");
+		
+		int reviewChoice=0;
+		do {
+		System.out.println("Type[1 or 2]");
+		reviewChoice=scan.nextInt();
+		}while(reviewChoice!=1 && reviewChoice!=2);
+	
+//SELF REVIEW OPERATION
+		if(reviewChoice==1)
+		{
+			ReviewSystem review=new ReviewSystem();	
+			
+			System.out.println("~~~~Please Rate your Goals~~~~");
+			setEmployeeLogin.reviewGoal();				
+			
+			review.goalWeightageSetting();
+			System.out.println("Goal Weightage Status: "+review.isEnableGoalWeightage());
+			
+			System.out.println("Module Average- Goal");
+			Double goalAverage=review.goalAverageCalc(setEmployeeLogin.getGoalList());
+			
+			System.out.println(goalAverage);
+			Double actualGoalScore=review.ModuleActualScoreCalc(goalAverage,3);
+			
+			
+			
+			
+			System.out.println("~~~~Please Rate your Assignments~~~~");
+			setEmployeeLogin.reviewAssignment();
+			
+			review.assignmentWeightageSetting();
+			System.out.println("Assignment Weightage Status: "+review.isEnableAssignmentWeightage());
+			
+			System.out.println("Module Average- Assignments");
+			Double assignmentAverage=review.assignmentAverageCalc(setEmployeeLogin.getAssignmentList());
+			
+			System.out.println(assignmentAverage);
+			Double actualAssignmentScore=review.ModuleActualScoreCalc(assignmentAverage,3);
+			
+			
+			
+			
+			System.out.println("~~~~Please Rate your Projects~~~~");
+			setEmployeeLogin.reviewProject();
+			
+			review.projectWeightageSetting();
+			System.out.println("Project Weightage Status: "+review.isEnableProjectWeightage());
+			
+			System.out.println("Module Average- Projects");
+			Double projectAverage=review.projectAverageCalc(setEmployeeLogin.getProjectList());
+			
+			System.out.println(projectAverage);
+			Double actualProjectScore=review.ModuleActualScoreCalc(projectAverage,3);
+			
+			
+
+			System.out.println("Goal Module Actual Score ");
+			System.out.println(actualGoalScore);
+			System.out.println("Assignment Module Actual Score ");
+			System.out.println(actualAssignmentScore);
+			System.out.println("Project Module Actual Score ");
+			System.out.println(actualProjectScore);
+			
+			
+			System.out.println("Comment based on your Final Score");
+			String comment=review.finalRating(actualGoalScore,actualAssignmentScore,actualProjectScore);
+			System.out.println(comment);
+			
+			
+		}
+		
+		else
+		{
+			ReviewSystem review=new ReviewSystem();	
+			
+			if(!review.getReportees(setEmployeeLogin.getEmployeeGrade()).isEmpty())
+			{
+				boolean isReportee=false;
+				EmployeesDB employeeDB=new EmployeesDB();
+				Employee SetReportee=new Employee(null,null,null,0,null,null,null);
+			
+		//Verifying if valid reportee ID is entered and fetching the respective detail from EmployeesDB
+				do {
+				
+					System.out.println("Enter the Employee ID of the Reportee to Review");
+					String reporteeID=scan.next();
+				
+				for (Employee fetchDB : employeeDB.getEmployeesList())
+				{
+					if(fetchDB.getEmployeeID().contains(reporteeID)&&review.getReportees(setEmployeeLogin.getEmployeeGrade()).contains(reporteeID))
+					{
+						SetReportee=new Employee(fetchDB.getEmployeeID(),fetchDB.getEmployeeName(),fetchDB.getEmployeeRole(),
+								fetchDB.getEmployeeGrade(),fetchDB.getGoalList(),fetchDB.getAssignmentList(),fetchDB.getProjectList());
+					
+						isReportee = true;
+					}
+				}
+			//To handle invalid employeeID
+				if(!isReportee)System.out.println("Reportee ID not found, Retry!");
+				}while(!isReportee);
+				
+				
+				System.out.println("~~~~Please Rate your Reportee's Goals~~~~");
+				SetReportee.reviewGoal();			
+				
+				review.projectWeightageSetting();
+				System.out.println("Project Weightage Status: "+review.isEnableProjectWeightage());
+				
+				System.out.println("Goal Module Average");
+				Double goalAverage=review.goalAverageCalc(SetReportee.getGoalList());
+				System.out.println(goalAverage);
+				
+				Double actualGoalScore=review.ModuleActualScoreCalc(goalAverage,review.getNoOfModulesEnabled());
+				
+				
+				System.out.println("~~~~Please Rate your Reportee's Assignments~~~~");
+				SetReportee.reviewAssignment();
+				
+				review.projectWeightageSetting();
+				System.out.println("Project Weightage Status: "+review.isEnableProjectWeightage());
+				
+				System.out.println("Assignment Module Average");
+				Double assignmentAverage=review.assignmentAverageCalc(SetReportee.getAssignmentList());
+				System.out.println(assignmentAverage);
+				
+				Double actualAssignmentScore=review.ModuleActualScoreCalc(assignmentAverage,review.getNoOfModulesEnabled());
+				
+				System.out.println("~~~~Please Rate your Reportee's Projects~~~~");
+				SetReportee.reviewProject();
+				
+				review.projectWeightageSetting();
+				System.out.println("Project Weightage Status: "+review.isEnableProjectWeightage());
+				
+				System.out.println("Project Module Average");
+				Double projectAverage=review.projectAverageCalc(SetReportee.getProjectList());
+				System.out.println(projectAverage);
+				
+				Double actualProjectScore=review.ModuleActualScoreCalc(projectAverage,review.getNoOfModulesEnabled());
+				
+				
+
+				System.out.println("Goal Module Actual Score ");
+				System.out.println(actualGoalScore);
+				System.out.println("Assignment Module Actual Score ");
+				System.out.println(actualAssignmentScore);
+				System.out.println("Project Module Actual Score ");
+				System.out.println(actualProjectScore);
+				
+				
+				System.out.println("Final Score Calculation");
+				String comment=review.finalRating(actualGoalScore,actualAssignmentScore,actualProjectScore);
+				System.out.println("You have rewarded: "+comment);
+				
+				
+				
+			}
+			else
+			{
+				System.out.println("You have no Reportees at present");
+			}
+		}
+
+	}
+
+}
