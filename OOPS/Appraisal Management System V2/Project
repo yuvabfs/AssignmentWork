@@ -1,0 +1,48 @@
+package marupadi.appraisal.management.system;
+
+
+public class Project{
+	
+	//ATRIBUTES
+	private String projectDescription;
+	private Integer projectWeightage;
+	private String projectEndDate;
+	
+
+	//GETTER AND SETTER
+	public String getProjectDescription() {
+		return projectDescription;
+	}
+	public void setProjectDescription(String projectDescription) {
+		this.projectDescription = projectDescription;
+	}
+	
+	
+	public Integer getProjectWeightage() {
+		return projectWeightage;
+	}
+	public void setProjectWeightage(Integer projectWeightage) {
+		this.projectWeightage = projectWeightage;
+	}
+	
+	
+	public String getProjectEndDate() {
+		return projectEndDate;
+	}
+	public void setProjectEndDate(String projectEndDate) {
+		this.projectEndDate = projectEndDate;
+	}
+	
+	
+	//CONSTRUCTORS
+	public Project()
+	{
+		
+	}
+	public Project(String projectDescription, Integer projectWeightage) {
+		this.projectDescription=projectDescription;
+		this.projectWeightage=projectWeightage;
+	}
+
+
+}
