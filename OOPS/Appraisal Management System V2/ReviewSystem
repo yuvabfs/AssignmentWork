@@ -152,25 +152,7 @@ public class ReviewSystem {
 	}
 
 
-	//Method- To retrive reportees detail from database for Peer Review
-	public ArrayList<String> getReportees(Integer employeeGrade)
-	{
-		EmployeesDB empDB=new EmployeesDB();
-		
-		ArrayList<String> reportees=new ArrayList<>();
-		
-		System.out.println("~~~Your Reportees List~~~");
-		for(Employee empDetail:empDB.getEmployeesList())
-		{
-			if(empDetail.getEmployeeGrade()>employeeGrade)
-			{
-				System.out.println(empDetail.getEmployeeID() +"\t"+empDetail.getEmployeeName());
-				reportees.add(empDetail.getEmployeeID());
-			}
-		}
-		return reportees;
 
-	}
 
 
 	public void goalWeightageSetting() {
