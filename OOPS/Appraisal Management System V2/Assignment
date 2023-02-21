@@ -1,0 +1,49 @@
+package marupadi.appraisal.management.system;
+
+
+public class Assignment{
+	
+	//ATRIBUTES
+	private String assignmentDescription;
+	private Integer assignmentWeightage;
+	private String assignmentDueDate;
+	
+	//GETTER SETTER
+	public String getAssignmentDescription() {
+		return assignmentDescription;
+	}
+	public void setAssignmentDescription(String assignmentDescription) {
+		this.assignmentDescription = assignmentDescription;
+	}
+	
+	
+	public Integer getAssignmentWeightage() {
+		return assignmentWeightage;
+	}
+	public void setAssignmentWeightage(Integer assignmentWeightage) {
+		this.assignmentWeightage = assignmentWeightage;
+	}
+	
+	
+	public String getAssignmentDueDate() {
+		return assignmentDueDate;
+	}
+	public void setAssignmentDueDate(String assignmentDueDate) {
+		this.assignmentDueDate = assignmentDueDate;
+	}
+	
+	
+	//CONSTRUCTORS
+	public Assignment()
+	{
+		
+	}
+	
+	public Assignment(String assignmentDescription, Integer assignmentWeightage) {
+		this.assignmentDescription=assignmentDescription;
+		this.assignmentWeightage=assignmentWeightage;
+	
+	}
+
+
+}
