@@ -1,0 +1,58 @@
+package evaluation.marupadi;
+
+import java.util.*;
+
+public class ParagraphPrinting {
+
+	public static void main(String[] args) {
+		
+		System.out.println("Enter the input Paragraph");
+		Scanner scan=new Scanner(System.in);
+		String paragraph=scan.nextLine();
+		
+		String[] paragraphWords=paragraph.split(" ");
+		
+		
+		List<String> modifiedParagraph=new ArrayList<>();
+		
+
+		for(int i=0;i<paragraphWords.length;i++)
+		{
+		//To eliminate the punctuation marks.
+			Character lastLetter= paragraphWords[i].charAt(paragraphWords[i].length() - 1);
+			if (!((lastLetter >= 97 && lastLetter <= 122) || (lastLetter >= 65 && lastLetter <= 90)))
+			{
+				paragraphWords[i] = paragraphWords[i].substring(0, paragraphWords[i].length() - 1);
+			}
+			modifiedParagraph.add(paragraphWords[i]);
+		}
+		
+	
+	//OUTPUT - processed Paragraph
+		for(int j=0;j<modifiedParagraph.size();j++)
+		{
+			//boolean printed=false;
+					
+				Character lastLetter= modifiedParagraph.get(j).charAt(modifiedParagraph.get(j).length() - 1);
+			
+			System.out.print(modifiedParagraph.get(j)+" ");
+			
+				for(int i=j+1;i<modifiedParagraph.size();i++)
+				{
+					if(modifiedParagraph.get(i).startsWith(lastLetter.toString()))
+					{
+						
+						modifiedParagraph.add(j+1,modifiedParagraph.remove(i));
+						break;
+						
+						
+					}
+				}				
+			}
+
+	}
+}
+
+		
+		
+		
