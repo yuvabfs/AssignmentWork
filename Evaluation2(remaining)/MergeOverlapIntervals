@@ -82,3 +82,40 @@ public class MergeOverlapIntervals {
 	
 
 }
+
+package evaluation.marupadi;
+import java.util.*;
+
+public class Interval implements Comparable<Interval>{
+	
+	private Integer start=0;
+	private Integer end=0;
+	
+	public Integer getStart() {
+		return start;
+	}
+	public void setStart(Integer start) {
+		this.start = start;
+	}
+	public Integer getEnd() {
+		return end;
+	}
+	public void setEnd(Integer end) {
+		this.end = end;
+	}
+	
+	
+	Interval(Integer start, Integer end)
+	{
+		this.start=start;
+		this.end=end;
+	}
+	@Override
+	public int compareTo(Interval o) {
+		// TODO Auto-generated method stub
+		return (this.start).compareTo(o.getStart());
+	}
+	
+
+}
+
