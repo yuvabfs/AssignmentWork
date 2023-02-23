@@ -18,7 +18,7 @@ public class ParagraphPrinting {
 
 		for(int i=0;i<paragraphWords.length;i++)
 		{
-		//To eliminate the punctuation marks.
+//To eliminate the punctuation marks and Store it in the List simultaneously
 			Character lastLetter= paragraphWords[i].charAt(paragraphWords[i].length() - 1);
 			if (!((lastLetter >= 97 && lastLetter <= 122) || (lastLetter >= 65 && lastLetter <= 90)))
 			{
@@ -28,24 +28,21 @@ public class ParagraphPrinting {
 		}
 		
 	
-	//OUTPUT - processed Paragraph
+//OUTPUT - Paragraph processing
 		for(int j=0;j<modifiedParagraph.size();j++)
 		{
-			//boolean printed=false;
 					
-				Character lastLetter= modifiedParagraph.get(j).charAt(modifiedParagraph.get(j).length() - 1);
+			Character lastLetter= modifiedParagraph.get(j).charAt(modifiedParagraph.get(j).length() - 1);	//Fetching LastLetter for verification
 			
-			System.out.print(modifiedParagraph.get(j)+" ");
+			System.out.print(modifiedParagraph.get(j)+" "); 						//Printing the paragraph element as output
 			
-				for(int i=j+1;i<modifiedParagraph.size();i++)
+				for(int i=j+1;i<modifiedParagraph.size();i++)						//Traversing through remaining element 
 				{
-					if(modifiedParagraph.get(i).startsWith(lastLetter.toString()))
+					if(modifiedParagraph.get(i).startsWith(lastLetter.toString()))			//If the next matching element is found
 					{
 						
-						modifiedParagraph.add(j+1,modifiedParagraph.remove(i));
-						break;
-						
-						
+						modifiedParagraph.add(j+1,modifiedParagraph.remove(i));			//Fetch it and Insert it as the next element
+						break;																	
 					}
 				}				
 			}
