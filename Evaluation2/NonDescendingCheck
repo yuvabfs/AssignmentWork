@@ -1,0 +1,51 @@
+package evaluation.marupadi;
+
+import java.util.*;
+
+public class NonDescendingCheck {
+
+	public static void main(String[] args) {
+		Scanner scan=new Scanner(System.in);
+		System.out.println("Enter 10 integers for creating a list");
+	//Creating a list of Elements	
+		List<Integer> inputList=new ArrayList<>();
+		for(int i=0;i<10;i++)
+		{
+			inputList.add(scan.nextInt());
+		}
+		System.out.println(inputList);
+		//List<Integer> tempList=new ArrayList<>(list);
+		
+		System.out.println("Result: "+findIfNonDescending(inputList));
+
+	}
+	public static boolean findIfNonDescending(List<Integer> list) {
+	boolean conditionFlag=true;
+	for(int i=0;i<list.size();i++)
+	{
+		conditionFlag=true;
+		Integer temp=list.get(i);
+		list.remove(i);
+		//To verify if the remaining elements are non-descending
+		for(int j=0;j<list.size();j++)
+		{
+			for(int k=j+1;k<list.size();k++)
+			{
+				if(list.get(j)>list.get(k))
+				{
+					conditionFlag=false;
+				}
+
+			}
+		}
+		if(conditionFlag==true)
+		{
+			break;
+		}
+
+		list.set(i,temp);
+		
+	}
+	return conditionFlag;
+	}
+}
