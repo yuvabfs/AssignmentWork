@@ -1,0 +1,109 @@
+package evaluation.marupadi;
+
+import java.util.Scanner;
+
+public class spotWordInMatrix {
+
+	public static void main(String[] args) {
+		Scanner scan=new Scanner(System.in);
+		
+		
+		Character[][] inputArray=initializeInput();
+		
+		System.out.println("Given Array");
+		
+		printArray(inputArray);
+		
+		System.out.print("Enter the word to spot in Matrix: ");
+		
+		String spot=scan.next();
+		
+		
+		System.out.println("Search in progress...");
+		
+		findWordInMatrix(spot,inputArray);
+		//Checking Rows 
+		System.out.println(findWordInMatrix(spot,inputArray));
+
+
+	}
+	
+	
+	
+	private static boolean findWordInMatrix(String spot, Character[][] inputArray) {
+		
+		boolean foundWord=false;
+		int lastIndex=inputArray.length-1;
+
+		for(int i=0;i<inputArray.length;i++)  //To get rows one-by-one
+		{
+			String rowWord="";
+			//Forming words with row elements
+			for(int j=0;j<inputArray[0].length;j++)//To get Columns one-by-one
+			{
+			rowWord=rowWord.concat(inputArray[i][j].toString());
+			String columnWord="";
+			//Forming words with Column elements
+			for(int k=0;k<inputArray.length;k++)
+			{	
+				columnWord=columnWord.concat(inputArray[k][i].toString());
+			}
+			if(columnWord.equalsIgnoreCase(spot))
+			{
+				foundWord=true;
+				break;
+			}
+			}
+			if(rowWord.equalsIgnoreCase(spot))
+			{
+				foundWord=true;
+				break;
+			}
+			
+			//Check Diagonal 1
+			String diagonalWord1="";
+			diagonalWord1=diagonalWord1.concat(inputArray[i][i].toString());
+			if(diagonalWord1.equalsIgnoreCase(spot))
+			{
+				foundWord=true;
+				break;
+			}
+			String diagonalWord2="";
+			
+			//Check Diagonal 2
+				diagonalWord2=diagonalWord2.concat(inputArray[i][lastIndex].toString());lastIndex--;
+				if(diagonalWord2.equalsIgnoreCase(spot))
+				{
+					foundWord=true;
+					break;
+				}
+		
+		}
+
+		return foundWord;
+	}
+
+
+
+	public static Character[][] initializeInput()
+	{
+		Character[][] charArray= {{'F', 'A', 'C', 'I'}, {'O', 'B', 'Q', 'P'}, {'A', 'N', 'O', 'B'}, {'M', 'A', 'S', 'S'}} ;
+				
+				return charArray;
+	}
+
+	
+	
+	
+	public static void  printArray(Character[][] charArray)
+	{
+		for(int i=0;i<charArray.length;i++)
+		{
+			for(int j=0;j<charArray[0].length;j++)
+			{
+				System.out.print(charArray[i][j]+ " ");
+			}
+			System.out.println("");
+		}
+	}
+}
