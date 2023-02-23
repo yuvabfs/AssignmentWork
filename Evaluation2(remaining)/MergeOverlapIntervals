@@ -32,11 +32,12 @@ public class MergeOverlapIntervals {
 
 		printList(intervalList);
 
-		removeOverLappingInterval(intervalList);
+		mergeOverLappingInterval(intervalList);
 
 	}
-	
-	private static void removeOverLappingInterval(ArrayList<Interval> intervalList) {
+//Merging the Overlapping intervals-Program Logic
+//---------------------------------------------------------------------------------------------------------------------
+	private static void mergeOverLappingInterval(ArrayList<Interval> intervalList) {
 
 		for(int i=0;i<intervalList.size()-1;i++)
 		{
@@ -66,7 +67,7 @@ public class MergeOverlapIntervals {
 		
 	}
 	
-	
+//-------------------------------------------------------------------------------------------------------------------	
 //Print method
 
 	public static void printList(ArrayList<Interval> intervalList)
