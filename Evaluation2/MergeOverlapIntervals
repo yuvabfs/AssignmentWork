@@ -1,0 +1,57 @@
+package evaluation.marupadi;
+import java.util.*;
+
+public class MergeOverlapIntervals {
+
+	public static void main(String[] args) {
+		Scanner scan=new Scanner(System.in);
+		
+		ArrayList<ArrayList<Integer>> intervalList=new ArrayList<>();
+		ArrayList<Integer> interval=new ArrayList<>();
+		System.out.println("Enter a list of 5 intervals ");
+		Integer value1,value2;
+	//Getting input from user	
+		for(int i=0;i<5;i++)
+		{
+			interval.clear();
+			System.out.print("Interval"+(i+1)+": ");
+			value1=scan.nextInt();
+			interval.add(value1);
+			value2=scan.nextInt();
+			interval.add(value2);
+			intervalList.add(i,interval);
+			
+		}
+		
+		
+	//traversing through the list of intervals and comparing with the remaining intervals
+	
+		for(int i=0;i<intervalList.size();i++)
+		{
+			if(intervalList.get(i).get(1)<=intervalList.get(i+1).get(1))
+			{
+				int value=intervalList.get(i).get(0);
+				intervalList.add((i+1),value);
+				intervalList.get(i+1).get(1)
+				intervalList.remove(intervalList.get(i));
+			}
+			
+		}
+		
+		
+		
+		//Printing Output
+		
+		for(List<Integer> li:intervalList)
+		{
+			System.out.println(li);
+		}
+
+		
+		
+		
+		
+
+	}
+
+}
