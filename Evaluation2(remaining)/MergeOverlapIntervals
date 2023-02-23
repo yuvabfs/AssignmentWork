@@ -1,0 +1,84 @@
+package evaluation.marupadi;
+import java.util.*;
+
+public class MergeOverlapIntervals {
+
+	public static void main(String[] args) {
+		Scanner scan=new Scanner(System.in);
+		
+		ArrayList<Interval> intervalList=new ArrayList<>();
+	
+	//Pre-loaded input
+		Interval interval1=new Interval(1,3);
+		Interval interval2=new Interval(2,6);
+		Interval interval3=new Interval(8,10);
+		Interval interval4=new Interval(15,18);
+		Interval interval5=new Interval(12,19);
+		Interval interval6=new Interval(20,25);
+		intervalList.add(interval1);
+		intervalList.add(interval2);
+		intervalList.add(interval3);
+		intervalList.add(interval4);
+		intervalList.add(interval5);
+		intervalList.add(interval6);
+	
+		//Printing Given Interval List
+		
+		printList(intervalList);
+		System.out.println("Sorted intervals");
+
+		//SORT the intervals based on start value
+		Collections.sort(intervalList);
+
+		printList(intervalList);
+
+		removeOverLappingInterval(intervalList);
+
+	}
+	
+	private static void removeOverLappingInterval(ArrayList<Interval> intervalList) {
+
+		for(int i=0;i<intervalList.size()-1;i++)
+		{
+			System.out.println(i);
+			int newStart=0,newEnd=0;
+			if((intervalList.get(i).getEnd()>intervalList.get(i+1).getStart()))
+			{
+				newStart=intervalList.get(i).getStart();
+				if(intervalList.get(i).getEnd()>=intervalList.get(i+1).getEnd())
+					newEnd=intervalList.get(i).getEnd();
+				else
+					newEnd=intervalList.get(i+1).getEnd();
+				Interval newInterval=new Interval(newStart,newEnd);	
+				
+				intervalList.add(i,newInterval);
+				
+				intervalList.remove(intervalList.get(i+1));
+				
+				intervalList.remove(intervalList.get(i+1));
+				
+			}
+		}
+
+		//Printing Output
+		System.out.println("Final Output");
+		printList(intervalList);  
+		
+	}
+	
+	
+//Print method
+
+	public static void printList(ArrayList<Interval> intervalList)
+	{
+		System.out.println();
+		for(Interval interval:intervalList)
+		{
+			System.out.print("("+interval.getStart()+" , "+interval.getEnd()+")");
+		}
+	}
+	
+	
+	
+
+}
