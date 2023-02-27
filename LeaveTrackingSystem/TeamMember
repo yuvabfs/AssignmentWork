@@ -1,0 +1,55 @@
+package evaluation.leavetrackingsystem;
+
+import java.util.LinkedHashMap;
+
+public class TeamMember {
+	private String EmployeeID;
+	
+	private SickLeave SickLeaveBalance;
+	private CasualLeave CasualLeaveBalance;
+	
+	private LinkedHashMap<Calendar,String> timeSheet=new LinkedHashMap<>();
+	
+
+	public String getEmployeeID() {
+		return EmployeeID;
+	}
+
+	public void setEmployeeID(String employeeID) {
+		EmployeeID = employeeID;
+	}
+
+
+
+	public LinkedHashMap<Calendar,String> getTimeSheet() {
+		return timeSheet;
+	}
+
+	public void setTimeSheet(LinkedHashMap<Calendar,String> timeSheet) {
+		this.timeSheet = timeSheet;
+	}
+
+
+	public SickLeave getSickLeaveBalance() {
+		return SickLeaveBalance;
+	}
+
+	public void setSickLeaveBalance(SickLeave sickLeaveBalance) {
+		SickLeaveBalance = sickLeaveBalance;
+	}
+
+	public CasualLeave getCasualLeaveBalance() {
+		return CasualLeaveBalance;
+	}
+
+	public void setCasualLeaveBalance(CasualLeave casualLeaveBalance) {
+		CasualLeaveBalance = casualLeaveBalance;
+	}
+	
+	TeamMember(String EmployeeID,SickLeave SickLeaveBalance,CasualLeave CasualLeaveBalance){
+		this.EmployeeID=EmployeeID;
+		this.SickLeaveBalance=SickLeaveBalance;
+		this.CasualLeaveBalance=CasualLeaveBalance;
+		
+	}
+}
