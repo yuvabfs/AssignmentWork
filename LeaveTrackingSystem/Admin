@@ -1,0 +1,97 @@
+package evaluation.leavetrackingsystem;
+
+import java.util.*;
+
+public class Admin {
+	private String EmployeeID;
+	
+	private SickLeave SickLeaveBalance;
+	private CasualLeave CasualLeaveBalance;
+	
+	private LinkedHashMap<Calendar,String> timeSheet=new LinkedHashMap<>();
+	
+	private ArrayList<TeamMember> reportees=new ArrayList<>();
+	
+
+	public String getEmployeeID() {
+		return EmployeeID;
+	}
+
+	public void setEmployeeID(String employeeID) {
+		EmployeeID = employeeID;
+	}
+
+
+
+	public LinkedHashMap<Calendar,String> getTimeSheet() {
+		return timeSheet;
+	}
+
+	public void setTimeSheet(LinkedHashMap<Calendar,String> timeSheet) {
+		this.timeSheet = timeSheet;
+	}
+
+	public ArrayList<TeamMember> getReportees() {
+		return reportees;
+	}
+
+	public void setReportees(ArrayList<TeamMember> reportees) {
+		this.reportees = reportees;
+	}
+	
+
+	public SickLeave getSickLeaveBalance() {
+		return SickLeaveBalance;
+	}
+
+	public void setSickLeaveBalance(SickLeave sickLeaveBalance) {
+		SickLeaveBalance = sickLeaveBalance;
+	}
+
+	public CasualLeave getCasualLeaveBalance() {
+		return CasualLeaveBalance;
+	}
+
+	public void setCasualLeaveBalance(CasualLeave casualLeaveBalance) {
+		CasualLeaveBalance = casualLeaveBalance;
+	}
+	Admin(String EmployeeID,SickLeave SickLeaveBalance,CasualLeave CasualLeaveBalance){
+		this.EmployeeID=EmployeeID;
+		this.SickLeaveBalance=SickLeaveBalance;
+		this.CasualLeaveBalance=CasualLeaveBalance;
+	}
+
+	public void applySickLeave() {
+		Scanner scan=new Scanner(System.in);
+		
+		System.out.println("Enter the from Date: ");
+		int leaveStartDate=scan.nextInt();
+		
+		System.out.println("Enter the till Date");
+		int leaveEndDate=scan.nextInt();
+		
+		if(leaveStartDate>leaveEndDate || leaveStartDate<0 ||leaveEndDate>31 || leaveEndDate<0 || leaveStartDate>31 )
+		{
+			System.out.println("Please Enter Valid Dates");
+				applySickLeave();
+		}
+		
+		
+
+
+		
+		
+		
+	}
+	
+	public void showTimeSheet(LinkedHashMap<Calendar,String> timeSheet)
+	{
+		Iterator <Calendar> iterate = timeSheet.keySet().iterator();       //keyset is a method  
+		while(iterate.hasNext())  
+		{  
+		  
+		 
+		}  
+	}
+
+}
