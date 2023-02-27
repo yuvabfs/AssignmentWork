@@ -1,0 +1,91 @@
+package evaluation.leavetrackingsystem;
+
+import java.util.ArrayList;
+
+public class Calendar {
+	ArrayList<CurrentDay> currentMonth=new ArrayList<>();
+	
+
+	public ArrayList<CurrentDay> getCurrentMonth() {
+		return currentMonth;
+	}
+
+
+	public void setCurrentMonth(ArrayList<CurrentDay> currentMonth) {
+		this.currentMonth = currentMonth;
+	}
+
+
+
+
+	Calendar(){
+		CurrentDay currentDay1=new CurrentDay(1,"Jan","Sunday");
+		CurrentDay currentDay2=new CurrentDay(2,"Jan","Monday");
+		CurrentDay currentDay3=new CurrentDay(3,"Jan","Tuesday");
+		CurrentDay currentDay4=new CurrentDay(4,"Jan","Wednesday");
+		CurrentDay currentDay5=new CurrentDay(5,"Jan","Thursday");
+		CurrentDay currentDay6=new CurrentDay(6,"Jan","Friday");
+		CurrentDay currentDay7=new CurrentDay(7,"Jan","Saturday");
+		CurrentDay currentDay8=new CurrentDay(8,"Jan","Sunday");
+		CurrentDay currentDay9=new CurrentDay(9,"Jan","Monday");
+		CurrentDay currentDay10=new CurrentDay(10,"Jan","Tuesday");
+		CurrentDay currentDay11=new CurrentDay(11,"Jan","Wednesday");
+		CurrentDay currentDay12=new CurrentDay(12,"Jan","Thursday");
+		CurrentDay currentDay13=new CurrentDay(13,"Jan","Friday");
+		CurrentDay currentDay14=new CurrentDay(14,"Jan","Saturday");
+		CurrentDay currentDay15=new CurrentDay(15,"Jan","Sunday");
+		CurrentDay currentDay16=new CurrentDay(16,"Jan","Monday");
+		CurrentDay currentDay17=new CurrentDay(17,"Jan","Tuesday");
+		CurrentDay currentDay18=new CurrentDay(18,"Jan","Wednesday");
+		CurrentDay currentDay19=new CurrentDay(19,"Jan","Thursday");
+		CurrentDay currentDay20=new CurrentDay(20,"Jan","Friday");
+		CurrentDay currentDay21=new CurrentDay(21,"Jan","Saturday");
+		CurrentDay currentDay22=new CurrentDay(22,"Jan","Sunday");
+		CurrentDay currentDay23=new CurrentDay(23,"Jan","Monday");
+		CurrentDay currentDay24=new CurrentDay(24,"Jan","Tuesday");
+		CurrentDay currentDay25=new CurrentDay(25,"Jan","Wednesday");
+		CurrentDay currentDay26=new CurrentDay(26,"Jan","Thursday");
+		CurrentDay currentDay27=new CurrentDay(27,"Jan","Friday");
+		CurrentDay currentDay28=new CurrentDay(28,"Jan","Saturday");
+		CurrentDay currentDay29=new CurrentDay(29,"Jan","Sunday");
+		CurrentDay currentDay30=new CurrentDay(30,"Jan","Monday");
+		CurrentDay currentDay31=new CurrentDay(31,"Jan","Tuesday");
+		
+		getCurrentMonth().add(currentDay1);
+		getCurrentMonth().add(currentDay2);
+		getCurrentMonth().add(currentDay3);
+		getCurrentMonth().add(currentDay4);
+		getCurrentMonth().add(currentDay5);
+		getCurrentMonth().add(currentDay6);
+		getCurrentMonth().add(currentDay7);
+		getCurrentMonth().add(currentDay8);
+		getCurrentMonth().add(currentDay9);
+		getCurrentMonth().add(currentDay10);
+		getCurrentMonth().add(currentDay11);
+		getCurrentMonth().add(currentDay12);
+		getCurrentMonth().add(currentDay13);
+		getCurrentMonth().add(currentDay14);
+		getCurrentMonth().add(currentDay15);
+		getCurrentMonth().add(currentDay16);
+		getCurrentMonth().add(currentDay17);
+		getCurrentMonth().add(currentDay18);
+		getCurrentMonth().add(currentDay19);
+		getCurrentMonth().add(currentDay20);
+		getCurrentMonth().add(currentDay21);
+		getCurrentMonth().add(currentDay22);
+		getCurrentMonth().add(currentDay23);
+		getCurrentMonth().add(currentDay24);
+		getCurrentMonth().add(currentDay25);
+		getCurrentMonth().add(currentDay26);
+		getCurrentMonth().add(currentDay27);
+		getCurrentMonth().add(currentDay28);
+		getCurrentMonth().add(currentDay29);
+		getCurrentMonth().add(currentDay30);
+		getCurrentMonth().add(currentDay31);
+
+		
+	}
+	
+	
+
+}
