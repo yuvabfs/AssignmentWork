@@ -1,0 +1,46 @@
+package evaluation.marupadi;
+
+import java.util.*;
+
+public class CheckSumOfTwoElements {
+
+	public static void main(String[] args) {
+		
+		Scanner scan=new Scanner(System.in);
+		
+		System.out.println("Enter the size of array: ");
+		int size=scan.nextInt();
+		int[] givenArray=new int[size];
+		System.out.println("Enter "+size+" integer values");
+		for(int i=0;i<size;i++)
+		{
+			givenArray[i]=scan.nextInt();
+		}
+		//int[] givenArray= {1,2,3,5,6,7,8,9,0};
+		
+		System.out.println("Enter Target Sum: ");
+		
+		int target=scan.nextInt();
+		boolean foundPairs=false;
+		
+		for(int i=0;i<givenArray.length;i++)
+		{
+			for(int j=i+1;j<givenArray.length;j++)
+			{
+				if(givenArray[i]+givenArray[j]==target)
+				{
+					foundPairs=true;
+					System.out.println(givenArray[i]+"+"+givenArray[j]+"="+target);
+				}
+			}
+		}
+		if(!foundPairs)
+		{
+			System.out.println("No two values sum is "+target);
+		}
+		
+		
+
+	}
+
+}
