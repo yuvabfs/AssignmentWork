@@ -1,0 +1,20 @@
+package evaluation.leavetrackingsystem;
+
+
+
+
+public class SickLeave {
+	
+	private String LeaveID;
+	
+	private Integer BalanceDays;
+	
+	SickLeave( String LeaveID,Integer BalanceDays)
+	{
+		this.LeaveID=LeaveID;
+		this.BalanceDays=BalanceDays;
+	}
+	
+	
+
+}
