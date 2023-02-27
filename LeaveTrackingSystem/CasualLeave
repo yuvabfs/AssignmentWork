@@ -1,0 +1,13 @@
+package evaluation.leavetrackingsystem;
+
+public class CasualLeave {
+	private String LeaveID;
+	
+	private Integer BalanceDays;
+	
+	CasualLeave( String LeaveID,Integer BalanceDays)
+	{
+		this.LeaveID=LeaveID;
+		this.BalanceDays=BalanceDays;
+	}
+}
