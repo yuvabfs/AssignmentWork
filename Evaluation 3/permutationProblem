@@ -1,0 +1,88 @@
+package evaluation.marupadi;
+
+import java.util.*;
+
+public class permutationProblem {
+
+	public static void main(String[] args) {
+		
+		Scanner scan=new Scanner(System.in);
+		/*
+		System.out.println("Enter the size of array: ");
+		int size=scan.nextInt();
+		Integer[] givenArray=new Integer[size];
+		System.out.println("Enter "+size+" integer values");
+		for(int i=0;i<size;i++)
+		{
+			givenArray[i]=scan.nextInt();
+		}*/
+		int[] givenArray= {1,2,5};
+		
+		System.out.println("Enter Total Amount: ");
+		
+		int totalAmount=scan.nextInt();
+		
+		//Sort Array in ascending Order
+		for(int i=0;i<givenArray.length;i++)
+		{
+			for(int j=i+1;j<givenArray.length;j++)
+			{
+				if(givenArray[i]>givenArray[j])
+				{
+					int temp=givenArray[i];
+					givenArray[i]=givenArray[j];
+					givenArray[j]=temp;
+					
+				}
+			}
+		}
+		
+		
+	//Finding the permutation
+		List<Integer> changes=new ArrayList<>();
+		
+		
+		
+		for(int i=0;i<givenArray.length;i++)
+		{
+			int removed=0;
+			while(getSum(changes)!=0&&(removed!=givenArray[i])) {
+				removed=removed+changes.remove(changes.size()-1);		//Removing last element
+			}
+			
+			
+		
+				
+			while(!(getSum(changes)==totalAmount))
+			{
+				changes.add(givenArray[i]);
+				
+			}
+			if(getSum(changes)==totalAmount)
+			{
+			System.out.println(changes);
+			
+			}
+		
+			
+			
+			
+		}
+		
+		
+		
+
+	}
+	
+	public static int getSum(List<Integer> list)
+	{
+		int sum=0;
+		for(int i=0;i<list.size();i++)
+		{
+			sum=sum+list.get(i);
+		}
+		
+		return sum;
+	}
+
+}
