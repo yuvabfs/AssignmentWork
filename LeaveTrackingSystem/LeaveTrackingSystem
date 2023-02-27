@@ -1,0 +1,115 @@
+package evaluation.leavetrackingsystem;
+
+import java.util.*;
+
+public class LeaveTrackingSystem {
+
+	public static void main(String[] args) {
+		Scanner scan=new Scanner(System.in);
+		
+	//Setting Total - Sick and Casual Leave Balance
+		SickLeave sickLeaves=new SickLeave("sick",10);
+		CasualLeave casualLeaves=new CasualLeave("casual",10);
+	
+	//Initializing 1 Admin and 2 Team Member Accounts
+		Admin admin1=new Admin("emp001",sickLeaves,casualLeaves);
+		TeamMember teamMember1=new TeamMember("emp002",sickLeaves,casualLeaves);
+		TeamMember teamMember2=new TeamMember("emp003",sickLeaves,casualLeaves);
+		ArrayList<TeamMember> reporteesList=new ArrayList<>();
+		reporteesList.add(teamMember1);
+		reporteesList.add(teamMember2);
+		admin1.setReportees(reporteesList);
+		
+
+	
+		System.out.println("Welcome to SickLeave Tracker App!");
+	
+	//To keep the execution ON till the user Quit
+		int loginChoice;
+	//Admin or Team Member Login 
+	do {	
+		System.out.println("Choose your Login option\n1.Admin\n2.Team Member \3.Quit");
+		
+		do {
+			System.out.println("Type['1' or '2' or '3']");
+			loginChoice=scan.nextInt();
+		}while(loginChoice!=1 && loginChoice!=2 &&loginChoice!=3);
+		
+		
+		
+		
+		if(loginChoice==1)
+		{
+			
+			String empID;
+			do {
+			System.out.println("Enter you emp ID correctly:");
+			
+			empID=scan.next();
+			}while(!admin1.getEmployeeID().equalsIgnoreCase(empID));
+			
+			
+			System.out.println("Welcome"+empID+"\n");
+			
+			System.out.println("Select an option from below Menu! \n1. Manage your Leaves\n2. Track Reportees Leave");
+			int adminChoice;
+			do {
+			System.out.println("Type ['1' or '2' ]");
+			
+			adminChoice=scan.nextInt();
+			}while(adminChoice!=1 && adminChoice!=2);
+		
+			if(adminChoice==1)
+			{
+				int leaveMenu;
+				System.out.println("Select \n1.Apply Leaves\n2.Cancel Leaves\n3.Sick Leaves");
+				do {
+					System.out.println("Enter you emp ID correctly:");
+					
+					leaveMenu=scan.nextInt();
+					}while(leaveMenu<0 || leaveMenu>3);
+					
+			//Admin - Apply Leave Module	
+				if(leaveMenu==1)
+				{
+				System.out.println("1.Sick Leave\n2.Casual Leave");
+				int sickOrCasual=scan.nextInt();
+			
+			
+				if(sickOrCasual==1)
+				{
+					admin1.applySickLeave();
+				}
+				else if(sickOrCasual==2)
+				{
+					
+				}
+				
+				
+				
+				}
+				
+				
+				
+			}
+			
+			
+			
+			
+		}
+		
+		else if(loginChoice==2)
+		{
+			
+		}
+		
+		
+		else {
+			System.out.println("Thank you!");
+		}
+
+	}while(loginChoice!=3);
+	}
+	
+
+}
