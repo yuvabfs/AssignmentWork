@@ -1,0 +1,450 @@
+package leave.tracking;
+
+import java.util.*;
+
+public class LeaveTrackerDriver {
+	public static List<Integer> weekEnd=new ArrayList<>(Arrays.asList(1,2,8,9,15,16,22,23,29,30));
+
+	public static void main(String[] args)
+	{
+		EmployeeDatabase empDB=new EmployeeDatabase();		//Initialize Employee Details
+		loadLeaveBalance(empDB.getEmployeeDB());      		//Load Leave Balance for all employees 
+		
+		
+		
+		Scanner scan=new Scanner(System.in);
+
+		//To keep the execution ON until user Quit
+			int loginChoice;
+		//Login  
+		do {	
+			System.out.println("Choose your option\n1.Login\n2.Quit");
+			
+			do {
+				System.out.println("Type['1' or '2']");
+				loginChoice=scan.nextInt();
+			}while(loginChoice!=1 && loginChoice!=2 );
+		if(loginChoice==1)
+		{
+			Employee employee=new Employee(null,null,null,null);
+		
+	//To Validate user by employee ID
+			System.out.print("Enter your employee ID:");
+			String empID=scan.next();
+	LoginPage:	
+			for(Employee fetchDB:empDB.getEmployeeDB())
+			{
+				if(fetchDB.getEmployeeID().equalsIgnoreCase(empID))
+				{
+					employee=fetchDB;
+					
+					break;
+				}
+				else if(fetchDB.equals(empDB.getEmployeeDB().get(empDB.getEmployeeDB().size()-1)))
+				{
+					System.out.println("Employee ID not valid, Please Re-enter!");
+					empID=scan.next();
+					continue LoginPage;
+				}
+				
+			}
+	//MAIN MENU - 1. Manage your Leaves or 2. Track Reportees Leave
+	HomePage:
+		do {	
+			System.out.println("HOME PAGE\nWelcome "+employee.getEmployeeName()+"!");
+			
+			int mainMenuChoice;
+			
+			do {
+				System.out.println("Leave Tracker Menu");
+				System.out.println("Choose your option! \n1. Manage your Leaves\n2. Track Reportees Leave\n3. Logout");
+				System.out.println("Type ['1' or '2' or '3']");
+			
+			mainMenuChoice=scan.nextInt();
+			}while(mainMenuChoice!=1 && mainMenuChoice!=2&& mainMenuChoice!=3);
+		
+			if(mainMenuChoice==1)
+			{
+	//1. Manage Your Leaves Menu 1.Apply Leaves or 2.Cancel Leaves or 3.Check Leave Balance
+				int leaveMenuChoice;
+				System.out.println("Select \n1.Apply Leaves\n2.Cancel Leaves\n3.Check Leave Balance\n4.Home Page");
+				do {
+					System.out.println("Enter your choice correctly:");
+					
+					leaveMenuChoice=scan.nextInt();
+					}while(leaveMenuChoice<0 || leaveMenuChoice>4);
+					
+	// 1.1 Apply Leave Module 1.Sick Leave or 2.Casual Leave
+					if (leaveMenuChoice == 1) 
+					{
+						System.out.println("1.Sick Leave\n2.Casual Leave");
+						int leaveTypeChoice;
+						do {
+							System.out.println("Enter your choice correctly:");
+							
+							leaveTypeChoice = scan.nextInt();
+							}while(leaveTypeChoice<0 || leaveTypeChoice>2);
+						
+
+		// 1.1.1 Apply Sick or Casual Leaves
+						 
+						
+							Leave newLeave=employee.applyLeave();
+							
+							newLeave.setTotalDays(processLeave(newLeave,leaveTypeChoice));
+							
+							if(newLeave.getTotalDays()>0)
+							{
+								if (leaveTypeChoice == 1) 								//SICK Leave
+								{
+									newLeave.setLeaveType("SickLeave");
+									if(newLeave.getTotalDays()>employee.getSickLeaveBalance())
+									{
+										System.out.println("Leave can not be applied!\nYour Leave Balance is Low!!");
+										continue HomePage;
+									}
+									else
+									{
+										employee.setSickLeaveBalance(employee.getSickLeaveBalance()-newLeave.getTotalDays());
+									}
+										
+								}
+								else if (leaveTypeChoice == 2)							//CASUAL Leave
+								{									
+									newLeave.setLeaveType("CasualLeave");
+									if(newLeave.getTotalDays()>employee.getCasualLeaveBalance())
+									{
+										System.out.println("Leave can not be applied!\nYour Leave Balance is Low!!");
+										continue HomePage;
+									}
+									else
+									{
+										employee.setCasualLeaveBalance(employee.getCasualLeaveBalance()-newLeave.getTotalDays());
+									}
+								}
+								employee.getLeaveRecord().add(newLeave);
+								employee.setLeaveRecord(employee.getLeaveRecord());
+								System.out.println("Leave Applied Successfully");
+								employee.viewLeaveBalance();
+								employee.viewLeaveRecord();
+								continue HomePage;
+							
+		 
+								
+							}
+							else
+							{
+								continue HomePage;
+							}
+							
+							
+
+					}
+		//Cancel Leave Operation
+					else if (leaveMenuChoice == 2) 
+					{
+						System.out.println("Your Leave Record");
+						employee.viewLeaveRecord();
+						System.out.print("Enter the Leave ID to be Cancelled:");
+						String leaveID=scan.next(); boolean matchFound=false;
+						for(Leave leaveRecord: employee.getLeaveRecord())
+						{
+							if(leaveRecord.getLeaveID().equalsIgnoreCase(leaveID))
+							{
+								matchFound=true;
+								leaveRecord.setLeaveStatus("Cancelled");								
+								if(leaveRecord.getLeaveType().equals("SickLeave"))
+								{
+									employee.setSickLeaveBalance(employee.getSickLeaveBalance()+leaveRecord.getTotalDays());
+								}
+								else
+								{
+									employee.setCasualLeaveBalance(employee.getCasualLeaveBalance()+leaveRecord.getTotalDays());
+								}
+								System.out.println("Leave Cancelled!");
+								employee.viewLeaveBalance();
+								employee.viewLeaveRecord();
+								continue HomePage;
+							}
+						}
+						if(!matchFound)
+						{
+							System.out.println("Leave ID Not Found! Please Retry!");
+							continue HomePage;
+						}
+					
+					
+					}
+					else if(leaveMenuChoice==3)
+					{
+						System.out.println("~~~Your Leave Record~~~");
+						
+						employee.viewLeaveRecord();
+						System.out.println("~~~Your Leave Balance~~~");
+						employee.viewLeaveBalance();
+						continue HomePage;
+					}
+					else if(leaveMenuChoice==4)
+					{
+						System.out.println("Redirecting to HomePage....");
+						continue HomePage;
+					}
+			}
+	
+	//"Manage Reportee Leave" Main Menu option-2
+			else if(mainMenuChoice==2) 
+			{
+				System.out.println("Your Reportee List");
+				
+				if(viewReporteeList(employee)>0)
+				{
+				System.out.println("Enter the Employee ID of the Reportee");
+				
+				String reporteeID=scan.next(); boolean matchFound=false;
+				
+				Employee myReportee=new Employee(null,null,null,null);
+				
+				for(Employee reportee:fetchReporteeList(employee.getEmployeeID()))
+				{
+					if(reportee.getEmployeeID().equalsIgnoreCase(reporteeID))
+					{
+						matchFound=true;
+						myReportee=reportee;
+						
+					}
+				}
+				
+				if(!matchFound)
+				{
+					System.out.println("Reportee not Found please Retry!");
+					continue HomePage;
+				}
+				else
+				{
+					System.out.println("Please Select the operation need to perform on Reportee's Leave Module");
+					int leaveMenuChoice;
+					System.out.println("Select \n1.Apply Leaves for Reportee\n2.Cancel Leaves for Reportee\n3.Check Reportee's Leave Balance\n4.Home Page");
+					do {
+						System.out.println("Enter your choice correctly:");
+						
+						leaveMenuChoice=scan.nextInt();
+						}while(leaveMenuChoice<0 || leaveMenuChoice>4);
+						
+		// 1.1 Apply Leave for Reportee 1.Sick Leave for Reportee or 2.Casual Leave for Reportee
+						if (leaveMenuChoice == 1) 
+						{
+							System.out.println("1.Sick Leave for Reportee\n2.Casual Leave for Reportee");
+							int leaveTypeChoice;
+							do {
+								System.out.println("Enter your choice correctly:");
+								
+								leaveTypeChoice = scan.nextInt();
+								}while(leaveTypeChoice<0 || leaveTypeChoice>2);
+							
+
+			// 1.1.1 Apply Sick or Casual Leaves
+							 
+							
+								Leave newLeave=myReportee.applyLeave();
+								
+								newLeave.setTotalDays(processLeave(newLeave,leaveTypeChoice));
+								
+								if(newLeave.getTotalDays()>0)
+								{
+									if (leaveTypeChoice == 1) 								//SICK Leave
+									{
+										newLeave.setLeaveType("SickLeave");
+										if(newLeave.getTotalDays()>employee.getSickLeaveBalance())
+										{
+											System.out.println("Leave can not be applied!\nReportee Leave Balance is Low!!");
+											continue HomePage;
+										}
+										else
+										{
+											myReportee.setSickLeaveBalance(myReportee.getSickLeaveBalance()-newLeave.getTotalDays());
+										}
+											
+									}
+									else if (leaveTypeChoice == 2)							//CASUAL Leave
+									{									
+										newLeave.setLeaveType("CasualLeave");
+										if(newLeave.getTotalDays()>employee.getCasualLeaveBalance())
+										{
+											System.out.println("Leave can not be applied!\nReportee Leave Balance is Low!!");
+											continue HomePage;
+										}
+										else
+										{
+											myReportee.setCasualLeaveBalance(myReportee.getCasualLeaveBalance()-newLeave.getTotalDays());
+										}
+									}
+									myReportee.getLeaveRecord().add(newLeave);
+									myReportee.setLeaveRecord(myReportee.getLeaveRecord());
+									System.out.println("Reportee Leave Applied Successfully");
+									myReportee.viewLeaveBalance();
+									myReportee.viewLeaveRecord();
+									continue HomePage;
+								
+			 
+									
+								}
+								else
+								{
+									continue HomePage;
+								}
+								
+								
+
+						}
+						else if (leaveMenuChoice == 2) 
+						{
+							System.out.println("The Reportee's Leave Record");
+							myReportee.viewLeaveRecord();
+							System.out.print("Enter the Leave ID to be Cancelled:");
+							String leaveID=scan.next(); boolean matchFound2=false;
+							for(Leave leaveRecord: myReportee.getLeaveRecord())
+							{
+								if(leaveRecord.getLeaveID().equalsIgnoreCase(leaveID))
+								{
+									matchFound2=true;
+									leaveRecord.setLeaveStatus("Cancelled Reportee Leave");								
+									if(leaveRecord.getLeaveType().equals("SickLeave"))
+									{
+										myReportee.setSickLeaveBalance(myReportee.getSickLeaveBalance()+leaveRecord.getTotalDays());
+									}
+									else
+									{
+										myReportee.setCasualLeaveBalance(myReportee.getCasualLeaveBalance()+leaveRecord.getTotalDays());
+									}
+									System.out.println("Reportee Leave Cancelled!");
+									myReportee.viewLeaveBalance();
+									myReportee.viewLeaveRecord();
+									continue HomePage;
+								}
+							}
+							if(!matchFound2)
+							{
+								System.out.println("Leave ID Not Found in Reportee Leave Record! Please Retry!");
+								continue HomePage;
+							}
+						
+						
+						}
+						else if(leaveMenuChoice==3)
+						{
+							System.out.println("~~~Your Reportee Leave Record~~~");
+							
+							myReportee.viewLeaveRecord();
+							System.out.println("~~~Your Reportee Leave Balance~~~");
+							myReportee.viewLeaveBalance();
+							continue HomePage;
+						}
+						else if(leaveMenuChoice==4)
+						{
+							System.out.println("Redirecting to HomePage....");
+							continue HomePage;
+						}
+				}
+				}
+			}
+			
+		}while(false);
+		
+		}
+		
+		else
+			System.out.println("~~~~App Closed~~~~");
+		
+			
+		
+		
+		
+		
+		}while(loginChoice==1);
+		
+	}
+
+	private static int processLeave(Leave newSickLeave, int leaveType) {
+		
+		if(newSickLeave.getLeaveStartDate()>newSickLeave.getLeaveEndDate())
+		{
+			System.out.println("Invalid date Range"); return 0;
+		}
+
+		
+		if(weekEnd.contains(newSickLeave.getLeaveEndDate())|| weekEnd.contains(newSickLeave.getLeaveStartDate()))
+		{
+			System.out.println("Applying Leave for WeekEnd is not Allowed!"); return 0;
+		}
+		if(newSickLeave.getLeaveEndDate()-newSickLeave.getLeaveStartDate()<2 )
+		{
+			return (newSickLeave.getLeaveEndDate()-newSickLeave.getLeaveStartDate()+1);
+		}
+		
+		if(newSickLeave.getLeaveEndDate()-newSickLeave.getLeaveStartDate()>=2  && leaveType==1)	//Sick Leave
+		{
+			int count=0;
+			for(int i=newSickLeave.getLeaveStartDate();i<=newSickLeave.getLeaveEndDate();i++)
+			{
+				if(!weekEnd.contains(i))
+						{
+					count++;													//Sick leave exclude weekends
+					
+						}
+			}
+			return count;
+		}
+		else if(newSickLeave.getLeaveEndDate()-newSickLeave.getLeaveStartDate()>=2  && leaveType==2)	//Casual Leave
+		{
+			int count=0;
+			for(int i=newSickLeave.getLeaveStartDate();i<=newSickLeave.getLeaveEndDate();i++)
+			{	
+					count++;
+			}
+			return count;
+		}
+
+
+		return 0;
+	}
+
+	public static void loadLeaveBalance(ArrayList<Employee> empDB) {
+		for (Employee employee : empDB) {
+			employee.setSickLeaveBalance(10);
+			employee.setCasualLeaveBalance(10);
+		}
+	}
+
+	public static ArrayList<Employee> fetchReporteeList(String employeeID) {
+		System.out.println("~~~~~Your Reportee List~~~~");
+		EmployeeDatabase empDB=new EmployeeDatabase();
+		ArrayList<Employee> reporteeList=new ArrayList<>();
+		boolean reporteeFound=false;
+		for(Employee reportee: empDB.getEmployeeDB())
+		{
+			if(reportee.getEmployeeReportingTo().equals(employeeID))
+			{
+				reporteeFound=true;
+				reporteeList.add(reportee);
+			}
+		}
+		if(!reporteeFound)
+		{
+			System.out.println("You have no Reportees currently!");
+			return null;
+		}
+		return reporteeList;
+	}
+	public static int  viewReporteeList(Employee employee) {
+		System.out.println("~~~~~Your Reportee List~~~~");
+		System.out.println("Employee ID \t Employee Role");
+		int coutReportee=0;
+		for(Employee reportee: fetchReporteeList(employee.getEmployeeID()))
+		{
+			coutReportee++;
+			System.out.println(reportee.getEmployeeID()+"\t"+reportee.getEmployeeName());
+		}
+		return coutReportee;
+		
+	}
+}
