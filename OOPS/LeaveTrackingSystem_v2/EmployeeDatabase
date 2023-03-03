@@ -1,0 +1,30 @@
+package leave.tracking;
+
+import java.util.ArrayList;
+
+public class EmployeeDatabase {
+	
+	ArrayList<Employee> EmployeeDB=new ArrayList<>();
+
+	public ArrayList<Employee> getEmployeeDB() {
+		return EmployeeDB;
+	}
+
+	public void setEmployeeDB(ArrayList<Employee> employeeDB) {
+		EmployeeDB = employeeDB;
+	}
+	
+	EmployeeDatabase(){
+		Employee employee1=new Employee("emp001","empName1","Admin","emp100");
+		Employee employee2=new Employee("emp002","empName2","TeamMember","emp001");
+		Employee employee3=new Employee("emp003","empName3","TeamMember","emp001");
+		Employee employee4=new Employee("emp004","empName4","TeamMember","emp001");
+		EmployeeDB.add(employee1);
+		EmployeeDB.add(employee2);
+		EmployeeDB.add(employee3);
+		EmployeeDB.add(employee4);  
+	}
+	
+	
+
+}
