@@ -1,0 +1,125 @@
+package leave.tracking;
+
+import java.util.*;
+
+public class Employee {
+	
+	private String EmployeeID;
+	private String EmployeeName;
+	private String EmployeeRole;
+	private String EmployeeReportingTo;
+	private Integer sickLeaveBalance;
+	private Integer casualLeaveBalance;
+	
+	private List<Leave> leaveRecord=new ArrayList<>();
+	
+	Employee(String EmployeeID, String EmployeeName, String EmployeeRole,String EmployeeReportingTo)
+	{
+		this.EmployeeID=EmployeeID;
+		this.EmployeeName=EmployeeName;
+		this.EmployeeRole=EmployeeRole;
+		this.EmployeeReportingTo=EmployeeReportingTo;
+	}
+	
+
+	Employee()
+	{
+		
+	}
+	public String getEmployeeID() {
+		return EmployeeID;
+	}
+	public void setEmployeeID(String employeeID) {
+		EmployeeID = employeeID;
+	}
+	public String getEmployeeName() {
+		return EmployeeName;
+	}
+	public void setEmployeeName(String employeeName) {
+		EmployeeName = employeeName;
+	}
+	public String getEmployeeRole() {
+		return EmployeeRole;
+	}
+	public void setEmployeeRole(String employeeRole) {
+		EmployeeRole = employeeRole;
+	}
+	public String getEmployeeReportingTo() {
+		return EmployeeReportingTo;
+	}
+	public void setEmployeeReportingTo(String employeeReportingTo) {
+		EmployeeReportingTo = employeeReportingTo;
+	}
+	public List<Leave> getLeaveRecord() {
+		return leaveRecord;
+	}
+	public void setLeaveRecord(List<Leave> leaveRecord) {
+		this.leaveRecord = leaveRecord;
+	}
+	public Integer getSickLeaveBalance() {
+		return sickLeaveBalance;
+	}
+	public void setSickLeaveBalance(Integer sickLeaveBalance) {
+		this.sickLeaveBalance = sickLeaveBalance;
+	}
+	public Integer getCasualLeaveBalance() {
+		return casualLeaveBalance;
+	}
+	public void setCasualLeaveBalance(Integer casualLeaveBalance) {
+		this.casualLeaveBalance = casualLeaveBalance;
+	}
+	
+	
+	
+	public Leave applyLeave()
+	{
+		Leave newLeave=new Leave();
+		Scanner scan=new Scanner(System.in);
+		
+		
+		System.out.print("Enter Start Date: ");
+		newLeave.setLeaveStartDate(scan.nextInt());
+		
+		System.out.print("Enter End Date: ");
+		newLeave.setLeaveEndDate(scan.nextInt());
+		
+		int lastLeaveID=0;
+		if(getLeaveRecord().size()!=0)
+			{
+			lastLeaveID=Integer.parseInt(getLeaveRecord().get(getLeaveRecord().size()-1).getLeaveID().split("_")[0]);	
+			}
+		
+		newLeave.setLeaveID("Leave_"+(++lastLeaveID));
+		
+		newLeave.setLeaveStatus("Applied");
+		
+		return newLeave;
+		
+	}
+
+
+	public void viewLeaveBalance()
+	{
+		System.out.println("Sick Leave Balance"+getSickLeaveBalance());
+		System.out.println("Casual Leave Balance"+getCasualLeaveBalance());
+	}
+
+
+	public void viewLeaveRecord() {
+		
+		System.out.println("\t\t\t~~~Leave Record~~~");
+		System.out.println("LeaveID\tLeaveType\tLeaveStartDate\tLeaveEndDate\tTotalDays\tLeaveStatus");
+		for(Leave leaveReport: getLeaveRecord())
+		{
+			System.out.println(leaveReport.getLeaveID()+"\t"+leaveReport.getLeaveType()+"\t"+
+		leaveReport.getLeaveStartDate()+"\t\t"+leaveReport.getLeaveEndDate()+"\t\t"+leaveReport.getTotalDays()+"\t\t"+leaveReport.getLeaveStatus());
+		}
+
+
+		
+	}
+
+
+
+	
+}
