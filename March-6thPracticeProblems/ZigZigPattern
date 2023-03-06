@@ -7,30 +7,30 @@ public class ZigZigPattern {
 		
 		String givenString = "thisisazigzagthisisazigzagthisisazigzag";
 		
-		int N=11;
+		int N=11;									//N-No of Lines 
 		
 		
 		
-		for(int i=0;i<N;i++)
+		for(int i=0;i<N;i++)						//To print N lines
 		{
-			int printIndex=i,downToUpIndex=i;
+			int TopToDown=i,downToUp=i;				//String Index to print in each iteration
 			
-			for(int j=0;j<givenString.length();j++)
+			for(int j=0;j<givenString.length();j++)	//To traverse through characters in String
 			{
-				if(j==printIndex )
+				if(j==TopToDown )
 				{
-					System.out.print(givenString.charAt(printIndex));
+					System.out.print(givenString.charAt(TopToDown)); //To print TopToDown pattern
 					
-					printIndex=printIndex+((N-1)*2);
-					downToUpIndex=printIndex-(2*i);
+					TopToDown=TopToDown+((N-1)*2);	//Formula to calculate the String Index to be printed in each line
+					downToUp=TopToDown-(2*i);
 				}
 				
-				if(i>0 && i< N-1 && j==downToUpIndex)
+				if(i>0 && i< N-1 && j==downToUp)	
 				{
-					System.out.print(givenString.charAt(downToUpIndex));
+					System.out.print(givenString.charAt(downToUp));		//To print down to Top Patern
 				}
 				else
-					System.out.print("-");
+					System.out.print(" ");				//Filling space at remaining indices
 					
 					
 					//System.out.print(printIndex);
