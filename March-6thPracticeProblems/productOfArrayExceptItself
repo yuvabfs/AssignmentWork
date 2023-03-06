@@ -1,0 +1,61 @@
+package march.practice.problems;
+
+import java.util.Scanner;
+
+public class productOfArrayExceptItself {
+
+	public static void main(String[] args) {
+		Scanner scan=new Scanner(System.in);
+		System.out.println("Enter the Size of an Array");
+		int sizeOfArray=scan.nextInt();
+		
+		
+		int[] intArray=new int[sizeOfArray];
+		//Fetching input in console
+		for(int i=0;i<sizeOfArray;i++)
+		{
+			intArray[i]=scan.nextInt();
+		}
+		
+		
+		intArray=productArray(intArray);
+		
+		
+			
+		
+		
+
+	}
+
+	private static int[] productArray(int[] intArray) {
+		
+		int[] leftProduct=new int[intArray.length];
+		int[] rightProduct=new int[intArray.length];
+		int[] productArray=new int[intArray.length];
+		int leftTemp=1,rightTemp=1;
+		
+		//Calculating left and Right side products 
+		for(int i=0,j=intArray.length-1;i<intArray.length;i++,j--)
+		{
+			
+			leftProduct[i]=leftTemp;
+			leftTemp*=intArray[i];
+			rightProduct[j]=rightTemp;
+			rightTemp*=intArray[j];
+			
+			
+		}
+		
+		//Calculating and Printing Output 
+		for(int i=0;i<intArray.length;i++)
+		{
+			productArray[i]=leftProduct[i]*rightProduct[i];
+			System.out.println(productArray[i]);
+		}
+		return productArray;
+		
+		
+		
+	}
+
+}
