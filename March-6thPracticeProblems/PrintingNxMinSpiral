@@ -1,0 +1,129 @@
+package march.practice.problems;
+
+
+public class PrintingNxMinSpiral {
+	public static void main(String[] args)
+	{
+		
+		
+		int[][] inputArray=Input2dArray.create2dArray();
+		
+		System.out.println("Given input of NxM Array");
+		
+		Input2dArray.print2dArray(inputArray);
+		
+		
+		int rowStartIndex=0,colStartIndex=0;
+		int rowEndIndex=inputArray.length,colEndIndex=inputArray[0].length;
+		
+		while(rowStartIndex<rowEndIndex && colStartIndex<colEndIndex)
+		{
+			//Printing Top Horizontal Row
+			for(int i=colStartIndex;i<colEndIndex;i++)
+			{
+				System.out.print(inputArray[rowStartIndex][i]+",");
+			}
+			++rowStartIndex;
+			
+			for(int j=rowStartIndex;j<rowEndIndex;j++)
+			{
+				System.out.print(inputArray[j][colEndIndex-1]+",");
+			}
+			colEndIndex--;
+			
+			if(rowStartIndex<rowEndIndex)
+			{
+				for(int k=colEndIndex;k>colStartIndex;k--)
+				{
+					System.out.print(inputArray[rowEndIndex-1][k-1]+",");
+				}
+				--rowEndIndex;
+			}
+			if(colStartIndex<colEndIndex)
+			{
+				for(int l=rowEndIndex-1;l>=rowStartIndex;l--)
+				{
+					System.out.print(inputArray[l][colStartIndex]+",");
+				}
+				colStartIndex++;
+			}
+			
+		}
+	}
+}
+
+
+package march.practice.problems;
+
+import java.util.*;
+
+public class Input2dArray {
+
+	private int rowSize;
+	private int columnSize;
+	
+	private int intArray[][]=new int[rowSize][columnSize];
+
+	public int getRowSize() {
+		return rowSize;
+	}
+
+	public void setRowSize(int rowSize) {
+		this.rowSize = rowSize;
+	}
+
+	public int getColumnSize() {
+		return columnSize;
+	}
+
+	public void setColumnSize(int columnSize) {
+		this.columnSize = columnSize;
+	}
+
+	public int[][] getIntArray() {
+		return intArray;
+	}
+
+	public void setIntArray(int[][] intArray) {
+		this.intArray = intArray;
+	}
+	
+
+	public static int[][] create2dArray()
+	{
+		Scanner scan=new Scanner(System.in);
+		System.out.println("Enter the RowSize: ");
+		int rowSize=scan.nextInt();
+		
+		System.out.println("Enter the Column Size: ");
+		int columnSize=scan.nextInt();
+		
+		int intArray[][]=new int[rowSize][columnSize];
+		int input=0;
+		for(int i=0;i<rowSize;i++)
+		{
+			for(int j=0;j<columnSize;j++)
+			{
+				intArray[i][j]=++input;
+			}
+		}
+		
+		
+		return intArray;
+		
+	}
+	
+	public static void print2dArray(int[][] intArray)
+	{
+		for(int i=0;i<intArray.length;i++)
+		{
+			for(int j=0;j<intArray[0].length;j++)
+			{
+				System.out.print(intArray[i][j]+"\t");
+			}
+			System.out.println("");
+		}
+	}
+
+}
+
