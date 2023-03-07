@@ -1,0 +1,92 @@
+package march.practice.problems;
+
+import java.util.*;
+
+public class SubsetWithEqualSum {
+	public static void main(String[] args)
+	{
+		ArrayList<Integer> givenSet=new ArrayList<>(Arrays.asList(15,5,20,10,35,25));
+		
+		Collections.sort(givenSet,Collections.reverseOrder());
+		
+		System.out.println("Given Input Array\n"+givenSet);
+		
+		System.out.println(findIfEqualSubset(givenSet));
+		
+	}
+	
+	
+	
+	
+	private static boolean findIfEqualSubset(ArrayList<Integer> givenSet) {
+		
+		int targetSum=getSum(givenSet);
+		
+		if(targetSum%2==1)
+		{
+			return false;
+		}
+		else
+		{
+			targetSum=targetSum/2;
+			
+			ArrayList<ArrayList<Integer>> subsetList=new ArrayList<>();
+	//Finding Possible Subsets		 
+			subsetList.add(new ArrayList<>()); // adding empty set as first subset of Given set
+			
+			    for (int element : givenSet) {			
+			        int n = subsetList.size();
+			        for (int i = 0; i < n; i++) {
+			            ArrayList<Integer> subset = new ArrayList<>(subsetList.get(i));
+			            subset.add(element);
+			            subsetList.add(subset);
+			            
+			            if(getSum(subset)==targetSum)
+			            {
+			            	
+			            	if(verifySubset(subset,givenSet,targetSum))
+				            {
+				            	return true;
+				            }
+			            	
+			            }
+			            
+			        }
+			    }
+			
+		}
+		
+		
+		return false;
+		
+		
+	}
+
+	private static boolean verifySubset(ArrayList<Integer> subset, ArrayList<Integer> givenSet, int targetSum) {
+		
+		givenSet.removeAll(subset);
+		if(getSum(givenSet)==targetSum)
+			return true;
+		else
+		return false;
+	}
+
+
+
+
+	public static int getSum(ArrayList<Integer> list)
+	{
+		int sum=0;
+		
+		for(Integer element:list)
+		{
+			sum=sum+element;
+		}
+		
+		
+		
+		return sum;
+	}
+	
+	
+}
