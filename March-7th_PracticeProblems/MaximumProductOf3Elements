@@ -1,0 +1,70 @@
+package march.practice.problems;
+
+import java.util.Arrays;
+
+public class MaximumProductOf3Elements {
+
+	public static void main(String[] args) {
+		int[] inputArray= {1, 2, 3, 4,- 5 };
+		
+		if(inputArray.length<3)
+		{
+			System.out.println("Not Exist");
+		}
+		else {
+		
+		Arrays.sort(inputArray);
+		printArray(inputArray);
+		System.out.println(maximumProduct(inputArray));
+		}
+		
+				
+	
+	
+	}
+	public static int maximumProduct(int[] inputArray)
+	{
+		int maximumProduct=0,positiveCount=0,negativeCount=0;
+		
+		int size=inputArray.length;
+		
+		for(int i=0;i<size;i++) {
+			
+			if(inputArray[i]>0)
+			{
+				positiveCount++;
+			}
+			else if (inputArray[i]<0)
+			{
+				negativeCount++;
+			}
+			
+			if(i>=size-3 )
+				maximumProduct=maximumProduct*inputArray[i];
+		}
+		
+		if((positiveCount==0 || negativeCount==0) &&maximumProduct!=0)
+		{
+			return maximumProduct;
+		}
+		if(inputArray[0]*inputArray[1]*inputArray[size-1] >maximumProduct)
+			maximumProduct=inputArray[0]*inputArray[1]*inputArray[size];
+		if(inputArray[0]*inputArray[size-2]*inputArray[size-1]>maximumProduct)
+			maximumProduct=inputArray[0]*inputArray[size-2]*inputArray[size];
+		if(inputArray[size-3]*inputArray[size-2]*inputArray[size-1]>maximumProduct)
+			maximumProduct=inputArray[size-3]*inputArray[size-2]*inputArray[size-1];
+		
+		return maximumProduct;	
+		}
+	
+	public static void printArray(int[] inputArray)
+	{
+		System.out.print("[ ");
+		for(int i=0;i<inputArray.length;i++)
+		{
+			System.out.print(inputArray[i]+",");
+		}
+		System.out.print(" ]");
+	}
+
+}
