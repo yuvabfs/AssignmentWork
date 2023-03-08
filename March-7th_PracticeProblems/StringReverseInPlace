@@ -1,0 +1,50 @@
+package march.practice.problems;
+
+public class StringReverseInPlace {
+	static String inputString="String Reversal Program inn Java";
+	
+	static char[] charArray=inputString.toCharArray();
+	
+	public static void main(String[] args)
+	{
+	
+	
+	
+	System.out.println(charArray.length);
+	for(int i=0;i<charArray.length;i++)
+	{
+		int startIndex=i,endIndex=i;
+		int j=i+1;
+		
+		
+		while(j!= charArray.length&& charArray[j]!=' ')
+		{
+			endIndex++;
+			j++;
+		}
+		if(startIndex<endIndex)
+		{
+			reverse(startIndex,endIndex);
+			i=endIndex+1;
+		}
+		
+	}	
+	for(int i=0;i<charArray.length;i++)
+	System.out.print(charArray[i]);
+	
+	}
+
+	private static void reverse( int startIndex, int endIndex) {
+		
+		for(int i=startIndex;i<=(endIndex+startIndex+2)/2;i++)
+		{
+			char temp=charArray[i];
+			charArray[i]=charArray[endIndex];
+			charArray[endIndex]=temp;
+			endIndex--;
+		}
+
+
+		
+	}
+}
