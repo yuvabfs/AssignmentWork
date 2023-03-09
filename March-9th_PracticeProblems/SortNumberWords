@@ -1,0 +1,92 @@
+package march.practice.problems;
+
+import java.util.*;
+
+/*Question:   Given a string s containing an out-of-order English representation of digits 0-9, return the digits in ascending order.
+		 
+Example 1:
+Input: s = "owoztneoer"
+Output: "012"
+Example 2:
+Input: s = "fviefuro"
+Output: "45"
+ 
+Constraints:
+1 <= s.length <= 105
+s[i] is one of the characters ["e","g","f","i","h","o","n","s","r","u","t","w","v","x","z"].
+s is guaranteed to be valid.
+*/
+
+
+public class SortNumberWords {
+
+	public static void main(String[] args) {
+	
+		StringBuffer str=new StringBuffer("owoztneoerfiev");
+		
+		List<Integer> indexList=new ArrayList<>();
+		List<Integer> outputList=new ArrayList<>();
+		
+		
+		LinkedHashMap<Integer, String> numberWord=new LinkedHashMap<>();
+		numberWord.put(0,"zero");
+		numberWord.put(6,"six");
+		numberWord.put(2,"two");
+		numberWord.put(8,"eight");
+		numberWord.put(4,"four");
+		numberWord.put(1,"one");
+		numberWord.put(3,"three");
+		numberWord.put(5,"five");
+		numberWord.put(7,"seven");
+		numberWord.put(9,"nine");
+		
+		
+			
+		for (Map.Entry<Integer,String> entry : numberWord.entrySet()) 
+		{
+			int matchCount=0;
+			indexList.clear();
+			Repeat:
+			for(int i=0;i<entry.getValue().length();i++)
+			{
+				
+				
+				for(int j=0;j<str.length();j++)
+				{
+					
+					if(entry.getValue().charAt(i)==str.charAt(j))
+					{
+						matchCount++;indexList.add(j);break;
+					}
+					
+				}
+				
+				if(matchCount==entry.getValue().length())
+				{
+					outputList.add(entry.getKey());
+					for(int k=0;k<indexList.size();k++)
+						str.replace(indexList.get(k),indexList.get(k)+1, " ");
+					
+					indexList.clear();
+					continue Repeat;
+						
+				}
+				
+				
+				
+			}
+			
+		}
+		
+		Collections.sort(outputList);
+		
+		System.out.println(outputList);
+		
+		
+		
+		
+		
+
+	}
+
+}
