@@ -1,0 +1,34 @@
+class Flight{
+String flightCode;        //Assuming this is unique for that trip
+String airlineName;       
+String departureTime;
+String arrivalTime;
+String fromPlace;
+String destination;
+ArrayList<Seat> seats;    //The Flight is holding seats for that particular Trip
+}
+
+
+class Seat{
+String seatNumber;
+String seatType;         //Bussiness seat/Economy seat 
+Integer seatPrice;
+}
+
+class TravelTicket{
+
+String bookingID;
+Flight boookedFlight;
+HashMap<String, Seat> passengerDetail;
+String ticketStatus;
+}
+
+
+
+
+class Customer{
+customerID;
+customerName;
+ArrayList<TravelTicket> bookingHistory;
+
+}
