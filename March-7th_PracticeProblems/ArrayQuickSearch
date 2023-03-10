@@ -1,0 +1,47 @@
+package march.practice.problems;
+
+public class ArrayQuickSearch {
+	static int[] input= {0,2,4,6,10,12,14,16,18,20};
+
+	public static void main(String[] args) {
+		
+		
+		int target=16;
+		
+		int startIndex=0;
+		int lastIndex=input.length;
+		int midIndex=lastIndex/2;
+		
+		
+		boolean elementFound=false;
+		
+		while(startIndex!=lastIndex && !elementFound)
+		{		
+			elementFound=false;	
+			if(input[midIndex]<target)
+			{
+				startIndex=midIndex;
+				midIndex=((lastIndex-startIndex)/2)+startIndex;
+			}		
+			else if(input[midIndex]>target)
+			{
+				lastIndex=midIndex;
+				midIndex=((lastIndex-startIndex)/2)+startIndex;
+			}
+			else
+				elementFound=true;
+			System.out.println(startIndex+"-"+midIndex+"-"+lastIndex);
+		}
+		
+		if(elementFound)
+			System.out.println(target+" is at Index: "+midIndex);
+		else if(startIndex==lastIndex)
+			System.out.println(target+" is at Index: "+startIndex);
+		
+		
+
+	}
+	
+
+
+}
