@@ -1,0 +1,72 @@
+package march.practice.problems;
+
+import java.util.*;
+
+public class Anagrams {
+	/*
+	 * 1. Given an array of strings strs, group the anagrams together. You can
+	 * return the answer in any order. An Anagram is a word or phrase formed by
+	 * rearranging the letters of a different word or phrase, typically using all
+	 * the original letters exactly once. 
+	 * 
+	 * Example 1: Input: strs =
+	 * ["eat","tea","tan","ate","nat","bat"] Output:
+	 * [["bat"],["nat","tan"],["ate","eat","tea"]] 
+	 * 
+	 * Example 2: Input: strs = [""]
+	 * Output: [[""]] 
+	 *
+	 * Example 3: Input: strs = ["a"] Output: [["a"]] 
+	 * Constraints: 
+	 * 
+	 * 1 <= strs.length <= 104 
+	 * 0 <= strs[i].length <= 100 
+	 *  strs[i] consists of
+	 * lowercase English letters.
+	 */
+	public static void main(String[] args) {
+		
+		
+		List<String> inputList=new ArrayList<>(Arrays.asList(""));
+		
+		List<List<String>> outputGroups=new ArrayList<>();
+		
+		for(int i=0;i<inputList.size();i++)				//To traverse through the input List - Element by Element
+		{
+			List<String> anagrams=new ArrayList<>();		
+			
+				anagrams.add(inputList.get(i));				//Creating a new anagram list
+			
+			for(int j=i+1;j<inputList.size();j++)		//Comparing the Element with following Elements
+			{
+				StringBuffer temp= new StringBuffer(inputList.get(j)); int matchCount=0;
+				if(inputList.get(i).length()!=0 && inputList.get(i).length()==temp.length())
+				{
+					for(int k=0;k<inputList.get(i).length();k++)
+					{
+						for(int l=0;l<temp.length();l++)
+						{
+							if(inputList.get(i).charAt(k)==temp.charAt(l))
+							{
+								matchCount++;temp.replace(l,l+1," "); break; 
+							}
+						}
+						if(matchCount==inputList.get(i).length())
+						{
+							anagrams.add(inputList.get(j));
+							inputList.remove(j);
+						}
+					}
+				}
+				else
+					continue;
+			}
+			outputGroups.add(anagrams);
+			System.out.println(anagrams);
+			System.out.println(outputGroups);
+			
+			
+		}
+	}
+
+}
