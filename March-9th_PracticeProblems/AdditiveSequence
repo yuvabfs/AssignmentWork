@@ -1,0 +1,86 @@
+package march.practice.problems;
+
+public class AdditiveSequence {
+	static String input="199991000019999";
+	
+
+	public static void main(String[] args) {
+		
+		//Input = 		1 1 2 3 5 8
+		//Cursor=	 -1 0 1 2 3 4 5
+		//
+		
+		int cursor=-1;			
+		int cursor1=0;
+		int cursor2=1,cursor2Max=input.length()/2;
+		int cursor3=2,cursor3Max=input.length();
+		
+		int firstElement=0,secondElement=0,lastElement=0;
+		
+		boolean incremented=false,foundAdditive=false;
+		while(cursor2<cursor3 &&cursor3<cursor3Max &&(foundAdditive==true || cursor3<cursor3Max) )
+		{
+			
+
+			System.out.println(cursor+"-"+cursor1+"-"+cursor2+"-"+cursor3);
+			incremented=false;foundAdditive=false;
+			System.out.println("firstElement");
+			firstElement=getElement(cursor,cursor1);
+			System.out.println("secondElement");
+			secondElement=getElement(cursor1,cursor2);
+			System.out.println("lastElement");
+			lastElement=getElement(cursor2,cursor3);
+			
+			
+			if(firstElement+secondElement!=lastElement && cursor3<cursor3Max-1 )
+			{
+				incremented=true;
+				lastElement=getElement(cursor2,++cursor3);
+
+			}
+			if(firstElement+secondElement==lastElement)
+			{
+				foundAdditive=true;
+				System.out.println(foundAdditive);
+				firstElement=secondElement;
+				secondElement=lastElement;
+				cursor=cursor1;
+				cursor1=cursor2;
+				cursor2=cursor3;
+				cursor3=cursor3+(cursor3-cursor1);
+				System.out.println(cursor+"-"+cursor1+"-"+cursor2+"-"+cursor3);
+				
+				
+			}
+			else
+			{
+				if(incremented)--cursor3;
+				
+				cursor2++;
+
+				cursor3=cursor2*2;
+				
+			}
+			
+			
+			
+			
+		}
+	
+		
+
+	}
+	
+	public static int getElement(int cursorPoint1, int cursorPoint2)
+	{
+		int element=0;
+		for(int i=cursorPoint1+1;i<=cursorPoint2;i++)
+		{
+			element=element*10+(input.charAt(i)-48);
+			
+			
+		}
+		System.out.println(element);
+		return element;
+	}
+}
