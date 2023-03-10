@@ -1,0 +1,39 @@
+package march.practice.problems;
+
+public class ClosingParanthesisIndex {
+
+	public static void main(String[] args) {
+		String sentence="Sometimes (when I nest them (my parentheticals) too much (like this (and this))) they get confusing";
+		
+		int target =10;			//Given input - open paranthesis index
+		int count=0;			//next Open Paranthesis Count
+		int targetFoundAt=0;
+	
+			for(int i=target+1;i<sentence.length();i++)
+			{
+				if(sentence.charAt(i)==')'&&count==0)
+				{
+					targetFoundAt=i;
+					break;
+				}
+				else if(sentence.charAt(i)=='(')
+				{
+					count++;
+				}
+				else if(sentence.charAt(i)==')')
+				{
+					count--;
+				}
+			
+			}
+			if(targetFoundAt!=0)
+			{
+				System.out.println(targetFoundAt);
+			}
+		
+			
+		
+
+	}
+
+}
