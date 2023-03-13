@@ -1,0 +1,40 @@
+class RawMaterial{
+itemName;
+itemCode;
+itemStatus;
+}
+
+class WareHouse{
+wareHouseID;
+wareHouseLocation;
+stockList<RawMaterial,Quantity>
+}
+
+
+class DailyProductionPlan{
+productionLineID;
+productionDate;
+plannedProductQuantity;
+requiredRawMaterial<RawMaterial,Quantity>;
+operationStartTime;
+operationEndTime;
+
+}
+
+
+class Product{
+productID;
+lineID;
+manufacturedDate:
+qualityCheckStatus;
+}
+
+dailyShipment{
+shipmentID;
+shipmentTime;
+totalProducts;
+shipmentFrom;
+shipmentTo;
+}
+
+
