@@ -68,7 +68,7 @@ public class TestLoginFunctionality {
 			e.printStackTrace();
 		}
 		homePage.clickLogin();
-		loginPage.loginToAmazon("+919629534930","Test@1993");
+		loginPage.loginToAmazon("ValidMobileNumber","Test@1993");
 		Assert.assertTrue(loginPage.verifySuccessfulLogin());
 				
 	}
