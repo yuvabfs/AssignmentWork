@@ -48,3 +48,55 @@ public class PermutationOfGivenString {
 	}
 
 }
+
+
+
+
+
+
+
+
+
+ReWork
+------
+package dailyprograms.java;
+
+import java.util.*;
+
+public class PermutationOfGivenString {
+	
+	public static void main(String[] args)
+	{
+		String input="GODE";
+		
+		StringBuffer givenInput=new StringBuffer(input);
+		int jumpPosition=1;
+		Set<StringBuffer> allSwappedOutput=new LinkedHashSet<>();
+		while(jumpPosition<givenInput.length())
+		{
+			
+		for(int i=0;i<givenInput.length();i++)
+		{
+			givenInput=new StringBuffer(input);
+			StringBuffer focusChar=new StringBuffer(Character.toString(givenInput.charAt(i)));
+			StringBuffer remainingPart=givenInput.delete(i,i+jumpPosition);
+			System.out.println(focusChar);
+			System.out.println(remainingPart);
+			for(int j=0;j<remainingPart.length();j++)
+			{
+				StringBuffer newSwappedOutput=new StringBuffer(remainingPart);
+				newSwappedOutput.insert(j,focusChar);
+				allSwappedOutput.add(newSwappedOutput);
+				//System.out.println(allSwappedOutput);
+								
+			}
+		}
+		jumpPosition++;
+		
+		}
+		System.out.println(allSwappedOutput);
+		
+	}
+
+}
+
