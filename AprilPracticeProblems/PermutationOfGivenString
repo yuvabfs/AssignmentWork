@@ -1,0 +1,50 @@
+package dailyprograms.java;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class PermutationOfGivenString {
+	
+	public static void main(String[] args)
+	{
+		StringBuffer givenInput=new StringBuffer("GOD");
+		int jumpPosition=1;
+		List<StringBuffer> allSwappedOutput=new ArrayList<>();
+		while(jumpPosition<givenInput.length())
+		{
+		for(int i=0;i<givenInput.length();i++)
+		{
+			for(int j=0;j<givenInput.length();j++)
+			{
+				StringBuffer newSwappedOutput=null;
+				if((j+jumpPosition)<3)
+				{
+				newSwappedOutput= swapPosition(givenInput,i,givenInput.substring(j,j+jumpPosition));
+				}
+				
+				boolean addedAlready=false;
+				for(int k=0;k<allSwappedOutput.size();k++)
+				{
+					if(newSwappedOutput.equals(allSwappedOutput.get(k)))
+					{
+						addedAlready=true;
+					}
+				}
+				if(!addedAlready)
+					allSwappedOutput.add(newSwappedOutput);
+				System.out.println();
+			}
+		}
+		}
+		
+	}
+	
+	public static StringBuffer swapPosition(StringBuffer givenInput, int replaceIndex,String charSequence)
+	{
+		
+				
+		return givenInput;
+		
+	}
+
+}
