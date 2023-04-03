@@ -1,0 +1,46 @@
+package dailyprograms.java;
+
+import java.util.*;
+
+public class PermutationOfGivenString {
+	
+	public static void main(String[] args)
+	{
+		String input="ABCD";
+		
+		StringBuffer givenInput=new StringBuffer(input);
+		int jumpPosition=0;
+		Set<String> allSwappedOutput=new LinkedHashSet<>();
+		while(jumpPosition<input.length())
+		{
+			
+		for(int i=0;i<input.length();i++)
+		{
+			givenInput=new StringBuffer(input);
+			StringBuffer focusChar=new StringBuffer(Character.toString(givenInput.charAt(i)));
+			StringBuffer temp=givenInput.delete(i,i+1);
+			StringBuffer remainingPart=new StringBuffer(temp);
+			
+			StringBuffer reversedRemainingPart=temp.reverse();
+			for(int j=jumpPosition;j<input.length();j++)
+			{
+				StringBuffer newSwappedOutput1=new StringBuffer(remainingPart);
+				StringBuffer newSwappedOutput2=new StringBuffer(reversedRemainingPart);
+				newSwappedOutput1.insert(j,focusChar);
+				newSwappedOutput2.insert(j,focusChar);
+				allSwappedOutput.add(newSwappedOutput1.toString().trim());
+				allSwappedOutput.add(newSwappedOutput2.toString().trim());
+				
+								
+			}
+			
+		}
+		jumpPosition++;
+		
+		}
+		System.out.println(allSwappedOutput);
+		System.out.println(allSwappedOutput.size());
+		
+	}
+
+}
