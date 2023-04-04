@@ -1,45 +1,75 @@
 package dailyprograms.java;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
-public class PermutationOfGivenString {
-	
-	public static void main(String[] args)
-	{
+public class PermutationOfString {
+
+	public static void main(String[] args) {
+
+
 		String input="ABCD";
 		
-		StringBuffer givenInput=new StringBuffer(input);
-		int jumpPosition=0;
-		Set<String> allSwappedOutput=new LinkedHashSet<>();
-		while(jumpPosition<input.length())
+		if(input.length()==0 || input.equals(null))
 		{
-			
-		for(int i=0;i<input.length();i++)
+			System.out.println("No possible permuation");
+		}
+		else 
 		{
-			givenInput=new StringBuffer(input);
-			StringBuffer focusChar=new StringBuffer(Character.toString(givenInput.charAt(i)));
-			StringBuffer temp=givenInput.delete(i,i+1);
-			StringBuffer remainingPart=new StringBuffer(temp);
+			List<List<String>> totalPermutationList=new ArrayList<>();
+			int characterPointer=0;
 			
-			StringBuffer reversedRemainingPart=temp.reverse();
-			for(int j=jumpPosition;j<input.length();j++)
+			
+			
+			
+			while(characterPointer<input.length())
 			{
-				StringBuffer newSwappedOutput1=new StringBuffer(remainingPart);
-				StringBuffer newSwappedOutput2=new StringBuffer(reversedRemainingPart);
-				newSwappedOutput1.insert(j,focusChar);
-				newSwappedOutput2.insert(j,focusChar);
-				allSwappedOutput.add(newSwappedOutput1.toString().trim());
-				allSwappedOutput.add(newSwappedOutput2.toString().trim());
+				int tptSize=totalPermutationList.size();
+				System.out.println(characterPointer);
+				String characterTaken=Character.toString(input.charAt(characterPointer));
+				if(tptSize>0)
+				{
+					System.out.println("tptSize"+tptSize);
+					List<String> tempList=totalPermutationList.get(tptSize-1);
+					List<String> permutationOutput=new ArrayList<>();
+					
+					for(int i=0;i<tempList.size();i++)
+					{
+						
+						String stringTempElement=new String(tempList.get(i));
+						
+						//System.out.println("stringTempElement"+stringTempElement);
+						
+						for(int j=0;j<stringTempElement.length()+1;j++)
+						{
+							
+							StringBuffer stringTovary=new StringBuffer(stringTempElement);
+							
+							permutationOutput.add(stringTovary.insert(j,characterTaken).toString());
+						}
+						
+					}
+					totalPermutationList.add(permutationOutput);
+				}
+				else
+				{
+					List<String> permutationOutput=new ArrayList<>();
+					
+					permutationOutput.add(characterTaken);
+					totalPermutationList.add(permutationOutput);
+					
+					
+				}
 				
-								
+					characterPointer++;
+					System.out.println(totalPermutationList);
+					System.out.println(totalPermutationList.get(totalPermutationList.size()-1).size());
+
 			}
 			
+			
 		}
-		jumpPosition++;
 		
-		}
-		System.out.println(allSwappedOutput);
-		System.out.println(allSwappedOutput.size());
 		
 	}
 
