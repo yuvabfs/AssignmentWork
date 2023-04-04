@@ -1,0 +1,88 @@
+package dailyprograms.java;
+
+import java.util.*;
+
+public class LongestSubSequence {
+	
+	public static void main(String[] args)
+	{
+		String s1="AGGTAB";
+		String s2="GXTXAYB";
+		
+		
+		List<String> subList1=new ArrayList<>();
+		List<String> subList2=new ArrayList<>();
+		
+		subList1.add("");
+		subList2.add("");
+		
+		List<List<String>> subSequence1=new ArrayList<>();
+		List<List<String>> subSequence2=new ArrayList<>();
+		
+		subSequence1.add(subList1);
+		subSequence2.add(subList2);
+		
+		
+		int pointingIndex1=0;
+		int pointingIndex2=0;
+		while(pointingIndex1<s1.length())
+		{
+			
+			subList1=new ArrayList<>();
+			//subList2=new ArrayList<>();
+			for (int i=0;i<subSequence1.size();i++)
+			{
+				//System.out.println(subSequence1 +" and "+subSequence2);
+				
+				for(int j=0;j<subSequence1.get(i).size();j++)
+				{
+					
+					String newElement=subSequence1.get(i).get(j).concat(Character.toString(s1.charAt(pointingIndex1)));
+					subList1.add(newElement);
+				}
+			}
+			subSequence1.add(subList1);
+			pointingIndex1++;
+			//subList1.clear();
+		}
+		
+		
+		while(pointingIndex2<s2.length())
+		{
+			
+			subList2=new ArrayList<>();
+			//subList2=new ArrayList<>();
+			for (int i=0;i<subSequence2.size();i++)
+			{
+				
+				
+				for(int j=0;j<subSequence2.get(i).size();j++)
+				{
+					//System.out.println("G");
+					String newElement=subSequence2.get(i).get(j).concat(Character.toString(s2.charAt(pointingIndex2)));
+					subList2.add(newElement);
+				}
+			}
+			subSequence2.add(subList2);
+			pointingIndex2++;
+			//subList1.clear();
+		}
+		
+		
+		
+		//compare both SubSequence generated
+		
+		subList1.retainAll(subList2);
+
+		String maxLength="";
+		for(int i=0;i<subList1.size();i++)
+		{
+			if(subList1.get(i).length()>=maxLength.length())
+				maxLength=subList1.get(i);
+		}
+		System.out.println("Longest Common Sub Sequence is: "+maxLength);
+		
+		
+	}
+
+}
