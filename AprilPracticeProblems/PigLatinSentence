@@ -1,0 +1,24 @@
+package dailyprograms.java;
+
+public class PigLatinSentence {
+
+	public static void main(String[] args) {
+
+		String givenSentence="nevermind youve got them";
+		
+		String[] words=givenSentence.split(" ");
+		
+		for(int i=0;i<words.length;i++)
+		{
+			
+			StringBuffer inputWord=new StringBuffer(words[i]);
+			
+			inputWord.append(inputWord.charAt(0)+"ay");
+			inputWord.delete(0,1);
+			System.out.print(inputWord+" ");
+		}
+
+		
+	}
+
+}
