@@ -1,0 +1,89 @@
+package dailyprograms.java;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+public class LongestSubSequenceRedo {
+	public static int lisLength=0;
+	public static List<List<Integer>> subSequenceList=new ArrayList<>();
+	public static List<Integer> givenInput=new ArrayList<>(Arrays.asList(10,9,2,5,3,7,101,18));
+	public static List<Integer> lis=new ArrayList<>();
+	
+	
+	public static void main(String[] args) {
+		
+		
+		int pointingIndex=0;
+
+		
+		List<Integer> decreasingSeries=new ArrayList<>();
+		
+		decreasingSeries.add(pointingIndex);
+		
+		for(int i=1;i<givenInput.size();i++)
+		{
+			if(givenInput.get(i)<givenInput.get(0))
+				decreasingSeries.add(i);
+		}
+		System.out.println("decreasingSeries"+decreasingSeries);
+		
+		for(int j=0;j<decreasingSeries.size();j++)
+		{
+			pointingIndex=decreasingSeries.get(j);
+			
+			List<Integer> initialSequence=new ArrayList<>();
+			
+			initialSequence.add(givenInput.get(pointingIndex));
+			generateSubSequence(initialSequence,pointingIndex);
+		}
+	
+  System.out.println();
+  
+		System.out.println("Longest Increasing Subsequence Length"+lisLength);
+
+	}
+	
+	public static void generateSubSequence(List<Integer> partialSubSequence,int pointingIndex )
+	{
+		List<Integer> increasingSequence=new ArrayList<>(partialSubSequence);
+	
+		for(int i=pointingIndex+1;i<givenInput.size();i++)
+		{
+			if(increasingSequence.get(increasingSequence.size()-1)<givenInput.get(i))
+			{
+
+				increasingSequence.add(givenInput.get(i));
+				
+				for(int j=i+1;j<givenInput.size() ;j++)
+					
+				{					
+			
+					if(givenInput.get(j)<increasingSequence.get(increasingSequence.size()-1) && givenInput.get(j)> increasingSequence.get(increasingSequence.size()-2))
+					{
+						List<Integer> newList=new ArrayList<>(increasingSequence);
+						newList.remove(newList.size()-1);
+						newList.add(givenInput.get(j));
+						generateSubSequence(newList,j);
+					}
+				}
+				
+			
+			}
+			
+			if(increasingSequence.size()>lisLength)
+      {
+      lis=increasingSequence;
+				lisLength=increasingSequence.size();
+       }
+        
+			subSequenceList.add(increasingSequence);
+			
+		}
+
+		
+	}
+	
+
+
+}
