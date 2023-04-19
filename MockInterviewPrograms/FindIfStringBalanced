@@ -1,0 +1,81 @@
+package dailyprograms.java;
+
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+
+public class FindIfStringBalanced {
+
+	public static void main(String[] args) {
+
+		String givenInput="{[]}()({}{})";
+		Map<Character,Character> bracesPairs=new LinkedHashMap<>();
+		bracesPairs.put('[',']');
+		bracesPairs.put('(',')');
+		bracesPairs.put('{','}');
+		bracesPairs.put('<','>');
+		
+		List<Character> openList=new ArrayList<>();
+		List<Character> closeList=new ArrayList<>();
+		
+		boolean lastOpened=false;
+		boolean lastClosed=false;
+		
+		//Make sure the first Element is open 
+		char firstChar=givenInput.charAt(0);
+		if(bracesPairs.get(firstChar)==null)
+			System.out.println("Not Balanced");
+		else
+		{
+			lastOpened=true;
+			openList.add(firstChar);
+		
+		for(int i=1;i<givenInput.length();i++)
+		{
+			char currentChar=givenInput.charAt(i);
+			if(lastOpened)
+			{
+				if(bracesPairs.get(currentChar)==null )
+				{
+					if(currentChar ==bracesPairs.get(openList.get(openList.size()-1)))
+					{
+						System.out.println(i);
+						System.out.println(openList);
+						System.out.println(openList.get(openList.size()-1));
+						System.out.println(currentChar);
+						System.out.println(bracesPairs.get(openList.get(openList.size()-1)));
+						openList.remove(openList.size()-1);
+						lastClosed=true;
+						
+					}
+					else
+					{
+
+						System.out.println("here");
+						System.out.println("Not balanced");
+						break;
+					}
+				}
+				else 
+				{
+					openList.add(currentChar);
+					lastClosed=false;
+					lastOpened=true;
+
+				}
+				
+			}
+				
+			
+		}
+		}
+		if(lastClosed)
+			System.out.println("Balanced");
+		
+		System.out.println(openList);
+		
+		
+	}
+
+}
