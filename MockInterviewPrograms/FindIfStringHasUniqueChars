@@ -1,0 +1,26 @@
+package dailyprograms.java;
+
+public class FindIfStringHasUniqueChars {
+	
+	
+	public static void main(String[] args)
+	{
+		String givenInput="avbtykj";
+		
+		boolean isUnique=true;
+		
+		for(int i=0;i<givenInput.length();i++)
+		{
+			for(int j=i+1;j<givenInput.length();j++)
+			{
+				if(givenInput.toLowerCase().charAt(i)==givenInput.toLowerCase().charAt(j))
+					isUnique=false;	
+			}
+		}
+		
+		System.out.println(isUnique);
+		
+		
+	}
+
+}
