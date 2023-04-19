@@ -1,0 +1,30 @@
+package dailyprograms.java;
+
+import java.util.LinkedHashSet;
+import java.util.Set;
+
+public class StringPangramCheck {
+
+	public static void main(String[] args) {
+
+		String inputString="acbdfegihjlknmpoqtsvuxwzyfdgdsfgfsd";
+		
+		Set<Integer> stringAsciiConversion=new LinkedHashSet<>();
+		
+		for(int i=0;i<inputString.length();i++)
+		{
+			int asciiValue=inputString.toLowerCase().charAt(i);
+			stringAsciiConversion.add(asciiValue);
+		}
+		
+		if(stringAsciiConversion.size()==26)
+		{
+			System.out.println("The String is Pangram");
+		}
+		else
+			System.out.println("Not Pangram");
+
+		
+	}
+
+}
